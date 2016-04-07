@@ -3,7 +3,7 @@ com\ohtukki\citations\controllers\CitationController.class
 com\ohtukki\citations\data\Database.class
 com\ohtukki\citations\Application.class
 com\ohtukki\citations\data\CitationCreator.class
-com\ohtukki\citations\models\CitationList.class
 com\ohtukki\citations\test\DatabaseDaoJsonTest.class
-com\ohtukki\citations\test\TestCitation.class
 com\ohtukki\citations\models\Citation.class
+com\ohtukki\citations\models\CitationList.class
+com\ohtukki\citations\test\TestCitation.class

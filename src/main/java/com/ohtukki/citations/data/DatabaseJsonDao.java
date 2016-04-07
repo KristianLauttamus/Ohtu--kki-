@@ -31,6 +31,7 @@ public class DatabaseJsonDao {
 
 	public void loadJson() throws Exception {
 		GsonBuilder builder = new GsonBuilder();
+		builder.registerTypeAdapter(Citation.class, new CitationCreator());
 		Gson gson = builder.create();
 		String data = FileUtils.readFileToString(new File(filename));
 		CitationList list = gson.fromJson(data, CitationList.class);

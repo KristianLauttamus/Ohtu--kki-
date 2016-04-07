@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.ohtukki.citations.data.AuthorFilter;
 import com.ohtukki.citations.data.DatabaseJsonDao;
 import com.ohtukki.citations.models.Citation;
 
@@ -32,6 +33,7 @@ public class DatabaseDaoJsonTest {
     	try {
 			dao.loadJson();
 			List<Citation> list = dao.all();
+			//List<Citation> list = dao.allByPredicate(new AuthorFilter("Author[7]"));
 			for (Iterator iterator = list.iterator(); iterator.hasNext();) {
 				Citation reference = (Citation) iterator.next();
 				System.out.println("--:"+reference.getAuthor());

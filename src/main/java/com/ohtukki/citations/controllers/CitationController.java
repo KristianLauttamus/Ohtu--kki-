@@ -45,10 +45,8 @@ public class CitationController {
      * @return view from resources/templates
      */
     @RequestMapping(value = "/citation", method = RequestMethod.GET)
-    public String create(ModelMap model) {
-        ArticleCitation articleCitation = new ArticleCitation();
-        
-        model.addAttribute("Article", articleCitation);
+    public String create(Model model) {
+        model.addAttribute("articleCitation", new ArticleCitation());
         
         return "create-citation";
     }
@@ -62,7 +60,7 @@ public class CitationController {
      */
     @RequestMapping(value = "/citation", method = RequestMethod.POST)
     public String store(@RequestParam("type") String type,
-            @ModelAttribute("Article") ArticleCitation articleCitation, BindingResult articleCitationResult) {
+            @ModelAttribute ArticleCitation articleCitation, BindingResult articleCitationResult) {
         
         if(type.equals("article")){
             this.database.save(articleCitation);
@@ -71,7 +69,7 @@ public class CitationController {
         try {
             this.database.saveJson();
         } catch (Exception ex) {
-            // Todo: Throw and error message
+            // Todo: Throw an error message
             
             return "redirect:/";
         }

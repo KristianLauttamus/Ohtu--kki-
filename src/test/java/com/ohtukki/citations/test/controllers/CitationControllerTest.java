@@ -28,17 +28,31 @@ public class CitationControllerTest {
     private DatabaseJsonDao database;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         // Needed for Thymeleaf
         webAppContext.getServletContext().setAttribute(
                 WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, webAppContext);
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webAppContext).build();
         
         this.database = new DatabaseJsonDao(DatabaseJsonDao.DEFAULT_FILE);
+        this.database.loadJson();
     }
     
-    public void before() throws Exception {
+    @Test
+    public void postArticleCitation() throws Exception {
+        int size = this.database.all().size();
+        
+        mockMvc.perform(post("/citation")
+                .param("type", "article")
+                .param("author", "Author")
+                .param("name", "Name")
+                .param("journal", "Journal")
+                .param("year", "Year"))
+                .andExpect(status().is3xxRedirection())
+                .andReturn();
+        
         this.database.loadJson();
+        assertEquals("Author", this.database.all().get(this.database.all().size()-1).getAuthor());
     }
     
     @Test

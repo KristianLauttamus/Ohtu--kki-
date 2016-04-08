@@ -20,45 +20,45 @@
                     <!-- Required -->
                     <div class="form-group">
                         <label for="article-author">Author</label>
-                        <input class="form-control" type="text" name="article-author" th:field="${Article.author}" id="article-author" required="required" placeholder="Aseta artikkelin Author"/>
+                        <input class="form-control" type="text" th:field="*{articleCitation.author}" id="article-author" required="required" placeholder="Aseta artikkelin Author"/>
                     </div>
                     <div class="form-group">
                         <label for="article-name">Name</label>
-                        <input class="form-control" type="text" name="article-name" th:field="${Article.name}" id="article-name" required="required" placeholder="Aseta artikkelin Name"/>
+                        <input class="form-control" type="text" th:field="*{articleCitation.name}" id="article-name" required="required" placeholder="Aseta artikkelin Name"/>
                     </div>
                     <div class="form-group">
                         <label for="article-journal">Journal</label>
-                        <input class="form-control" type="text" name="article-journal" th:field="${Article.journal}" id="article-journal" required="required" placeholder="Aseta artikkelin Journal"/>
+                        <input class="form-control" type="text" th:field="*{articleCitation.journal}" id="article-journal" required="required" placeholder="Aseta artikkelin Journal"/>
                     </div>
                     <div class="form-group">
                         <label for="article-year">Year</label>
-                        <input class="form-control" type="text" name="article-year" th:field="${Article.year}" id="article-year" required="required" placeholder="Aseta artikkelin Year"/>
+                        <input class="form-control" type="text" th:field="*{articleCitation.year}" id="article-year" required="required" placeholder="Aseta artikkelin Year"/>
                     </div>
 
                     <!-- Optional -->
                     <div class="form-group">
                         <label for="article-volume">Volume</label>
-                        <input class="form-control" type="text" name="article-volume" th:field="${Article.volume}" id="article-volume" placeholder="Aseta artikkelin Volume"/>
+                        <input class="form-control" type="text" th:field="*{articleCitation.volume}" id="article-volume" placeholder="Aseta artikkelin Volume"/>
                     </div>
                     <div class="form-group">
                         <label for="article-number">Number</label>
-                        <input class="form-control" type="text" name="article-number" th:field="${Article.number}" id="article-number" placeholder="Aseta artikkelin Number"/>
+                        <input class="form-control" type="text" th:field="*{articleCitation.number}" id="article-number" placeholder="Aseta artikkelin Number"/>
                     </div>
                     <div class="form-group">
                         <label for="article-pages">Pages</label>
-                        <input class="form-control" type="text" name="article-pages" th:field="${Article.pages}" id="article-pages" placeholder="Aseta artikkelin Pages"/>
+                        <input class="form-control" type="text" th:field="*{articleCitation.pages}" id="article-pages" placeholder="Aseta artikkelin Pages"/>
                     </div>
                     <div class="form-group">
                         <label for="article-month">Month</label>
-                        <input class="form-control" type="text" name="article-month" th:field="${Article.month}" id="article-month" placeholder="Aseta artikkelin Month"/>
+                        <input class="form-control" type="text" th:field="*{articleCitation.month}" id="article-month" placeholder="Aseta artikkelin Month"/>
                     </div>
                     <div class="form-group">
                         <label for="article-note">Note</label>
-                        <input class="form-control" type="text" name="article-note" th:field="${Article.note}" id="article-note" placeholder="Aseta artikkelin Note"/>
+                        <input class="form-control" type="text" th:field="*{articleCitation.note}" id="article-note" placeholder="Aseta artikkelin Note"/>
                     </div>
                     <div class="form-group">
                         <label for="article-key">Key</label>
-                        <input class="form-control" type="text" name="article-key" th:field="${Article.key}" id="article-key" placeholder="Aseta artikkelin Key"/>
+                        <input class="form-control" type="text" th:field="*{articleCitation.key}" id="article-key" placeholder="Aseta artikkelin Key"/>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Lisää uusi Viite</button>

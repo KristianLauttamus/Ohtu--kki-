@@ -16,6 +16,11 @@ public class ArticleCitation extends Citation {
     private String note;
     private String key;
 
+    // temp. test to see that the citation fields get filled
+    @Override
+    public String toString(){
+        return "id: " + id + " author: " + author + " name: " + name;
+    }
 
     @Override
     public void setId(String id) {

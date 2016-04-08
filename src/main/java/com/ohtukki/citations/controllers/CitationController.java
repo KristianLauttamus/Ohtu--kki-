@@ -28,6 +28,11 @@ public class CitationController {
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model) {
+        try {
+            this.database.loadJson();
+        } catch (Exception ex) {
+            // Todo: Throw and error message
+        }
         model.addAttribute("citations", this.database.all());
         
         return "index";

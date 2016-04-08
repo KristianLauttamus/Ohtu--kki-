@@ -43,6 +43,9 @@ public class CitationControllerTest {
     
     @Test
     public void postArticleCitationWithOptionals() throws Exception {
+        this.database.loadJson();
+        int size = this.database.all().size();
+        
         mockMvc.perform(post("/citation")
                 .param("type", "article")
                 .param("article-author", "Author")
@@ -59,7 +62,8 @@ public class CitationControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andReturn();
         
-        assertEquals(1, this.database.all().size());
+        this.database.loadJson();
+        assertEquals(size+1, this.database.all().size());
     }
         
 }

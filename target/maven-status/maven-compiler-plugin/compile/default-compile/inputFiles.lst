@@ -1,9 +1,10 @@
-C:\Users\Esa Potkonen\Documents\GitHub\Ohtu-kki\src\main\java\com\ohtukki\citations\Application.java
-C:\Users\Esa Potkonen\Documents\GitHub\Ohtu-kki\src\main\java\com\ohtukki\citations\data\Database.java
-C:\Users\Esa Potkonen\Documents\GitHub\Ohtu-kki\src\main\java\com\ohtukki\citations\test\DatabaseDaoJsonTest.java
-C:\Users\Esa Potkonen\Documents\GitHub\Ohtu-kki\src\main\java\com\ohtukki\citations\controllers\CitationController.java
-C:\Users\Esa Potkonen\Documents\GitHub\Ohtu-kki\src\main\java\com\ohtukki\citations\data\DatabaseJsonDao.java
-C:\Users\Esa Potkonen\Documents\GitHub\Ohtu-kki\src\main\java\com\ohtukki\citations\data\CitationCreator.java
-C:\Users\Esa Potkonen\Documents\GitHub\Ohtu-kki\src\main\java\com\ohtukki\citations\test\TestCitation.java
-C:\Users\Esa Potkonen\Documents\GitHub\Ohtu-kki\src\main\java\com\ohtukki\citations\models\Citation.java
-C:\Users\Esa Potkonen\Documents\GitHub\Ohtu-kki\src\main\java\com\ohtukki\citations\models\CitationList.java
+/home/kristian/Projects/ohtu-kki/src/main/java/com/ohtukki/citations/Application.java
+/home/kristian/Projects/ohtu-kki/src/main/java/com/ohtukki/citations/data/DatabaseJsonDao.java
+/home/kristian/Projects/ohtu-kki/src/main/java/com/ohtukki/citations/test/TestCitation.java
+/home/kristian/Projects/ohtu-kki/src/main/java/com/ohtukki/citations/data/CitationCreator.java
+/home/kristian/Projects/ohtu-kki/src/main/java/com/ohtukki/citations/controllers/CitationController.java
+/home/kristian/Projects/ohtu-kki/src/main/java/com/ohtukki/citations/data/Database.java
+/home/kristian/Projects/ohtu-kki/src/main/java/com/ohtukki/citations/models/ArticleCitation.java
+/home/kristian/Projects/ohtu-kki/src/main/java/com/ohtukki/citations/models/Citation.java
+/home/kristian/Projects/ohtu-kki/src/main/java/com/ohtukki/citations/data/AuthorFilter.java
+/home/kristian/Projects/ohtu-kki/src/main/java/com/ohtukki/citations/models/CitationList.java

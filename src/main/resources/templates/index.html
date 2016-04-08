@@ -1,10 +1,15 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Test</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/head">
+	<meta charset="utf-8" />
+	<title>Ohtu-kki</title>
+	<link href="/css/bootstrap.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <p th:text="Hello" />
+	<nav th:replace="fragments/nav"></nav>
+        
+        
+	
+	<script th:replace="fragments/scripts">scripts</script>
 </body>
 </html>

@@ -6,82 +6,84 @@
         <link href="/css/bootstrap.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        <nav th:replace="fragments/nav"></nav>
-        <form method="POST" th:action="@{/citation}">
-            <div class="form-group">
-                <label for="type">Valitse tyyppi</label>
-                <select name="type" id="type" v-model="type" class="form-control">
-                    <option value="article">Artikkeli</option>
-                </select>
-            </div>
-            <!-- Book -->
-            <div v-if="type=='article'">
-                <!-- Required -->
+        <div class="container">
+            <nav th:replace="fragments/nav"></nav>
+            <form method="POST" th:action="@{/citation}">
                 <div class="form-group">
-                    <label for="article-author">Author</label>
-                    <spring:bind path="article.author">
-                        <input type="text" name="article-author" id="article-author" required="required" placeholder="Aseta artikkelin Author">
-                    </spring:bind>
+                    <label for="type">Valitse tyyppi</label>
+                    <select name="type" id="type" v-model="type" class="form-control">
+                        <option value="article">Artikkeli</option>
+                    </select>
                 </div>
-                <div class="form-group">
-                    <label for="article-name">Name</label>
-                    <spring:bind path="article.name">
-                        <input type="text" name="article-name" id="article-name" required="required" placeholder="Aseta artikkelin Name">
-                    </spring:bind>
+                <!-- Book -->
+                <div v-if="type=='article'">
+                    <!-- Required -->
+                    <div class="form-group">
+                        <label for="article-author">Author</label>
+                        <spring:bind path="article.author">
+                            <input class="form-control" type="text" name="article-author" id="article-author" required="required" placeholder="Aseta artikkelin Author"/>
+                        </spring:bind>
+                    </div>
+                    <div class="form-group">
+                        <label for="article-name">Name</label>
+                        <spring:bind path="article.name">
+                            <input class="form-control" type="text" name="article-name" id="article-name" required="required" placeholder="Aseta artikkelin Name"/>
+                        </spring:bind>
+                    </div>
+                    <div class="form-group">
+                        <label for="article-journal">Journal</label>
+                        <spring:bind path="article.journal">
+                            <input class="form-control" type="text" name="article-journal" id="article-journal" required="required" placeholder="Aseta artikkelin Journal"/>
+                        </spring:bind>
+                    </div>
+                    <div class="form-group">
+                        <label for="article-year">Year</label>
+                        <spring:bind path="article.year">
+                            <input class="form-control" type="text" name="article-year" id="article-year" required="required" placeholder="Aseta artikkelin Year"/>
+                        </spring:bind>
+                    </div>
+
+                    <!-- Optional -->
+                    <div class="form-group">
+                        <label for="article-volume">Volume</label>
+                        <spring:bind path="article.volume">
+                            <input class="form-control" type="text" name="article-volume" id="article-volume" placeholder="Aseta artikkelin Volume"/>
+                        </spring:bind>
+                    </div>
+                    <div class="form-group">
+                        <label for="article-number">Number</label>
+                        <spring:bind path="article.number">
+                            <input class="form-control" type="text" name="article-number" id="article-number" placeholder="Aseta artikkelin Number"/>
+                        </spring:bind>
+                    </div>
+                    <div class="form-group">
+                        <label for="article-pages">Pages</label>
+                        <spring:bind path="article.pages">
+                            <input class="form-control" type="text" name="article-pages" id="article-pages" placeholder="Aseta artikkelin Pages"/>
+                        </spring:bind>
+                    </div>
+                    <div class="form-group">
+                        <label for="article-month">Month</label>
+                        <spring:bind path="article.month">
+                            <input class="form-control" type="text" name="article-month" id="article-month" placeholder="Aseta artikkelin Month"/>
+                        </spring:bind>
+                    </div>
+                    <div class="form-group">
+                        <label for="article-note">Note</label>
+                        <spring:bind path="article.note">
+                            <input class="form-control" type="text" name="article-note" id="article-note" placeholder="Aseta artikkelin Note"/>
+                        </spring:bind>
+                    </div>
+                    <div class="form-group">
+                        <label for="article-key">Key</label>
+                        <spring:bind path="article.key">
+                            <input class="form-control" type="text" name="article-key" id="article-key" placeholder="Aseta artikkelin Key"/>
+                        </spring:bind>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="article-journal">Journal</label>
-                    <spring:bind path="article.journal">
-                        <input type="text" name="article-journal" id="article-journal" required="required" placeholder="Aseta artikkelin Journal">
-                    </spring:bind>
-                </div>
-                <div class="form-group">
-                    <label for="article-year">Year</label>
-                    <spring:bind path="article.year">
-                        <input type="text" name="article-year" id="article-year" required="required" placeholder="Aseta artikkelin Year">
-                    </spring:bind>
-                </div>
-                
-                <!-- Optional -->
-                <div class="form-group">
-                    <label for="article-volume">Volume</label>
-                    <spring:bind path="article.volume">
-                        <input type="text" name="article-volume" id="article-volume" placeholder="Aseta artikkelin Volume">
-                    </spring:bind>
-                </div>
-                <div class="form-group">
-                    <label for="article-number">Number</label>
-                    <spring:bind path="article.number">
-                        <input type="text" name="article-number" id="article-number" placeholder="Aseta artikkelin Number">
-                    </spring:bind>
-                </div>
-                <div class="form-group">
-                    <label for="article-pages">Pages</label>
-                    <spring:bind path="article.pages">
-                        <input type="text" name="article-pages" id="article-pages" placeholder="Aseta artikkelin Pages">
-                    </spring:bind>
-                </div>
-                <div class="form-group">
-                    <label for="article-month">Month</label>
-                    <spring:bind path="article.month">
-                        <input type="text" name="article-month" id="article-month" placeholder="Aseta artikkelin Month">
-                    </spring:bind>
-                </div>
-                <div class="form-group">
-                    <label for="article-note">Note</label>
-                    <spring:bind path="article.note">
-                        <input type="text" name="article-note" id="article-note" placeholder="Aseta artikkelin Note">
-                    </spring:bind>
-                </div>
-                <div class="form-group">
-                    <label for="article-key">Key</label>
-                    <spring:bind path="article.key">
-                        <input type="text" name="article-key" id="article-key" placeholder="Aseta artikkelin Key">
-                    </spring:bind>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Lisää uusi Viite</button>
-        </form>
+                <button type="submit" class="btn btn-primary">Lisää uusi Viite</button>
+            </form>
+        </div>
         
         <script th:replace="fragments/scripts">scripts</script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.21/vue.min.js"></script>

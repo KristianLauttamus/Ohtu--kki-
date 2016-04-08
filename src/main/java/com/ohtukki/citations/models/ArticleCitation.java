@@ -2,9 +2,6 @@ package com.ohtukki.citations.models;
 
 public class ArticleCitation extends Citation {
     // Required fields
-    private String id;
-    private String author;
-    private String name;
     private String journal;
     private String year;
 
@@ -19,37 +16,7 @@ public class ArticleCitation extends Citation {
     // temp. test to see that the citation fields get filled
     @Override
     public String toString(){
-        return "id: " + id + " author: " + author + " name: " + name;
-    }
-
-    @Override
-    public void setId(String id) {
-        super.setId(id);
-    }
-
-    @Override
-    public String getId() {
-        return super.getId();
-    }
-
-    @Override
-    public void setAuthor(String author) {
-        super.setAuthor(author);
-    }
-
-    @Override
-    public String getAuthor() {
-        return super.getAuthor();
-    }
-
-    @Override
-    public void setName(String name) {
-        super.setName(name);
-    }
-
-    @Override
-    public String getName() {
-        return super.getName();
+        return "id: " + this.getId() + " author: " + this.getAuthor() + " name: " + this.getName();
     }
 
     public String getJournal() {

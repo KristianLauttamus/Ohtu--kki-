@@ -37,13 +37,12 @@ public class CitationControllerTest {
         this.database = new DatabaseJsonDao(DatabaseJsonDao.DEFAULT_FILE);
     }
     
-    public void before() {
-        // Remove all citations from database
+    public void before() throws Exception {
+        this.database.loadJson();
     }
     
     @Test
     public void postArticleCitationWithOptionals() throws Exception {
-        this.database.loadJson();
         int size = this.database.all().size();
         
         mockMvc.perform(post("/citation")

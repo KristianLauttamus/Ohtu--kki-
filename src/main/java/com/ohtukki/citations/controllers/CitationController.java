@@ -62,7 +62,7 @@ public class CitationController {
      */
     @RequestMapping(value = "/citation", method = RequestMethod.POST)
     public String store(@RequestParam("type") String type,
-            @ModelAttribute("article") ArticleCitation articleCitation, BindingResult articleCitationResult) {
+            @ModelAttribute("Article") ArticleCitation articleCitation, BindingResult articleCitationResult) {
         
         if(type.equals("article")){
             this.database.save(articleCitation);

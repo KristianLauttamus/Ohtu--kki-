@@ -3,6 +3,8 @@ package com.ohtukki.citations.controllers;
 import com.ohtukki.citations.data.Database;
 import com.ohtukki.citations.data.DatabaseJsonDao;
 import com.ohtukki.citations.models.ArticleCitation;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,7 +18,7 @@ public class CitationController {
     private DatabaseJsonDao database;
     
     public CitationController(){
-        this.database = new DatabaseJsonDao("test-file");
+        this.database = new DatabaseJsonDao(DatabaseJsonDao.DEFAULT_FILE);
     }
     
     /**
@@ -26,6 +28,11 @@ public class CitationController {
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model) {
+        try {
+            this.database.loadJson();
+        } catch (Exception ex) {
+            // Todo: Throw and error message
+        }
         model.addAttribute("citations", this.database.all());
         
         return "index";
@@ -56,8 +63,16 @@ public class CitationController {
     public String store(@RequestParam("type") String type,
             @ModelAttribute("article") ArticleCitation articleCitation, BindingResult articleCitationResult) {
         
-        if(type == "article"){
+        if(type.equals("article")){
             this.database.save(articleCitation);
+        }
+        
+        try {
+            this.database.saveJson();
+        } catch (Exception ex) {
+            // Todo: Throw and error message
+            
+            return "redirect:/";
         }
         
         return "redirect:/";

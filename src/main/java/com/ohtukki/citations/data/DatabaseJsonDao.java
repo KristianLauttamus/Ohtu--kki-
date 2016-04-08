@@ -17,6 +17,8 @@ import com.ohtukki.citations.models.CitationList;
 
 
 public class DatabaseJsonDao {
+        public static String DEFAULT_FILE = "citations.json";
+        
 	private String filename;
 	private List<Citation> citations;
 	

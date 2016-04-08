@@ -16,7 +16,7 @@ public class CitationController {
     private DatabaseJsonDao database;
     
     public CitationController(){
-        this.database = new DatabaseJsonDao("test-file");
+        this.database = new DatabaseJsonDao(DatabaseJsonDao.DEFAULT_FILE);
     }
     
     /**

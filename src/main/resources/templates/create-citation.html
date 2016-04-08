@@ -19,6 +19,10 @@
                 <div v-if="type=='article'">
                     <!-- Required -->
                     <div class="form-group">
+                        <label for="article-id">ID</label>
+                        <input class="form-control" type="text" th:field="*{articleCitation.id}" id="article-id" required="required" placeholder="Aseta artikkelin ID"/>
+                    </div>
+                    <div class="form-group">
                         <label for="article-author">Author</label>
                         <input class="form-control" type="text" th:field="*{articleCitation.author}" id="article-author" required="required" placeholder="Aseta artikkelin Author"/>
                     </div>

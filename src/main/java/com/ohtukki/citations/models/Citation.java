@@ -4,17 +4,17 @@ package com.ohtukki.citations.models;
  * Abstract class for all the types of Citations
  */
 public abstract class Citation {
-    private String id;
-    private String author;
-    private String name;
-    private String journal;
-    private String year;
-    private String volume;
-    private String number;
-    private String pages;
-    private String month;
-    private String note;
-    private String key;
+    private String id = new String();
+    private String author = new String();
+    private String name = new String();
+    private String journal = new String();
+    private String year = new String();
+    private String volume = new String();
+    private String number = new String();
+    private String pages = new String();
+    private String month = new String();
+    private String note = new String();
+    private String key = new String();
     
     public void setId(String id) {
         this.id = id;

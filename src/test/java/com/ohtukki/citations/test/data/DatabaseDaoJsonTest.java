@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import com.ohtukki.citations.data.AuthorFilter;
 import com.ohtukki.citations.data.DatabaseJsonDao;
+import com.ohtukki.citations.models.ArticleCitation;
 import com.ohtukki.citations.models.Citation;
 import com.ohtukki.citations.test.TestCitation;
 
@@ -17,7 +18,7 @@ public class DatabaseDaoJsonTest {
 	public void testAddSave() {
 		DatabaseJsonDao dao = new DatabaseJsonDao("references.json");
     	for (int i = 0; i < 10; i++) {
-    		Citation ref = new TestCitation();
+    		Citation ref = new ArticleCitation();
     		ref.setAuthor("Author["+i+"]");
     		dao.save(ref);
 		}

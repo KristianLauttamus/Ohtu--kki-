@@ -4,18 +4,19 @@ package com.ohtukki.citations.models;
  * Abstract class for all the types of Citations
  */
 public abstract class Citation {
-    private String id = new String();
-    private String author = new String();
-    private String name = new String();
-    private String journal = new String();
-    private String year = new String();
-    private String volume = new String();
-    private String number = new String();
-    private String pages = new String();
-    private String month = new String();
-    private String note = new String();
-    private String key = new String();
+    protected String id = new String();
+    protected String author = new String();
+    protected String name = new String();
+    protected String journal = new String();
+    protected String year = new String();
+    protected String volume = new String();
+    protected String number = new String();
+    protected String pages = new String();
+    protected String month = new String();
+    protected String note = new String();
+    protected String key = new String();
     
+    // Getters and setters
     public void setId(String id) {
         this.id = id;
     }
@@ -97,5 +98,50 @@ public abstract class Citation {
 
     public void setKey(String key) {
         this.key = key;
+    }
+    
+    // Methods to create bibtex format
+    public String authorToBibtex() {
+        return isNullOrEmpty(author) ? "" : "author = {" + author + "},\n";
+    }
+    
+    public String titleToBibtex() {
+        return isNullOrEmpty(name) ? "" : "title = {" + name + "},\n";
+    }
+    
+    public String journalToBibtex() {
+        return isNullOrEmpty(journal) ? "" : "title = {" + journal + "},\n";
+    }
+    
+    public String yearToBibtex() {
+        return isNullOrEmpty(year) ? "" : "title = {" + year + "},\n";
+    }
+    
+    public String volumeToBibtex() {
+        return isNullOrEmpty(volume) ? "" : "title = {" + volume + "},\n";
+    }
+    
+    public String numberToBibtex() {
+        return isNullOrEmpty(number) ? "" : "title = {" + number + "},\n";
+    }
+    
+    public String pagesToBibtex() {
+        return isNullOrEmpty(pages) ? "" : "title = {" + pages + "},\n";
+    }
+    
+    public String monthToBibtex() {
+        return isNullOrEmpty(month) ? "" : "title = {" + month + "},\n";
+    }
+    
+    public String noteToBibtex() {
+        return isNullOrEmpty(note) ? "" : "title = {" + note + "},\n";
+    }
+    
+    public String keyToBibtex() {
+        return isNullOrEmpty(key) ? "" : "title = {" + key + "},\n";
+    }
+    
+    private boolean isNullOrEmpty(String s) {
+        return s == null || s.isEmpty();
     }
 }

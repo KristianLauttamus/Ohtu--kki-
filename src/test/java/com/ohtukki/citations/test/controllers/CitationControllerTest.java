@@ -46,6 +46,11 @@ public class CitationControllerTest {
     @After
     public void tearDown() {
         this.database.clear();
+        try {
+            mockMvc.perform(get("/"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
     @Test

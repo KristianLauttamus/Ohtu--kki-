@@ -120,9 +120,12 @@ public class DatabaseJsonDao implements Database {
 
     @Override
     public void clear() {
+        this.citations = new ArrayList<>();
+        this.citations.clear();
+        
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
-        CitationList list = new CitationList(new ArrayList<Citation>());
+        CitationList list = new CitationList(this.citations);
         String json = gson.toJson(list);
         try {
             FileUtils.writeStringToFile(new File(filename), json);

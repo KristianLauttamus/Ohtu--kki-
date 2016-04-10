@@ -3,6 +3,7 @@ package com.ohtukki.citations.test.controllers;
 import com.ohtukki.citations.Application;
 import com.ohtukki.citations.data.Database;
 import com.ohtukki.citations.data.DatabaseJsonDao;
+import org.junit.After;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +27,7 @@ public class CitationControllerTest {
     private WebApplicationContext webAppContext;
     
     private MockMvc mockMvc;
-    private Database database;
+    private final Database database;
     
     public CitationControllerTest(){
         this.database = new DatabaseJsonDao();
@@ -39,6 +40,11 @@ public class CitationControllerTest {
                 WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, webAppContext);
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webAppContext).build();
         
+        this.database.clear();
+    }
+    
+    @After
+    public void tearDown() {
         this.database.clear();
     }
     

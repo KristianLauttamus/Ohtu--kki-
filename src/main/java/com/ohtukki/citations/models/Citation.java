@@ -16,7 +16,7 @@ public abstract class Citation {
     protected String note = new String();
     protected String key = new String();
     
-    // Getters and setters
+    // Setters and Getters
     public void setId(String id) {
         this.id = id;
     }
@@ -101,6 +101,10 @@ public abstract class Citation {
     }
     
     // Methods to create bibtex format
+    public String idToBibtex() {
+        return isNullOrEmpty(id) ? "\n" : id + ",\n";
+    }
+    
     public String authorToBibtex() {
         return isNullOrEmpty(author) ? "" : "author = {" + author + "},\n";
     }

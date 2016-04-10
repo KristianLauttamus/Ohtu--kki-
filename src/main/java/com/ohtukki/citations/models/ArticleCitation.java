@@ -13,7 +13,7 @@ public class ArticleCitation extends Citation {
      * @return Returns bibtex entry
      */
     public String createBibtexEntry() {
-        String entry = "@ARTICLE{" + id + ",\n"
+        String entry = "@ARTICLE{" + idToBibtex()
                 + authorToBibtex()
                 + titleToBibtex()
                 + journalToBibtex()
@@ -29,7 +29,7 @@ public class ArticleCitation extends Citation {
         return converter.umlautsToBibtex(entry);
     }
 
-    // temp. test to see that the citation fields get filled
+    // temp. test to see that the citation fields get filled 
     @Override
     public String toString() {
         return "id: " + this.getId() + " author: " + this.getAuthor() + " name: " + this.getName()

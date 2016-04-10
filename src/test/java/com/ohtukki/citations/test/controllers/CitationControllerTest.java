@@ -62,6 +62,7 @@ public class CitationControllerTest {
                 .andReturn();
         
         assertEquals("Author", this.database.all().get(this.database.all().size()-1).getAuthor());
+        assertEquals(size+1, this.database.all().size());
     }
     
     @Test
@@ -70,7 +71,7 @@ public class CitationControllerTest {
         
         mockMvc.perform(post("/citation")
                 .param("type", "article")
-                .param("author", "Author")
+                .param("author", "Optionals-Author")
                 .param("name", "Name")
                 .param("journal", "Journal")
                 .param("year", "Year")
@@ -84,6 +85,7 @@ public class CitationControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andReturn();
         
+        assertEquals("Optionals-Author", this.database.all().get(this.database.all().size()-1).getAuthor());
         assertEquals(size+1, this.database.all().size());
     }
         

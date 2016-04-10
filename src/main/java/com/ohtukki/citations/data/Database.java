@@ -29,4 +29,7 @@ public interface Database {
     // Delete without saving
     public void delete(String id);
     public void delete(Citation citation);
+    
+    // Clear the whole Database
+    public void clear();
 }

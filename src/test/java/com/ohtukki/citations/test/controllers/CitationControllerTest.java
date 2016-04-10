@@ -1,6 +1,7 @@
 package com.ohtukki.citations.test.controllers;
 
 import com.ohtukki.citations.Application;
+import com.ohtukki.citations.data.Database;
 import com.ohtukki.citations.data.DatabaseJsonDao;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -25,8 +26,12 @@ public class CitationControllerTest {
     private WebApplicationContext webAppContext;
     
     private MockMvc mockMvc;
-    private DatabaseJsonDao database;
-
+    private Database database;
+    
+    public CitationControllerTest(){
+        this.database = new DatabaseJsonDao();
+    }
+    
     @Before
     public void setUp() throws Exception {
         // Needed for Thymeleaf
@@ -34,8 +39,7 @@ public class CitationControllerTest {
                 WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, webAppContext);
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webAppContext).build();
         
-        this.database = new DatabaseJsonDao(DatabaseJsonDao.DEFAULT_FILE);
-        this.database.loadJson();
+        this.database.clear();
     }
     
     @Test
@@ -51,7 +55,6 @@ public class CitationControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andReturn();
         
-        this.database.loadJson();
         assertEquals("Author", this.database.all().get(this.database.all().size()-1).getAuthor());
     }
     
@@ -61,21 +64,20 @@ public class CitationControllerTest {
         
         mockMvc.perform(post("/citation")
                 .param("type", "article")
-                .param("article-author", "Author")
-                .param("article-name", "Name")
-                .param("article-journal", "Journal")
-                .param("article-year", "Year")
+                .param("author", "Author")
+                .param("name", "Name")
+                .param("journal", "Journal")
+                .param("year", "Year")
                 
-                .param("article-volume", "Volume")
-                .param("article-number", "Number")
-                .param("article-pages", "Pages")
-                .param("article-month", "Month")
-                .param("article-note", "Note")
-                .param("article-key", "Key"))
+                .param("volume", "Volume")
+                .param("number", "Number")
+                .param("pages", "Pages")
+                .param("month", "Month")
+                .param("note", "Note")
+                .param("key", "Key"))
                 .andExpect(status().is3xxRedirection())
                 .andReturn();
         
-        this.database.loadJson();
         assertEquals(size+1, this.database.all().size());
     }
         

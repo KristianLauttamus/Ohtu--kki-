@@ -35,12 +35,13 @@ public class DatabaseDaoJsonTest {
     	try {
 			dao.loadJson();
 			List<Citation> list = dao.all();
-			//List<Citation> list = dao.allByPredicate(new AuthorFilter("Author[7]"));
 			for (Iterator iterator = list.iterator(); iterator.hasNext();) {
 				Citation reference = (Citation) iterator.next();
 				System.out.println("--:"+reference.getAuthor());
 			}
 			assertEquals(10,list.size());
+			list = dao.allByPredicate(new AuthorFilter("Author[7]"));
+			assertEquals(1,list.size());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -29,11 +29,6 @@ public class CitationController {
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model) {
-        try {
-            this.database.loadJson();
-        } catch (Exception ex) {
-            // Todo: Throw and error message
-        }
         model.addAttribute("citations", this.database.all());
         
         return "index";
@@ -64,14 +59,6 @@ public class CitationController {
         
         if(type.equals("article")){
             this.database.save(articleCitation);
-        }
-        
-        try {
-            this.database.saveJson();
-        } catch (Exception ex) {
-            // Todo: Throw an error message
-            
-            return "redirect:/";
         }
         
         return "redirect:/";

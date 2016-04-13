@@ -1,17 +1,7 @@
-<easyb time='Wed Apr 13 11:02:53 EEST 2016' totalbehaviors='2' totalfailedbehaviors='0' totalpendingbehaviors='0' executionTime='2956'>
-  <stories scenarios='2' failedscenarios='0' pendingscenarios='0' executionTime='2956'>
-    <story name='add_article_citation' scenarios='2' failedscenarios='0' pendingscenarios='0' executionTime='2956'>
+<easyb time='Wed Apr 13 11:56:34 EEST 2016' totalbehaviors='0' totalfailedbehaviors='0' totalpendingbehaviors='0' executionTime='350'>
+  <stories scenarios='0' failedscenarios='0' pendingscenarios='0' executionTime='350'>
+    <story name='add_article_citation' scenarios='0' failedscenarios='0' pendingscenarios='0' executionTime='350'>
       <description name='User can add an article citation' />
-      <scenario name='user can choose to add an article citation' result='success' executionTime='2270'>
-        <given name='user is on the "Add Citation" page' result='success' />
-        <when name='"Artikkeli" is chosen as the citation type' result='success' />
-        <then name='the proper form will open' result='success' />
-      </scenario>
-      <scenario name='article form not shown when not chosen' result='success' executionTime='264'>
-        <given name='user is on the "Add Citation" page' result='success' />
-        <when name='literally nothing is done' result='success' />
-        <then name='the form shouldn&apos;t be available' result='success' />
-      </scenario>
     </story>
   </stories>
   <specifications specifications='0' failedspecifications='0' pendingspecifications='0' executionTime='0' />

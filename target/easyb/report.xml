@@ -1,6 +1,6 @@
-<easyb time='Wed Apr 13 11:56:34 EEST 2016' totalbehaviors='0' totalfailedbehaviors='0' totalpendingbehaviors='0' executionTime='350'>
-  <stories scenarios='0' failedscenarios='0' pendingscenarios='0' executionTime='350'>
-    <story name='add_article_citation' scenarios='0' failedscenarios='0' pendingscenarios='0' executionTime='350'>
+<easyb time='Thu Apr 14 14:19:28 EEST 2016' totalbehaviors='0' totalfailedbehaviors='0' totalpendingbehaviors='0' executionTime='315'>
+  <stories scenarios='0' failedscenarios='0' pendingscenarios='0' executionTime='315'>
+    <story name='add_article_citation' scenarios='0' failedscenarios='0' pendingscenarios='0' executionTime='315'>
       <description name='User can add an article citation' />
     </story>
   </stories>

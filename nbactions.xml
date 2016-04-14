@@ -1,5 +1,4 @@
-
-ns>
+<actions>
     <action>
         <actionName>run</actionName>
         <goals>

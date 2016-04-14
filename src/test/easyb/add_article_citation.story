@@ -6,7 +6,7 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 description 'User can add an article citation'
 
-/*
+/* 
 scenario "user can choose to add an article citation", {
     given 'user is on the "Add Citation" page', {
         driver = new HtmlUnitDriver();

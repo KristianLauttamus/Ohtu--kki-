@@ -2,6 +2,8 @@ language: java
 jdk:
 - oraclejdk7
 - openjdk7
+script:
+ - mvn integration-test
 after_success:
 - mvn clean cobertura:cobertura coveralls:report
 deploy:

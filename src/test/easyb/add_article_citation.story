@@ -1,12 +1,10 @@
 import com.ohtukki.citations.*
-import ohtu.authentication.*
 import org.openqa.selenium.*
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 description 'User can add an article citation'
 
-/* 
 scenario "user can choose to add an article citation", {
     given 'user is on the "Add Citation" page', {
         driver = new HtmlUnitDriver();
@@ -41,4 +39,4 @@ scenario "article form not shown when not chosen", {
     then 'the form shouldn\'t be available', {
         driver.findElementsById("article-id").size().shouldBe 1 //should be 0
     }
-}*/
+}

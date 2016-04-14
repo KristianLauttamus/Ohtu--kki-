@@ -21,8 +21,8 @@
     <dependencies>		
         <dependency>		
             <groupId>org.springframework.boot</groupId>		
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>		
-        </dependency>		
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
         <dependency>		
             <groupId>org.springframework.boot</groupId>		
             <artifactId>spring-boot-devtools</artifactId>		
@@ -56,7 +56,7 @@
         <dependency>		
             <groupId>org.easyb</groupId>		
             <artifactId>easyb-core</artifactId>		
-            <version>1.6</version>		
+            <version>1.6</version>
             <scope>test</scope>		
             <exclusions>		
                 <exclusion>		
@@ -64,8 +64,8 @@
                     <artifactId>groovy-all</artifactId>		
                 </exclusion>		
             </exclusions>		
-        </dependency>		
-		
+        </dependency>
+
 	    <!-- selenium -->		
 		
         <dependency>		
@@ -92,7 +92,21 @@
         <plugins>		
             <plugin>		
                 <groupId>org.springframework.boot</groupId>		
-                <artifactId>spring-boot-maven-plugin</artifactId>		
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>pre-integration-test</id>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>post-integration-test</id>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>		
             <plugin>		
                     <groupId>org.eluder.coveralls</groupId>		
@@ -124,7 +138,7 @@
                     <storyType>html</storyType>		
                     <storyReport>${basedir}/target/easyb/easyb-report.html</storyReport>		
                 </configuration>		
-            </plugin>		
+            </plugin>
         </plugins>		
     </build>		
 </project>

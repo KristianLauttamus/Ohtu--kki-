@@ -25,8 +25,7 @@ public class ArticleCitation extends Citation {
                 + noteToBibtex()
                 + keyToBibtex() + "}\n\n";
 
-        AlphabetConverter converter = new AlphabetConverter();
-        return converter.umlautsToBibtex(entry);
+        return new AlphabetConverter().umlautsToBibtex(entry);
     }
 
     // temp. test to see that the citation fields get filled 

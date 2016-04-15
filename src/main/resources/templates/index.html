@@ -7,67 +7,51 @@
 </head>
 <body>
 	<nav th:replace="fragments/nav"></nav>
-        <div class="container">
-            <form method="POST" th:action="@{/filter}"  th:if="${not #lists.isEmpty(citations)}">
-                <div class="form-group">
-                  <h2>Filter results with </h2>
-                  <div class="col-xs-3">
-                    <label for="author">Author:</label>
-                    <input type="text" class="form-control" id="author" name="author" />
-                  </div>
-                  <div class="col-xs-1">
-                    <label for="year">Year:</label>
-                    <input type="text" class="form-control" id="year" name="year" />
-                  </div>
-                  <div class="col-xs-3">
-                    <label for="publication">Publication:</label>
-                    <input type="text" class="form-control" id="publication" name="publication" disabled="" />
-                  </div>
+        
+        <div class="container" id="citation-table">
+            <form method="POST"  v-if="items.length > 0">
+                <div class="input-group stylish-input-group">
+                    <input type="text" class="form-control"  placeholder="Search" v-model="query" v-on:keyup="search" v-on:submit.prevent="search(true)" />
+                    <span class="input-group-addon">
+                        <button type="submit">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>  
+                    </span>
                 </div>
-                <div class="form-group">
-                <button type="submit" class="btn btn-primary">Filter now</button>
-                </div>
-                <p>&nbsp;</p>
-                <hr />
             </form>
-            <table class="table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Author</th>
-                <th>Name</th>
-                <th>Journal</th>
-                <th>Volume</th>
-                <th>Number</th>
-                <th>Pages</th>
-                <th>Month</th>
-                <th>Note</th>
-                <th>Key</th>
-              </tr>
-            </thead>
-            <tbody>
-                <tr th:each="citation : ${citations}">
-                    <td th:text="${citation.id}" />
-                    <td th:text="${citation.author}" />
-                    <td th:text="${citation.name}" />
-                    <td th:text="${citation.journal}" />
-                    <td th:text="${citation.volume}" />
-                    <td th:text="${citation.number}" />
-                    <td th:text="${citation.pages}" />
-                    <td th:text="${citation.month}" />
-                    <td th:text="${citation.note}" />
-                    <td th:text="${citation.key}" />
-                </tr>
-            </tbody>
-            </table>                
-            <div  th:if="${not #lists.isEmpty(citations)}">
+            <table class="table" v-if="listItems.length > 0">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Citation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item in listItems">
+                        <td>{{item.id}}</td>
+                        <td>{{printCitation(item)}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div v-else="">
+                <p>No citations added yet. <a href="/create">Add one here</a></p>
+            </div>
+            
+            <div v-if="notEmptyAndHasQuery">
                 <hr />
-                <p>Download BibTex file (at the moment into browser):</p>
-                <a href="/download" class="btn btn-primary" target="_blank">
-                  <span class="glyphicon glyphicon-download-alt"></span> Download
+                <button class="btn btn-default btn-block" target="_blank" v-on:click.prevent="showAll">
+                    ... Show all citations
+                </button>
+            </div>
+            <div v-if="!notEmptyAndHasQuery">
+                <hr />
+                <a href="/download" class="btn btn-primary btn-block" target="_blank">
+                  <span class="glyphicon glyphicon-download-alt"></span> Download (at the moment into browser)
                 </a>
             </div>
         </div>
+        
 	<script th:replace="fragments/scripts">scripts</script>
+        <script src="js/listing.js" th:src="@{/js/listing.js}"></script>
 </body>
 </html>

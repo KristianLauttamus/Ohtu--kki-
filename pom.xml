@@ -93,6 +93,7 @@
                     <wait>500000</wait>
                 </configuration>
                 -->
+                
                 <executions>
                     <execution>
                         <id>pre-integration-test</id>

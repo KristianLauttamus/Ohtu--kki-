@@ -8,12 +8,15 @@ import com.ohtukki.citations.data.DatabaseJsonDao;
 import com.ohtukki.citations.data.PublicationFilter;
 import com.ohtukki.citations.data.YearFilter;
 import com.ohtukki.citations.models.ArticleCitation;
+import com.ohtukki.citations.models.BookCitation;
 import com.ohtukki.citations.models.Citation;
+import com.ohtukki.citations.models.InproceedingsCitation;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +31,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class CitationController {
@@ -49,6 +53,11 @@ public class CitationController {
         return "index";
     }
     
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public @ResponseBody List<Citation> getAllCitations(){        
+        return this.database.all();
+    }
+    
     /**
      * Return form to create a new Citation
      * @param model
@@ -57,6 +66,8 @@ public class CitationController {
     @RequestMapping(value = "/citation", method = RequestMethod.GET)
     public String create(Model model) {
         model.addAttribute("articleCitation", new ArticleCitation());
+        model.addAttribute("bookCitation", new BookCitation());
+        model.addAttribute("inproceedingsCitation", new InproceedingsCitation());
         
         return "create-citation";
     }
@@ -70,10 +81,16 @@ public class CitationController {
      */
     @RequestMapping(value = "/citation", method = RequestMethod.POST)
     public String store(@RequestParam("type") String type,
-            @ModelAttribute ArticleCitation articleCitation, BindingResult articleCitationResult) {
+            @ModelAttribute ArticleCitation articleCitation, BindingResult articleCitationResult,
+            @ModelAttribute BookCitation bookCitation, BindingResult bookCitationResult,
+            @ModelAttribute InproceedingsCitation inproceedingsCitation, BindingResult inproceedingsCitationResult) {
         
         if(type.equals("article")){
             this.database.save(articleCitation);
+        } else if(type.equals("book")){
+            this.database.save(bookCitation);
+        } else if(type.equals("inproceedings")){
+            this.database.save(inproceedingsCitation);
         }
         
         return "redirect:/";

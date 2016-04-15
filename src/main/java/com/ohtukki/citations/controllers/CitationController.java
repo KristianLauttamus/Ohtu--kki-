@@ -1,13 +1,26 @@
 package com.ohtukki.citations.controllers;
 
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
+import com.ohtukki.citations.data.AuthorFilter;
 import com.ohtukki.citations.data.Database;
 import com.ohtukki.citations.data.DatabaseJsonDao;
+import com.ohtukki.citations.data.PublicationFilter;
+import com.ohtukki.citations.data.YearFilter;
 import com.ohtukki.citations.models.ArticleCitation;
+import com.ohtukki.citations.models.Citation;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,5 +76,48 @@ public class CitationController {
         
         return "redirect:/";
     }
-
+    /**
+     * Handle filtered listing
+     * @return view from resources/templates
+     */
+    @RequestMapping(value = "/filter", method = RequestMethod.POST)
+    public String filter(@RequestParam(value = "publication", required = false) String publication,
+            @RequestParam(value = "author") String author,
+            @RequestParam(value = "year") String year,
+            Model model) {
+        Predicate<Citation> filter = Predicates.notNull();
+        if(StringUtils.hasText(publication)) {
+            filter = Predicates.and(filter, new PublicationFilter(publication));
+        }
+        if(StringUtils.hasText(author)) {
+            filter = Predicates.and(filter, new AuthorFilter(author));
+        }
+        if(StringUtils.hasText(year)) {
+            filter = Predicates.and(filter, new YearFilter(year));
+        }
+        model.addAttribute("citations", database.allByPredicate(filter));
+        return "index";
+    }
+     /**
+     * Download Citations as bibtext file
+    * @return view from resources/templates
+     */
+    @RequestMapping(value = "/download", method = RequestMethod.GET)
+    public void download(HttpServletResponse response, Model model) throws IOException {
+        response.setContentType("text/plain");
+        /* 
+        "Content-Disposition : inline" will show viewable types 
+        [like images/text/pdf/anything viewable by browser]
+        right on browser while others(zip e.g) will be directly downloaded 
+        [may provide save as popup, based on your browser setting.]
+        */
+        response.setHeader("Content-Disposition", String.format("inline; filename=\"BibTex.bib\""));
+        StringBuffer sb = new StringBuffer();
+        for(Citation c : database.all()) {
+            sb.append(c.createBibtexEntry());
+        }
+        InputStream is = new BufferedInputStream(new ByteArrayInputStream(sb.toString().getBytes()));
+        //Copy bytes from source to destination(outputstream in this example), closes both streams.
+        FileCopyUtils.copy(is, response.getOutputStream());
+    }
 }

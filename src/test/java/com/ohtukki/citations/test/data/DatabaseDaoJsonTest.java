@@ -11,7 +11,6 @@ import com.ohtukki.citations.data.AuthorFilter;
 import com.ohtukki.citations.data.DatabaseJsonDao;
 import com.ohtukki.citations.models.ArticleCitation;
 import com.ohtukki.citations.models.Citation;
-import com.ohtukki.citations.test.TestCitation;
 
 public class DatabaseDaoJsonTest {
     @Test
@@ -22,7 +21,6 @@ public class DatabaseDaoJsonTest {
             ref.setAuthor("Author["+i+"]");
             dao.save(ref);
         }
-        
     }
     @Test
     public void testLoadList() {

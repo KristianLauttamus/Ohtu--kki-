@@ -27,6 +27,9 @@ public abstract class Citation {
     // Fields for inproceedings entry (+ some above)
     protected String booktitle = new String();
     protected String organization = new String();
+
+    // Must have these
+    public abstract String createBibtexEntry();
     
     // Setters and getters
     public void setId(String id) {

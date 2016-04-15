@@ -2,6 +2,10 @@ language: java
 jdk:
 - oraclejdk7
 - openjdk7
+before_script:
+  - "export DISPLAY=:99.0"          # This is required by Selenium FirefoxDriver
+  - "sh -e /etc/init.d/xvfb start"  # Starts a virtual display server
+  - sleep 3                         # Give it a bit time to start
 script:
  - mvn integration-test
 after_success:

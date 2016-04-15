@@ -28,9 +28,36 @@
                 <p>&nbsp;</p>
                 <hr />
             </form>
-            <ul class="list-group">
-                <li class="list-group-item" th:each="citation : ${citations}" th:text="${citation.toString()}"></li>
-            </ul>
+            <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Author</th>
+                <th>Name</th>
+                <th>Journal</th>
+                <th>Volume</th>
+                <th>Number</th>
+                <th>Pages</th>
+                <th>Month</th>
+                <th>Note</th>
+                <th>Key</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr th:each="citation : ${citations}">
+                    <td th:text="${citation.id}" />
+                    <td th:text="${citation.author}" />
+                    <td th:text="${citation.name}" />
+                    <td th:text="${citation.journal}" />
+                    <td th:text="${citation.volume}" />
+                    <td th:text="${citation.number}" />
+                    <td th:text="${citation.pages}" />
+                    <td th:text="${citation.month}" />
+                    <td th:text="${citation.note}" />
+                    <td th:text="${citation.key}" />
+                </tr>
+            </tbody>
+            </table>                
             <div  th:if="${not #lists.isEmpty(citations)}">
                 <hr />
                 <p>Download BibTex file (at the moment into browser):</p>
@@ -39,7 +66,6 @@
                 </a>
             </div>
         </div>
-	
 	<script th:replace="fragments/scripts">scripts</script>
 </body>
 </html>

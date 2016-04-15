@@ -13,6 +13,8 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
@@ -104,7 +106,6 @@ public class CitationController {
      */
     @RequestMapping(value = "/download", method = RequestMethod.GET)
     public void download(HttpServletResponse response, Model model) throws IOException {
-        response.setContentType("text/plain");
         /* 
         "Content-Disposition : inline" will show viewable types 
         [like images/text/pdf/anything viewable by browser]
@@ -112,12 +113,17 @@ public class CitationController {
         [may provide save as popup, based on your browser setting.]
         */
         response.setHeader("Content-Disposition", String.format("inline; filename=\"BibTex.bib\""));
+        response.setContentType("text/plain");
+        formatBibText(database.all(), response.getOutputStream());
+    }
+    
+    private void formatBibText(List<Citation> citations, OutputStream out) throws IOException {
         StringBuffer sb = new StringBuffer();
-        for(Citation c : database.all()) {
+        for(Citation c : citations) {
             sb.append(c.createBibtexEntry());
         }
         InputStream is = new BufferedInputStream(new ByteArrayInputStream(sb.toString().getBytes()));
-        //Copy bytes from source to destination(outputstream in this example), closes both streams.
-        FileCopyUtils.copy(is, response.getOutputStream());
+        //Copy bytes from source to destination, closes both streams.
+        FileCopyUtils.copy(is, out);
     }
 }

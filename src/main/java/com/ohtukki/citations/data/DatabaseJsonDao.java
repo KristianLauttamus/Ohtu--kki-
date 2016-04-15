@@ -100,12 +100,18 @@ public class DatabaseJsonDao implements Database {
     
     @Override
     public void destroy(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for(int i = 0; i < this.citations.size(); i++){
+            if(citations.get(i).getId().equals(id)){
+                this.citations.remove(i);
+            }
+        }
+        
+        this.saveAll();
     }
     
     @Override
     public void destroy(Citation citation) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.destroy(citation.getId());
     }
     
     @Override

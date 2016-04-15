@@ -30,6 +30,7 @@
                     <tr v-for="item in listItems">
                         <td>{{{item.id}}}</td>
                         <td>{{{printCitation(item)}}}</td>
+                        <td><button v-on:click.prevent="remove(item)" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-remove"></i> Poista</button></td>
                     </tr>
                 </tbody>
             </table>

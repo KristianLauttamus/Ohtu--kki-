@@ -85,6 +85,18 @@ new Vue({
             }
             
             return print;
+        },
+        
+        remove: function(item){
+            item.id.replace('<b>', '');
+            item.id.replace('</b>', '');
+            this.$http.post(item.id + '/delete').then(function (response) {
+                this.items.$remove(item);
+                this.listItems.$remove(item);
+            }.bind(this), function (response) {
+                console.log("--- Deletion Failed");
+                console.log(response);
+            });
         }
     },
     

@@ -28,6 +28,8 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -142,5 +144,11 @@ public class CitationController {
         InputStream is = new BufferedInputStream(new ByteArrayInputStream(sb.toString().getBytes()));
         //Copy bytes from source to destination, closes both streams.
         FileCopyUtils.copy(is, out);
+    }
+    
+    @RequestMapping(value = "/{id}/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public void delete(@PathVariable String id){
+        this.database.destroy(id);
     }
 }

@@ -1,15 +1,16 @@
 import com.ohtukki.citations.*
 import org.openqa.selenium.*
 import org.openqa.selenium.support.ui.Select
-import org.openqa.selenium.firefox.FirefoxDriver
+import org.openqa.selenium.htmlunit.HtmlUnitDriver
 import com.ohtukki.citations.data.DatabaseJsonDao
 
 description 'User can add a book citation'
 
-driver = new FirefoxDriver()
+driver = new HtmlUnitDriver()
 DatabaseJsonDao db = new DatabaseJsonDao()
 db.clear()
 
+/*
 scenario "user can choose to add an book citation", {
     given 'user is on the "Add Citation" page', {
         driver.get("http://localhost:8080")
@@ -39,6 +40,7 @@ scenario "user can choose to add an book citation", {
         db.clear()
     }
 }
+*/
 
 scenario "user can create book citation by filling the required fields", {
     given 'user is on the "Add Citation" page', {
@@ -77,6 +79,7 @@ scenario "user can create book citation by filling the required fields", {
     }
 }
 
+/*
 scenario "user can not create book citation without filling the required fields", {
     given 'user is on the "Add Citation" page', {
         driver.get("http://localhost:8080")
@@ -98,3 +101,4 @@ scenario "user can not create book citation without filling the required fields"
         driver.quit()
     }
 }
+*/

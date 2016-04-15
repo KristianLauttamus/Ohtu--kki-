@@ -88,9 +88,11 @@
             <plugin>		
                 <groupId>org.springframework.boot</groupId>		
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <!--
                 <configuration>
                     <wait>500000</wait>
                 </configuration>
+                -->
                 <executions>
                     <execution>
                         <id>pre-integration-test</id>

@@ -1,3 +1,12 @@
+function clone(obj) {
+    if (null == obj || "object" != typeof obj) return obj;
+    var copy = obj.constructor();
+    for (var attr in obj) {
+        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+    }
+    return copy;
+}
+
 new Vue({
     el: '#citation-table',
     
@@ -22,7 +31,17 @@ new Vue({
                         spotOn.push(this.items[i]);
                         break;
                     } else if(this.items[i][key].indexOf(this.query) > -1){
-                        almost.push(this.items[i]);
+                        var tempItem = clone(this.items[i]);
+                        
+                        var index = tempItem[key].indexOf(this.query);
+                        var endIndex = index + this.query.length;
+                        var value = tempItem[key];
+                        var output = [value.slice(0, index), '<b>', value.slice(index, endIndex), '</b>', value.slice(endIndex)].join('');
+                        
+                        
+                        tempItem[key] = output;
+                        
+                        almost.push(tempItem);
                         break;
                     }
                 }
@@ -60,7 +79,9 @@ new Vue({
         printCitation: function(citation){
             var print = '';
             for(var key in citation){
-                print += key + ': ' + citation[key];
+                if(key !== 'id'){
+                    print += key + ': ' + citation[key] + " ";
+                }
             }
             
             return print;

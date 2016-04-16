@@ -22,6 +22,7 @@ public class DatabaseDaoJsonTest {
         DatabaseJsonDao dao = new DatabaseJsonDao("references.json");
         for (int i = 0; i < 10; i++) {
             Citation ref = new ArticleCitation();
+            ref.setId("" + i);
             ref.setAuthor("Author["+i+"]");
             dao.save(ref);
         }
@@ -36,6 +37,12 @@ public class DatabaseDaoJsonTest {
                 System.out.println("--:"+reference.getAuthor());
             }
             assertEquals(10,list.size());
+            
+            Citation ref = new ArticleCitation();
+            ref.setId("1");
+            dao.destroy(ref);
+            assertEquals(9,list.size());
+            
             Predicate<Citation> filter = Predicates.notNull();
             filter =  Predicates.and(filter, new AuthorFilter("Author[7]"));
             filter =  Predicates.and(filter, new PublicationFilter(""));

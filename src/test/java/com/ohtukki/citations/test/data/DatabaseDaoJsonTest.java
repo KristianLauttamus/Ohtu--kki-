@@ -1,5 +1,7 @@
 package com.ohtukki.citations.test.data;
 
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
 import static org.junit.Assert.*;
 
 import java.util.Iterator;
@@ -9,6 +11,8 @@ import org.junit.Test;
 
 import com.ohtukki.citations.data.AuthorFilter;
 import com.ohtukki.citations.data.DatabaseJsonDao;
+import com.ohtukki.citations.data.PublicationFilter;
+import com.ohtukki.citations.data.YearFilter;
 import com.ohtukki.citations.models.ArticleCitation;
 import com.ohtukki.citations.models.Citation;
 
@@ -32,7 +36,12 @@ public class DatabaseDaoJsonTest {
                 System.out.println("--:"+reference.getAuthor());
             }
             assertEquals(10,list.size());
-            list = dao.allByPredicate(new AuthorFilter("Author[7]"));
+            Predicate<Citation> filter = Predicates.notNull();
+            filter =  Predicates.and(filter, new AuthorFilter("Author[7]"));
+            filter =  Predicates.and(filter, new PublicationFilter(""));
+            filter =  Predicates.and(filter, new YearFilter(""));
+        
+            list = dao.allByPredicate(filter);
             assertEquals(1,list.size());
         } catch (Exception e) {
             // TODO Auto-generated catch block

@@ -17,6 +17,16 @@ import com.ohtukki.citations.models.ArticleCitation;
 import com.ohtukki.citations.models.Citation;
 
 public class DatabaseDaoJsonTest {
+    private DatabaseJsonDao init() {
+        DatabaseJsonDao dao = new DatabaseJsonDao();
+        for (int i = 0; i < 10; i++) {
+            Citation ref = new ArticleCitation();
+            ref.setId("" + i);
+            ref.setAuthor("Author["+i+"]");
+            dao.save(ref);
+        }
+        return dao;
+    }
     @Test
     public void testAddSave() {
         DatabaseJsonDao dao = new DatabaseJsonDao("references.json");
@@ -29,7 +39,7 @@ public class DatabaseDaoJsonTest {
     }
     @Test
     public void testLoadList() {
-        DatabaseJsonDao dao = new DatabaseJsonDao("references.json");
+        DatabaseJsonDao dao = init();
         try {
             List<Citation> list = dao.all();
             for (Iterator iterator = list.iterator(); iterator.hasNext();) {

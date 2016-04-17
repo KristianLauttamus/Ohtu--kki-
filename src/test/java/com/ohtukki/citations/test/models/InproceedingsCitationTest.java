@@ -16,7 +16,7 @@ public class InproceedingsCitationTest {
 
     @Test
     public void createBibtexEntryWorksWithEmptyStrings() {
-        cit = createInproceedingsCitationWithEmptyStrings();
+        cit = createInproceedingsCitationWithStrings("");
         assertEquals("@INPROCEEDINGS{\n}\n\n", cit.createBibtexEntry());
     }
 
@@ -37,22 +37,34 @@ public class InproceedingsCitationTest {
         assertEquals("@INPROCEEDINGS{PK95,\nauthor = {Pekka \\\"{O}. M\\\"{a}ki},\n}\n\n",
                 cit.createBibtexEntry());
     }
+    
+    @Test
+    public void accessingBooktitleFieldWorks() {
+        cit = createInproceedingsCitationWithStrings("testiarvo");
+        assertEquals("testiarvo", cit.getBooktitle());
+    }
+    
+    @Test
+    public void accessingOrganizationFieldWorks() {
+        cit = createInproceedingsCitationWithStrings("testiarvo");
+        assertEquals("testiarvo", cit.getOrganization());
+    }
 
-    private InproceedingsCitation createInproceedingsCitationWithEmptyStrings() {
+    private InproceedingsCitation createInproceedingsCitationWithStrings(String s) {
         InproceedingsCitation temp = new InproceedingsCitation();
-        temp.setId("");
-        temp.setAuthor("");
-        temp.setName("");
-        temp.setBooktitle("");
-        temp.setYear("");
-        temp.setEditor("");
-        temp.setPages("");
-        temp.setOrganization("");
-        temp.setPublisher("");
-        temp.setAddress("");
-        temp.setMonth("");
-        temp.setNote("");
-        temp.setKey("");
+        temp.setId(s);
+        temp.setAuthor(s);
+        temp.setName(s);
+        temp.setBooktitle(s);
+        temp.setYear(s);
+        temp.setEditor(s);
+        temp.setPages(s);
+        temp.setOrganization(s);
+        temp.setPublisher(s);
+        temp.setAddress(s);
+        temp.setMonth(s);
+        temp.setNote(s);
+        temp.setKey(s);
         return temp;
     }
 

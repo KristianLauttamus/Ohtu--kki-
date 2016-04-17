@@ -27,15 +27,27 @@ public class DatabaseDaoJsonTest {
         }
         return dao;
     }
+    @Test(expected=UnsupportedOperationException.class) 
+    public void testFind() {
+        DatabaseJsonDao dao = init();
+        dao.find("1");
+    }
+    @Test(expected=UnsupportedOperationException.class) 
+    public void testDelete() {
+        DatabaseJsonDao dao = init();
+        dao.delete("1");
+    }
+    @Test(expected=UnsupportedOperationException.class) 
+    public void testDeleteClass() {
+        DatabaseJsonDao dao = init();
+        Citation ref = new ArticleCitation();
+        ref.setId("1");
+        dao.delete(ref);
+    }
+
     @Test
     public void testAddSave() {
-        DatabaseJsonDao dao = new DatabaseJsonDao("references.json");
-        for (int i = 0; i < 10; i++) {
-            Citation ref = new ArticleCitation();
-            ref.setId("" + i);
-            ref.setAuthor("Author["+i+"]");
-            dao.save(ref);
-        }
+        DatabaseJsonDao dao = init();
     }
     @Test
     public void testLoadList() {

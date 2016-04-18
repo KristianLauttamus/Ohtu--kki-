@@ -25,8 +25,8 @@ scenario "After adding a new citation, it is viewable at the frontpage", {
         element = driver.findElementById("article-author")
         element.sendKeys("easyBTestAuthor")
 
-        element = driver.findElementById("article-name")
-        element.sendKeys("easyBTestName")
+        element = driver.findElementById("article-title")
+        element.sendKeys("easyBTestTitle")
 
         element = driver.findElementById("article-journal")
         element.sendKeys("easyBTestJournal")

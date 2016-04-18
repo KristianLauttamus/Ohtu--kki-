@@ -25,7 +25,7 @@ scenario "user can choose to add an article citation", {
     then 'the proper form will open', {
         driver.findElementsById("article-id").size().shouldBe 1
         driver.findElementsById("article-author").size().shouldBe 1
-        driver.findElementsById("article-name").size().shouldBe 1
+        driver.findElementsById("article-title").size().shouldBe 1
         driver.findElementsById("article-journal").size().shouldBe 1
         driver.findElementsById("article-year").size().shouldBe 1
         driver.findElementsById("article-volume").size().shouldBe 1
@@ -56,8 +56,8 @@ scenario "user can create article citation by filling the required fields", {
         element = driver.findElementById("article-author")
         element.sendKeys("easyBTestAuthor")
 
-        element = driver.findElementById("article-name")
-        element.sendKeys("easyBTestName")
+        element = driver.findElementById("article-title")
+        element.sendKeys("easyBTestTitle")
 
         element = driver.findElementById("article-journal")
         element.sendKeys("easyBTestJournal")

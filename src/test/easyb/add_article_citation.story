@@ -17,23 +17,23 @@ scenario "user can choose to add an article citation", {
         element.click()
     }
 
-    when '"Artikkeli" is chosen as the citation type', {
+    when '"Article" is chosen as the citation type', {
         Select select = new Select(driver.findElementById("type"))
-        select.selectByVisibleText("Artikkeli")
+        select.selectByVisibleText("Article")
     }
 
     then 'the proper form will open', {
-        driver.findElementsById("article-id").size().shouldBe 1
-        driver.findElementsById("article-author").size().shouldBe 1
-        driver.findElementsById("article-title").size().shouldBe 1
-        driver.findElementsById("article-journal").size().shouldBe 1
-        driver.findElementsById("article-year").size().shouldBe 1
-        driver.findElementsById("article-volume").size().shouldBe 1
-        driver.findElementsById("article-number").size().shouldBe 1
-        driver.findElementsById("article-pages").size().shouldBe 1
-        driver.findElementsById("article-month").size().shouldBe 1
-        driver.findElementsById("article-note").size().shouldBe 1
-        driver.findElementsById("article-key").size().shouldBe 1
+        driver.findElementsById("Article-id").size().shouldBe 1
+        driver.findElementsById("Article-author").size().shouldBe 1
+        driver.findElementsById("Article-title").size().shouldBe 1
+        driver.findElementsById("Article-journal").size().shouldBe 1
+        driver.findElementsById("Article-year").size().shouldBe 1
+        driver.findElementsById("Article-volume").size().shouldBe 1
+        driver.findElementsById("Article-number").size().shouldBe 1
+        driver.findElementsById("Article-pages").size().shouldBe 1
+        driver.findElementsById("Article-month").size().shouldBe 1
+        driver.findElementsById("Article-note").size().shouldBe 1
+        driver.findElementsById("Article-key").size().shouldBe 1
     }
 }
 */
@@ -48,21 +48,21 @@ scenario "user can create article citation by filling the required fields", {
 
     when 'user fills (at least) required fields and clicks create button', {
         Select select = new Select(driver.findElementById("type"))
-        select.selectByVisibleText("Artikkeli")
+        select.selectByVisibleText("Article")
 
-        element = driver.findElementById("article-id")
+        element = driver.findElementById("Article-id")
         element.sendKeys("easyBTestId")
 
-        element = driver.findElementById("article-author")
+        element = driver.findElementById("Article-author")
         element.sendKeys("easyBTestAuthor")
 
-        element = driver.findElementById("article-title")
+        element = driver.findElementById("Article-title")
         element.sendKeys("easyBTestTitle")
 
-        element = driver.findElementById("article-journal")
+        element = driver.findElementById("Article-journal")
         element.sendKeys("easyBTestJournal")
 
-        element = driver.findElementById("article-year")
+        element = driver.findElementById("Article-year")
         element.sendKeys("easyBTestYear")
 
         element = driver.findElementByClassName("btn")
@@ -87,7 +87,7 @@ scenario "user can not create article citation without filling the required fiel
 
     when 'user tries to create new article citation without filling all the required fields', {
         Select select = new Select(driver.findElementById("type"))
-        select.selectByVisibleText("Artikkeli")
+        select.selectByVisibleText("Article")
         element = driver.findElementByClassName("btn")
         element.click()
     }

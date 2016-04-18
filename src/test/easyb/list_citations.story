@@ -17,7 +17,7 @@ scenario "After adding a new citation, it is viewable at the frontpage", {
         element.click()
 
         Select select = new Select(driver.findElementById("type"))
-        select.selectByVisibleText("Artikkeli")
+        select.selectByVisibleText("Article")
 
         element = driver.findElementById("article-id")
         element.sendKeys("easyBTestId")

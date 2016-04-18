@@ -58,20 +58,6 @@
                     </div>
                 </div>
                 
-                <!-- Book -->
-                <div v-if="type=='booklet'" th:with="citation=${bookletCitation}">
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
-                    </div>
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
-                    </div>
-                </div>
-                
                 <!-- Booklet -->
                 <div v-if="type=='booklet'" th:with="citation=${bookletCitation}">
                     <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">

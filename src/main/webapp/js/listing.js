@@ -14,7 +14,8 @@ new Vue({
         items: [],
         listItems: [],
         query: '',
-        modal: false
+        modal: false,
+        filename: ''
     },
 
     ready: function(){
@@ -124,6 +125,14 @@ new Vue({
         
         notEmptyAndNoQuery: function(){
             return this.items.length > 0 && this.query === '';
+        },
+        
+        downloadLink: function(){
+            if(this.filename === ''){
+                return 'download';
+            }
+            
+            return 'download?filename=' + this.filename;
         }
     },
     

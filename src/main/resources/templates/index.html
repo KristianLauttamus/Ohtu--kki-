@@ -68,7 +68,8 @@
         </div>
         <div v-if="notEmptyAndNoQuery">
             <hr />
-            <a href="/download" class="btn btn-primary btn-block" target="_blank">
+            <input class="form-control" type="text" id="filename" v-model="filename" v-on:submit.prevent="" placeholder="You can optionally also add the file's name" />
+            <a href="{{downloadLink}}" class="btn btn-primary btn-block" target="_blank">
               <span class="glyphicon glyphicon-download-alt"></span> Download (at the moment into browser)
             </a>
         </div>

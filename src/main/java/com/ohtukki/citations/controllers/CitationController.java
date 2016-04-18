@@ -218,6 +218,7 @@ public class CitationController {
         
         return "redirect:/";
     }
+    
     /**
      * Handle filtered listing
      * @param publication
@@ -244,19 +245,27 @@ public class CitationController {
         model.addAttribute("citations", database.allByPredicate(filter));
         return "index";
     }
-     /**
+    
+    /**
      * Download Citations as bibtext file
-    * @return view from resources/templates
+     * @return view from resources/templates
      */
     @RequestMapping(value = "/download", method = RequestMethod.GET)
-    public void download(HttpServletResponse response, Model model) throws IOException {
+    public void download(HttpServletResponse response, Model model, @PathVariable String filename) throws IOException {
         /* 
         "Content-Disposition : inline" will show viewable types 
         [like images/text/pdf/anything viewable by browser]
         right on browser while others(zip e.g) will be directly downloaded 
         [may provide save as popup, based on your browser setting.]
         */
-        response.setHeader("Content-Disposition", String.format("inline; filename=\"BibTex.bib\""));
+        if(filename == null && filename.equals("")){
+            response.setHeader("Content-Disposition", String.format("inline; filename=\"BibTex.bib\""));
+        } else {
+            if(filename.toLowerCase().indexOf(".bib") > 0){
+                filename = filename.substring(0, filename.toLowerCase().indexOf(".bib"));
+            }
+            response.setHeader("Content-Disposition", String.format("inline; filename=\""+filename+".bib\""));
+        }
         response.setContentType("text/plain");
         formatBibText(database.all(), response.getOutputStream());
     }

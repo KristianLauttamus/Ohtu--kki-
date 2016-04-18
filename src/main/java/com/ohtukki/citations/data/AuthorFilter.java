@@ -9,6 +9,6 @@ public class AuthorFilter implements Predicate<Citation> {
             this.author = author;
 	}
 	public boolean apply(Citation citation) {
-            return citation.getAuthor().equals(author);
+            return citation.author.equals(author);
 	}
 }

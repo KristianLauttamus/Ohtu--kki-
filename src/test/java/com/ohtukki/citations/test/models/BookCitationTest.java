@@ -67,7 +67,7 @@ public class BookCitationTest {
         temp.setId(s);
         temp.setAuthor(s);
         temp.setEditor(s);
-        temp.setName(s);
+        temp.setTitle(s);
         temp.setPublisher(s);
         temp.setYear(s);
         temp.setVolume(s);

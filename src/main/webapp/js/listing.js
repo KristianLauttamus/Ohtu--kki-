@@ -13,7 +13,8 @@ new Vue({
     data: {
         items: [],
         listItems: [],
-        query: ''
+        query: '',
+        modal: false
     },
 
     ready: function(){
@@ -88,11 +89,13 @@ new Vue({
         },
         
         remove: function(item){
+            var oldItem = clone(item);
+            
             item.id.replace('<b>', '');
             item.id.replace('</b>', '');
             this.$http.post(item.id + '/delete').then(function (response) {
                 this.items.$remove(item);
-                this.listItems.$remove(item);
+                this.listItems.$remove(oldItem);
             }.bind(this), function (response) {
                 console.log("--- Deletion Failed");
                 console.log(response);
@@ -102,11 +105,15 @@ new Vue({
     
     computed: {
         notEmptyAndHasQuery: function(){
-            if(this.items.length === 0){
-                return false;
-            }
-            
-            return this.query !== '';
+            return this.items.length > 0 && this.query !== '';
+        },
+        
+        notEmptyAndNoQuery: function(){
+            return this.items.length > 0 && this.query === '';
         }
+    },
+    
+    components: {
+        modal: VueStrap.modal
     }
 });

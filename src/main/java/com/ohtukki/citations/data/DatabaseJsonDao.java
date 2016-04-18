@@ -101,7 +101,7 @@ public class DatabaseJsonDao implements Database {
     @Override
     public void destroy(String id) {
         for(int i = 0; i < this.citations.size(); i++){
-            if(citations.get(i).getId().equals(id)){
+            if(citations.get(i).id.equals(id)){
                 this.citations.remove(i);
             }
         }
@@ -111,7 +111,7 @@ public class DatabaseJsonDao implements Database {
     
     @Override
     public void destroy(Citation citation) {
-        this.destroy(citation.getId());
+        this.destroy(citation.id);
     }
     
     @Override

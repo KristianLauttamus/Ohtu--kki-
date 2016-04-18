@@ -54,7 +54,7 @@ public class InproceedingsCitationTest {
         InproceedingsCitation temp = new InproceedingsCitation();
         temp.setId(s);
         temp.setAuthor(s);
-        temp.setName(s);
+        temp.setTitle(s);
         temp.setBooktitle(s);
         temp.setYear(s);
         temp.setEditor(s);

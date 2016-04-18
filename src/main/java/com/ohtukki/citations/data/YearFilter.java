@@ -19,7 +19,7 @@ public class YearFilter implements Predicate<Citation> {
 
     @Override
     public boolean apply(Citation citation) {
-       return citation.getYear().equals(year);
+       return citation.year.equals(year);
     }
     
 }

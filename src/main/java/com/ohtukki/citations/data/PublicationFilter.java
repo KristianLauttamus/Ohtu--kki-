@@ -20,7 +20,7 @@ public class PublicationFilter implements Predicate<Citation>  {
 
     @Override
     public boolean apply(Citation citation) {
-       return citation.getPublisher().equals(publication);
+       return citation.publisher.equals(publication);
     }
      
 }

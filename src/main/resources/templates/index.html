@@ -1,58 +1,76 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head">
-	<meta charset="utf-8" />
-	<title>Ohtu-kki</title>
-	<link href="/css/bootstrap.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+    <meta charset="utf-8" />
+    <title>Ohtu-kki</title>
+    <link href="/css/bootstrap.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
 </head>
 <body>
-	<nav th:replace="fragments/nav"></nav>
-        
-        <div class="container" id="citation-table">
-            <form method="POST"  v-if="items.length > 0">
-                <div class="input-group stylish-input-group">
-                    <input type="text" class="form-control"  placeholder="Search" v-model="query" v-on:keyup="search" v-on:submit.prevent="search(true)" />
-                    <span class="input-group-addon">
-                        <button type="submit">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>  
-                    </span>
-                </div>
-            </form>
-            <table class="table" v-if="listItems.length > 0">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Citation</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="item in listItems">
-                        <td>{{{item.id}}}</td>
-                        <td>{{{printCitation(item)}}}</td>
-                        <td><button v-on:click.prevent="remove(item)" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-remove"></i> Poista</button></td>
-                    </tr>
-                </tbody>
-            </table>
-            <div v-else="">
-                <p>No citations added yet. <a href="/create">Add one here</a></p>
+    <nav th:replace="fragments/nav"></nav>
+
+    <div class="container" id="citation-table" v-show="true">
+        <!-- Modal -->
+        <modal :show.sync="modal">
+            <div slot="modal-header" class="modal-header">
+              <h4 class="modal-title">Modal title</h4>
             </div>
-            
-            <div v-if="notEmptyAndHasQuery">
-                <hr />
-                <button class="btn btn-default btn-block" target="_blank" v-on:click.prevent="showAll">
-                    ... Show all citations
-                </button>
+            <div slot="modal-body" class="modal-body">
+                <button class="btn btn-success btn-block">Add this as ref</button>
+                <button class="btn btn-disabled btn-block" disabled="disabled">Add all refs from this</button>
             </div>
-            <div v-if="!notEmptyAndHasQuery">
-                <hr />
-                <a href="/download" class="btn btn-primary btn-block" target="_blank">
-                  <span class="glyphicon glyphicon-download-alt"></span> Download (at the moment into browser)
-                </a>
+            <div slot="modal-footer" class="modal-footer">
+                <button class="btn btn-default" v-on:click="modal = false">Close</button>
             </div>
+        </modal>
+
+        <!-- Search And ACM link crawler -->
+        <form method="POST"  v-if="items.length > 0">
+            <div class="input-group stylish-input-group">
+                <input type="text" class="form-control"  placeholder="Search" v-model="query" v-on:keyup="search" v-on:submit.prevent="search(true)" />
+                <span class="input-group-addon">
+                    <button type="submit">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>  
+                </span>
+            </div>
+        </form>
+
+        <!-- Items -->
+        <table class="table" v-if="listItems.length > 0">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Citation</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in listItems">
+                    <td>{{{item.id}}}</td>
+                    <td>{{{printCitation(item)}}}</td>
+                    <td><button v-on:click.prevent="remove(item)" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-remove"></i> Poista</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <div v-else="">
+            <p>No citations added yet. <a href="/citation">Add one here</a></p>
         </div>
-        
-	<script th:replace="fragments/scripts">scripts</script>
-        <script src="js/listing.js" th:src="@{/js/listing.js}"></script>
+
+        <!-- Buttons -->
+        <div v-if="notEmptyAndHasQuery">
+            <hr />
+            <button class="btn btn-default btn-block" target="_blank" v-on:click.prevent="showAll">
+                ... Show all citations
+            </button>
+        </div>
+        <div v-if="notEmptyAndNoQuery">
+            <hr />
+            <a href="/download" class="btn btn-primary btn-block" target="_blank">
+              <span class="glyphicon glyphicon-download-alt"></span> Download (at the moment into browser)
+            </a>
+        </div>
+    </div>
+
+    <script th:replace="fragments/scripts">scripts</script>
+    <script src="js/listing.js" th:src="@{/js/listing.js}"></script>
 </body>
 </html>

@@ -45,7 +45,7 @@ public class ArticleCitationTest {
         ArticleCitation temp = new ArticleCitation();
         temp.setId("");
         temp.setAuthor("");
-        temp.setName("");
+        temp.setTitle("");
         temp.setJournal("");
         temp.setYear("");
         temp.setVolume("");

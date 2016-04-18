@@ -68,10 +68,18 @@
         </div>
         <div v-if="notEmptyAndNoQuery">
             <hr />
-            <input class="form-control" type="text" id="filename" v-model="filename" v-on:submit.prevent="" placeholder="You can optionally also add the file's name" />
-            <a href="{{downloadLink}}" class="btn btn-primary btn-block" target="_blank">
-              <span class="glyphicon glyphicon-download-alt"></span> Download (at the moment into browser)
-            </a>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input class="form-control" type="text" id="filename" v-model="filename" v-on:submit.prevent="" placeholder="You can optionally also determine the file's name" />
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <a href="{{downloadLink}}" class="btn btn-primary btn-block" target="_blank">
+                      <span class="glyphicon glyphicon-download-alt"></span> Download (at the moment into browser)
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 

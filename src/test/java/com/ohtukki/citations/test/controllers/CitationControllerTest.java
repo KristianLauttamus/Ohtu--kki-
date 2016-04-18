@@ -58,7 +58,7 @@ public class CitationControllerTest {
         int size = this.database.all().size();
         
         mockMvc.perform(post("/citation")
-                .param("type", "article")
+                .param("citationType", "article")
                 .param("id", "Id")
                 .param("author", "Author")
                 .param("title", "Title")
@@ -76,7 +76,7 @@ public class CitationControllerTest {
         int size = this.database.all().size();
         
         mockMvc.perform(post("/citation")
-                .param("type", "article")
+                .param("citationType", "article")
                 .param("id", "ID-")
                 .param("author", "Optionals-Author")
                 .param("title", "Title")

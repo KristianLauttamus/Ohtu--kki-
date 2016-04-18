@@ -3,6 +3,7 @@ import org.openqa.selenium.*
 import org.openqa.selenium.support.ui.Select
 import org.openqa.selenium.htmlunit.HtmlUnitDriver
 import com.ohtukki.citations.data.DatabaseJsonDao
+import java.util.concurrent.TimeUnit
 
 description 'User can add a book citation'
 
@@ -19,7 +20,7 @@ scenario "user can choose to add an book citation", {
     }
 
     when '"Book" is chosen as the citation type', {
-        Select select = new Select(driver.findElementById("type"))
+        Select select = new Select(driver.findElementById("citationType"))
         select.selectByVisibleText("Book")
     }
 
@@ -50,7 +51,7 @@ scenario "user can create book citation by filling the required fields", {
     }
 
     when 'user fills (at least) required fields and clicks create button', {
-        Select select = new Select(driver.findElementById("type"))
+        Select select = new Select(driver.findElementById("citationType"))
         select.selectByVisibleText("Book")
 
         element = driver.findElementById("Book-id")

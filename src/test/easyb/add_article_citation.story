@@ -18,7 +18,7 @@ scenario "user can choose to add an article citation", {
     }
 
     when '"Article" is chosen as the citation type', {
-        Select select = new Select(driver.findElementById("type"))
+        Select select = new Select(driver.findElementById("citationType"))
         select.selectByVisibleText("Article")
     }
 
@@ -47,7 +47,7 @@ scenario "user can create article citation by filling the required fields", {
     }
 
     when 'user fills (at least) required fields and clicks create button', {
-        Select select = new Select(driver.findElementById("type"))
+        Select select = new Select(driver.findElementById("citationType"))
         select.selectByVisibleText("Article")
 
         element = driver.findElementById("Article-id")
@@ -85,7 +85,7 @@ scenario "user can not create article citation without filling the required fiel
     }
 
     when 'user tries to create new article citation without filling all the required fields', {
-        Select select = new Select(driver.findElementById("type"))
+        Select select = new Select(driver.findElementById("citationType"))
         select.selectByVisibleText("Article")
         element = driver.findElementByClassName("btn")
         element.click()

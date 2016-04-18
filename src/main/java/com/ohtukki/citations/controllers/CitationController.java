@@ -118,7 +118,7 @@ public class CitationController {
      * @return 
      */
     @RequestMapping(value = "/citation", method = RequestMethod.POST)
-    public String store(@RequestParam("type") String type,
+    public String store(@RequestParam("citationType") String citationType,
             @ModelAttribute ArticleCitation articleCitation, BindingResult articleCitationResult,
             @ModelAttribute BookCitation bookCitation, BindingResult bookCitationResult,
             @ModelAttribute BookletCitation bookletCitation, BindingResult bookletCitationResult,
@@ -137,7 +137,7 @@ public class CitationController {
         
         boolean validated = true;
         
-        switch (type) {
+        switch (citationType) {
             case "article":
                 validated = articleCitation.validate();
                 if(validated)

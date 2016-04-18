@@ -23,6 +23,9 @@ public class DatabaseDaoJsonTest {
             Citation ref = new ArticleCitation();
             ref.setId("" + i);
             ref.setAuthor("Author["+i+"]");
+            ref.setTitle("Title["+i+"]");
+            ref.setJournal("Journal["+i+"]");
+            ref.setYear("Year["+i+"]");
             dao.save(ref);
         }
         return dao;
@@ -54,21 +57,16 @@ public class DatabaseDaoJsonTest {
         DatabaseJsonDao dao = init();
         try {
             List<Citation> list = dao.all();
-            for (Iterator iterator = list.iterator(); iterator.hasNext();) {
-                Citation reference = (Citation) iterator.next();
+            for (Citation reference : list) {
                 System.out.println("--:"+reference.getAuthor());
             }
             assertEquals(10,list.size());
             
-            Citation ref = new ArticleCitation();
-            ref.setId("1");
-            dao.destroy(ref);
+            dao.destroy("1");
             assertEquals(9,list.size());
             
             Predicate<Citation> filter = Predicates.notNull();
             filter =  Predicates.and(filter, new AuthorFilter("Author[7]"));
-            filter =  Predicates.and(filter, new PublicationFilter(""));
-            filter =  Predicates.and(filter, new YearFilter(""));
         
             list = dao.allByPredicate(filter);
             assertEquals(1,list.size());

@@ -80,7 +80,8 @@ public class DatabaseJsonDao implements Database {
     
     @Override
     public void add(Citation citation) {
-        citations.add(citation);
+        if(citation.validate())
+            citations.add(citation);
     }
     
     @Override

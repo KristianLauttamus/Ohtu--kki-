@@ -10,119 +10,221 @@
             <nav th:replace="fragments/nav"></nav>
             <form method="POST" th:action="@{/citation}">
                 <div class="form-group">
-                    <label for="type">Valitse tyyppi</label>
-                    <select name="type" id="type" v-model="type" class="form-control">
-                        <option value="article">Artikkeli</option>
-                        <option value="book">Kirja</option>
+                    <label for="type">Select type</label>
+                    <select name="type" id="type" v-model="type" class="form-control" v-on:change="refreshTooltips">
+                        <option value="article">Article</option>
+                        <option value="book">Book</option>
+                        <option value="booklet">Booklet</option>
+                        <option value="conference">Conference</option>
+                        <option value="inbook">Inbook</option>
+                        <option value="incollection">Incollection</option>
+                        <option value="inproceedings">Inproceedings</option>
+                        <option value="manual">Manual</option>
+                        <option value="mastersthesis">Masterthesis</option>
+                        <option value="misc">Misc</option>
+                        <option value="phdthesis">PHDThesis</option>
+                        <option value="proceedings">Proceedings</option>
+                        <option value="techreport">Techreport</option>
+                        <option value="unpublished">Unpublished</option>
                     </select>
                 </div>
                 <hr/>
                 
                 <!-- Article -->
-                <div v-if="type=='article'">
-                    <!-- Required -->
-                    <div class="form-group">
-                        <label for="article-id">ID</label>
-                        <input class="form-control" type="text" th:field="*{articleCitation.id}" id="article-id" required="required" placeholder="Aseta artikkelin ID"/>
+                <div v-if="type=='article'" th:with="citation=${articleCitation}">
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
                     </div>
-                    <div class="form-group">
-                        <label for="article-author">Author</label>
-                        <input class="form-control" type="text" th:field="*{articleCitation.author}" id="article-author" required="required" placeholder="Aseta artikkelin Author"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="article-title">Title</label>
-                        <input class="form-control" type="text" th:field="*{articleCitation.title}" id="article-title" required="required" placeholder="Aseta artikkelin Title"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="article-journal">Journal</label>
-                        <input class="form-control" type="text" th:field="*{articleCitation.journal}" id="article-journal" required="required" placeholder="Aseta artikkelin Journal"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="article-year">Year</label>
-                        <input class="form-control" type="text" th:field="*{articleCitation.year}" id="article-year" required="required" placeholder="Aseta artikkelin Year"/>
-                    </div>
-
-                    <!-- Optional -->
-                    <div class="form-group">
-                        <label for="article-volume">Volume</label>
-                        <input class="form-control" type="text" th:field="*{articleCitation.volume}" id="article-volume" placeholder="Aseta artikkelin Volume"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="article-number">Number</label>
-                        <input class="form-control" type="text" th:field="*{articleCitation.number}" id="article-number" placeholder="Aseta artikkelin Number"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="article-pages">Pages</label>
-                        <input class="form-control" type="text" th:field="*{articleCitation.pages}" id="article-pages" placeholder="Aseta artikkelin Pages"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="article-month">Month</label>
-                        <input class="form-control" type="text" th:field="*{articleCitation.month}" id="article-month" placeholder="Aseta artikkelin Month"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="article-note">Note</label>
-                        <input class="form-control" type="text" th:field="*{articleCitation.note}" id="article-note" placeholder="Aseta artikkelin Note"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="article-key">Key</label>
-                        <input class="form-control" type="text" th:field="*{articleCitation.key}" id="article-key" placeholder="Aseta artikkelin Key"/>
-                    </div>
-                </div>
-                <!-- Book -->
-                <div v-if="type=='book'">
-                    <!-- Required -->
-                    <div class="form-group">
-                        <label for="book-id">ID</label>
-                        <input class="form-control" type="text" th:field="*{bookCitation.id}" id="book-id" required="required" placeholder="Aseta kirjan ID"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="book-editor">Editor</label>
-                        <input class="form-control" type="text" th:field="*{bookCitation.editor}" id="book-editor" required="required" placeholder="Aseta kirjan Editor"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="book-title">Title</label>
-                        <input class="form-control" type="text" th:field="*{bookCitation.title}" id="book-title" required="required" placeholder="Aseta kirjan Title"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="book-publisher">Publisher</label>
-                        <input class="form-control" type="text" th:field="*{bookCitation.publisher}" id="book-publisher" required="required" placeholder="Aseta kirjan Publisher"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="book-year">Year</label>
-                        <input class="form-control" type="text" th:field="*{bookCitation.year}" id="book-year" required="required" placeholder="Aseta kirjan Year"/>
-                    </div>
-
-                    <!-- Optional -->
-                    <div class="form-group">
-                        <label for="book-volume">Volume</label>
-                        <input class="form-control" type="text" th:field="*{bookCitation.volume}" id="book-volume" placeholder="Aseta kirjan Volume"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="book-series">Series</label>
-                        <input class="form-control" type="text" th:field="*{bookCitation.series}" id="book-series" placeholder="Aseta kirjan Series"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="book-address">Address</label>
-                        <input class="form-control" type="text" th:field="*{bookCitation.address}" id="book-address" placeholder="Aseta kirjan Address"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="book-edition">Edition</label>
-                        <input class="form-control" type="text" th:field="*{bookCitation.edition}" id="book-edition" placeholder="Aseta kirjan Edition"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="book-month">Month</label>
-                        <input class="form-control" type="text" th:field="*{bookCitation.month}" id="book-month" placeholder="Aseta kirjan Month"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="book-note">Note</label>
-                        <input class="form-control" type="text" th:field="*{bookCitation.note}" id="book-note" placeholder="Aseta kirjan Note"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="book-key">Key</label>
-                        <input class="form-control" type="text" th:field="*{bookCitation.key}" id="book-key" placeholder="Aseta kirjan Key"/>
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
                     </div>
                 </div>
                 
+                <!-- Book -->
+                <div v-if="type=='book'" th:with="citation=${bookCitation}">
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
+                    </div>
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
+                    </div>
+                </div>
+                
+                <!-- Book -->
+                <div v-if="type=='booklet'" th:with="citation=${bookletCitation}">
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
+                    </div>
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
+                    </div>
+                </div>
+                
+                <!-- Booklet -->
+                <div v-if="type=='booklet'" th:with="citation=${bookletCitation}">
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
+                    </div>
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
+                    </div>
+                </div>
+                
+                <!-- Conference -->
+                <div v-if="type=='conference'" th:with="citation=${conferenceCitation}">
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
+                    </div>
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
+                    </div>
+                </div>
+                
+                <!-- Inbook -->
+                <div v-if="type=='inbook'" th:with="citation=${inbookCitation}">$('[data-toggle="tooltip"]').tooltip()
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
+                    </div>
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
+                    </div>
+                </div>
+                
+                <!-- Incollection -->
+                <div v-if="type=='incollection'" th:with="citation=${incollectionCitation}">
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
+                    </div>
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
+                    </div>
+                </div>
+                
+                <!-- Inproceedings -->
+                <div v-if="type=='inproceedings'" th:with="citation=${inproceedingsCitation}">
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
+                    </div>
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
+                    </div>
+                </div>
+                
+                <!-- Manual -->
+                <div v-if="type=='manual'" th:with="citation=${manualCitation}">
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
+                    </div>
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
+                    </div>
+                </div>
+                
+                <!-- Mastersthesis -->
+                <div v-if="type=='mastersthesis'" th:with="citation=${mastersthesisCitation}">
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
+                    </div>
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
+                    </div>
+                </div>
+                
+                <!-- Misc -->
+                <div v-if="type=='misc'" th:with="citation=${miscCitation}">
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
+                    </div>
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
+                    </div>
+                </div>
+                
+                <!-- PHDThesis -->
+                <div v-if="type=='phdthesis'" th:with="citation=${phdthesisCitation}">
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
+                    </div>
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
+                    </div>
+                </div>
+                
+                <!-- TechReport -->
+                <div v-if="type=='techreport'" th:with="citation=${techreportCitation}">
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
+                    </div>
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
+                    </div>
+                </div>
+                
+                <!-- Unpublished -->
+                <div v-if="type=='unpublished'" th:with="citation=${unpublishedCitation}">
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
+                    </div>
+                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
+                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
+                        
+                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
+                    </div>
+                </div>
                 
                 <hr/>
                 <button type="submit" class="btn btn-primary">Lisää uusi Viite</button>
@@ -130,13 +232,23 @@
         </div>
         
         <script th:replace="fragments/scripts">scripts</script>
-        <script>
+        <script th:inline="javascript">
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+            
             new Vue({
                     el: 'body',
 
               data: {
                     type: 'article'
               },
+              
+              methods: {
+                  refreshTooltips: function(){
+                      $('[data-toggle="tooltip"]').tooltip();
+                  }
+              }
             });
         </script>
     </body>

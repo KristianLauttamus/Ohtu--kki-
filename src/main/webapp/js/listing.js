@@ -27,24 +27,29 @@ new Vue({
             var almost = [];
 
             for(var i = 0; i < this.items.length; i++){
-                for(var key in this.items[i]){
-                    if(this.items[i][key] === this.query){
+                var add = false;
+                var wasSpotOn = false;
+                var tempItem = clone(this.items[i]);
+                
+                for(var key in tempItem){
+                    if(tempItem[key] === this.query){
                         spotOn.push(this.items[i]);
+                        wasSpotOn = true;
                         break;
-                    } else if(this.items[i][key].indexOf(this.query) > -1){
-                        var tempItem = clone(this.items[i]);
-                        
+                    } else if(tempItem[key].indexOf(this.query) > -1){
                         var index = tempItem[key].indexOf(this.query);
                         var endIndex = index + this.query.length;
                         var value = tempItem[key];
                         var output = [value.slice(0, index), '<b>', value.slice(index, endIndex), '</b>', value.slice(endIndex)].join('');
-                        
-                        
+
                         tempItem[key] = output;
                         
-                        almost.push(tempItem);
-                        break;
+                        add = true;
                     }
+                }
+                
+                if(add && !wasSpotOn){
+                    almost.push(tempItem);
                 }
             }
             
@@ -78,14 +83,23 @@ new Vue({
         },
         
         printCitation: function(citation){
-            var print = '';
+            var print = '<table class="table table-condensed" style="margin:0px;">';
+            var header = '<thead><tr>';
+            var body = '<tbody><tr>';
+            
             for(var key in citation){
-                if(key !== 'id'){
-                    print += key + ': ' + citation[key] + " ";
+                if(key !== 'id' && key !== 'citationType' && key !== 'requiredFields' && key !== 'optionalFields' && citation[key] !== ''){
+                    header += '<th>'+key+'</th>';
+                    body += '<td>' + citation[key] + '</td>';
                 }
             }
             
-            return print;
+            body += '</tr></tbody>';
+            header += '</tr></thead>';
+            
+            print += header + body;
+            
+            return print + '</table>';
         },
         
         remove: function(item){

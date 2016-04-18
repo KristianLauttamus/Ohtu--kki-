@@ -7,10 +7,7 @@ import com.ohtukki.citations.data.Database;
 import com.ohtukki.citations.data.DatabaseJsonDao;
 import com.ohtukki.citations.data.PublicationFilter;
 import com.ohtukki.citations.data.YearFilter;
-import com.ohtukki.citations.models.ArticleCitation;
-import com.ohtukki.citations.models.BookCitation;
-import com.ohtukki.citations.models.Citation;
-import com.ohtukki.citations.models.InproceedingsCitation;
+import com.ohtukki.citations.models.*;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -69,36 +66,126 @@ public class CitationController {
     public String create(Model model) {
         model.addAttribute("articleCitation", new ArticleCitation());
         model.addAttribute("bookCitation", new BookCitation());
+        model.addAttribute("bookletCitation", new BookletCitation());
+        model.addAttribute("conferenceCitation", new ConferenceCitation());
+        model.addAttribute("inbookCitation", new InbookCitation());
+        model.addAttribute("incollectionCitation", new IncollectionCitation());
         model.addAttribute("inproceedingsCitation", new InproceedingsCitation());
+        model.addAttribute("manualCitation", new ManualCitation());
+        model.addAttribute("mastersthesisCitation", new MastersthesisCitation());
+        model.addAttribute("miscCitation", new MiscCitation());
+        model.addAttribute("phdthesisCitation", new PHDThesisCitation());
+        model.addAttribute("proceedingsCitation", new ProceedingsCitation());
+        model.addAttribute("techreportCitation", new TechReportCitation());
+        model.addAttribute("unpublishedCitation", new UnpublishedCitation());
         
         return "create-citation";
     }
     
     /**
      * Handle inputs and store the posted Citation
+     * 
      * @param type
      * @param articleCitation
      * @param articleCitationResult
-     * @return view from resources/templates
+     * @param bookCitation
+     * @param bookCitationResult
+     * @param bookletCitation
+     * @param bookletCitationResult
+     * @param conferenceCitation
+     * @param conferenceCitationResult
+     * @param inbookCitation
+     * @param inbookCitationResult
+     * @param incollectionCitation
+     * @param incollectionCitationResult
+     * @param inproceedingsCitation
+     * @param inproceedingsCitationResult
+     * @param manualCitation
+     * @param manualCitationResult
+     * @param mastersthesisCitation
+     * @param mastersthesisCitationResult
+     * @param miscCitation
+     * @param miscCitationResult
+     * @param phdthesisCitation
+     * @param phdthesisCitationResult
+     * @param proceedingsCitation
+     * @param proceedingsCitationResult
+     * @param techreportCitation
+     * @param techreportCitationResult
+     * @param unpublishedCitation
+     * @param unpublishedCitationResult
+     * @return 
      */
     @RequestMapping(value = "/citation", method = RequestMethod.POST)
     public String store(@RequestParam("type") String type,
             @ModelAttribute ArticleCitation articleCitation, BindingResult articleCitationResult,
             @ModelAttribute BookCitation bookCitation, BindingResult bookCitationResult,
-            @ModelAttribute InproceedingsCitation inproceedingsCitation, BindingResult inproceedingsCitationResult) {
+            @ModelAttribute BookletCitation bookletCitation, BindingResult bookletCitationResult,
+            @ModelAttribute ConferenceCitation conferenceCitation, BindingResult conferenceCitationResult,
+            @ModelAttribute InbookCitation inbookCitation, BindingResult inbookCitationResult,
+            @ModelAttribute IncollectionCitation incollectionCitation, BindingResult incollectionCitationResult,
+            @ModelAttribute InproceedingsCitation inproceedingsCitation, BindingResult inproceedingsCitationResult,
+            @ModelAttribute ManualCitation manualCitation, BindingResult manualCitationResult,
+            @ModelAttribute MastersthesisCitation mastersthesisCitation, BindingResult mastersthesisCitationResult,
+            @ModelAttribute MiscCitation miscCitation, BindingResult miscCitationResult,
+            @ModelAttribute PHDThesisCitation phdthesisCitation, BindingResult phdthesisCitationResult,
+            @ModelAttribute ProceedingsCitation proceedingsCitation, BindingResult proceedingsCitationResult,
+            @ModelAttribute TechReportCitation techreportCitation, BindingResult techreportCitationResult,
+            @ModelAttribute UnpublishedCitation unpublishedCitation, BindingResult unpublishedCitationResult) {
         
-        if(type.equals("article")){
-            this.database.save(articleCitation);
-        } else if(type.equals("book")){
-            this.database.save(bookCitation);
-        } else if(type.equals("inproceedings")){
-            this.database.save(inproceedingsCitation);
+        switch (type) {
+            case "article":
+                this.database.save(articleCitation);
+                break;
+            case "book":
+                this.database.save(bookCitation);
+                break;
+            case "booklet":
+                this.database.save(bookletCitation);
+                break;
+            case "conference":
+                this.database.save(conferenceCitation);
+                break;
+            case "inbook":
+                this.database.save(inbookCitation);
+                break;
+            case "incollection":
+                this.database.save(incollectionCitation);
+                break;
+            case "inproceedings":
+                this.database.save(inproceedingsCitation);
+                break;
+            case "manual":
+                this.database.save(manualCitation);
+                break;
+            case "mastersthesis":
+                this.database.save(mastersthesisCitation);
+                break;
+            case "misc":
+                this.database.save(miscCitation);
+                break;
+            case "phdthesis":
+                this.database.save(phdthesisCitation);
+                break;
+            case "proceedings":
+                this.database.save(proceedingsCitation);
+                break;
+            case "techreport":
+                this.database.save(techreportCitation);
+                break;
+            case "unpublished":
+                this.database.save(unpublishedCitation);
+                break;
         }
         
         return "redirect:/";
     }
     /**
      * Handle filtered listing
+     * @param publication
+     * @param author
+     * @param year
+     * @param model
      * @return view from resources/templates
      */
     @RequestMapping(value = "/filter", method = RequestMethod.POST)

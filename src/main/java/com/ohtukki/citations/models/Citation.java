@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 public abstract class Citation {
     // Fields for every entry
     public String id = new String();
+    public String citationType = new String();
     
     // Other fields in alphabetic order
     public String address = new String();
@@ -37,6 +38,10 @@ public abstract class Citation {
     public String volume = new String();
     public String year = new String();
     
+    public Citation(){
+        this.citationType = this.getCitationType();
+    }
+    
     /**
      * Creates Bibtex entry from the fields given
      * @return 
@@ -60,7 +65,7 @@ public abstract class Citation {
      * Get citation type by removing word "Citation" from the class name
      * @return 
      */
-    private String getCitationType(){
+    public String getCitationType(){
         String[] split = this.getClass().getName().split("\\.");
         String value = split[split.length-1];
         int index = value.indexOf("Citation");

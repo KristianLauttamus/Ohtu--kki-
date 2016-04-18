@@ -43,6 +43,29 @@ public abstract class Citation {
     }
     
     /**
+     * Validate by checking the required fields
+     * @return 
+     */
+    public boolean validate(){
+        for(String required : this.getRequiredFields()){
+            String value = "";
+            try {
+                Field f = this.getClass().getField(required);
+
+                value = ((String)f.get(this));
+            } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
+                Logger.getLogger(Citation.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+
+            if(isNullOrEmpty(value)){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /**
      * Creates Bibtex entry from the fields given
      * @return 
      */

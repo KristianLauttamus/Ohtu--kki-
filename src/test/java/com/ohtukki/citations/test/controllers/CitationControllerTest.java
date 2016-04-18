@@ -59,8 +59,9 @@ public class CitationControllerTest {
         
         mockMvc.perform(post("/citation")
                 .param("type", "article")
+                .param("id", "Id")
                 .param("author", "Author")
-                .param("name", "Name")
+                .param("title", "Title")
                 .param("journal", "Journal")
                 .param("year", "Year"))
                 .andExpect(status().is3xxRedirection())
@@ -76,8 +77,9 @@ public class CitationControllerTest {
         
         mockMvc.perform(post("/citation")
                 .param("type", "article")
+                .param("id", "ID-")
                 .param("author", "Optionals-Author")
-                .param("name", "Name")
+                .param("title", "Title")
                 .param("journal", "Journal")
                 .param("year", "Year")
                 

@@ -76,7 +76,6 @@ scenario "user can create article citation by filling the required fields", {
     }
 }
 
-/*
 scenario "user can not create article citation without filling the required fields", {
     given 'user is on the "Add Citation" page', {
         driver = new HtmlUnitDriver()
@@ -99,4 +98,3 @@ scenario "user can not create article citation without filling the required fiel
         driver.quit()
     }
 }
-*/

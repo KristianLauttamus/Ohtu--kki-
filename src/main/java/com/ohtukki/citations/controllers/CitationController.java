@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class CitationController {
@@ -131,51 +132,88 @@ public class CitationController {
             @ModelAttribute PHDThesisCitation phdthesisCitation, BindingResult phdthesisCitationResult,
             @ModelAttribute ProceedingsCitation proceedingsCitation, BindingResult proceedingsCitationResult,
             @ModelAttribute TechReportCitation techreportCitation, BindingResult techreportCitationResult,
-            @ModelAttribute UnpublishedCitation unpublishedCitation, BindingResult unpublishedCitationResult) {
+            @ModelAttribute UnpublishedCitation unpublishedCitation, BindingResult unpublishedCitationResult,
+            RedirectAttributes redirectAttributes) {
+        
+        boolean validated = true;
         
         switch (type) {
             case "article":
-                this.database.save(articleCitation);
+                validated = articleCitation.validate();
+                if(validated)
+                    this.database.save(articleCitation);
                 break;
             case "book":
-                this.database.save(bookCitation);
+                validated = bookCitation.validate();
+                if(validated)
+                    this.database.save(bookCitation);
                 break;
             case "booklet":
-                this.database.save(bookletCitation);
+                validated = bookletCitation.validate();
+                if(validated)
+                    this.database.save(bookletCitation);
                 break;
             case "conference":
-                this.database.save(conferenceCitation);
+                validated = conferenceCitation.validate();
+                if(validated)
+                    this.database.save(conferenceCitation);
                 break;
             case "inbook":
-                this.database.save(inbookCitation);
+                validated = inbookCitation.validate();
+                if(validated)
+                    this.database.save(inbookCitation);
                 break;
             case "incollection":
-                this.database.save(incollectionCitation);
+                validated = incollectionCitation.validate();
+                if(validated)
+                    this.database.save(incollectionCitation);
                 break;
             case "inproceedings":
-                this.database.save(inproceedingsCitation);
+                validated = inproceedingsCitation.validate();
+                if(validated)
+                    this.database.save(inproceedingsCitation);
                 break;
             case "manual":
-                this.database.save(manualCitation);
+                validated = manualCitation.validate();
+                if(validated)
+                    this.database.save(manualCitation);
                 break;
             case "mastersthesis":
-                this.database.save(mastersthesisCitation);
+                validated = mastersthesisCitation.validate();
+                if(validated)
+                    this.database.save(mastersthesisCitation);
                 break;
             case "misc":
-                this.database.save(miscCitation);
+                validated = miscCitation.validate();
+                if(validated)
+                    this.database.save(miscCitation);
                 break;
             case "phdthesis":
-                this.database.save(phdthesisCitation);
+                validated = phdthesisCitation.validate();
+                if(validated)
+                    this.database.save(phdthesisCitation);
                 break;
             case "proceedings":
-                this.database.save(proceedingsCitation);
+                validated = proceedingsCitation.validate();
+                if(validated)
+                    this.database.save(proceedingsCitation);
                 break;
             case "techreport":
-                this.database.save(techreportCitation);
+                validated = techreportCitation.validate();
+                if(validated)
+                    this.database.save(techreportCitation);
                 break;
             case "unpublished":
-                this.database.save(unpublishedCitation);
+                validated = unpublishedCitation.validate();
+                if(validated)
+                    this.database.save(unpublishedCitation);
                 break;
+        }
+        
+        if(!validated){
+            // Todo error message
+            
+            return "redirect:/citation";
         }
         
         return "redirect:/";

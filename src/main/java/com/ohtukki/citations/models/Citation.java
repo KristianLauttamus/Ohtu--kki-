@@ -10,29 +10,32 @@ import org.apache.commons.lang3.StringUtils;
  * Abstract class for all the types of Citations
  */
 public abstract class Citation {
-    // Fields for article entry
+    // Fields for every entry
     public String id = new String();
+    
+    // Other fields in alphabetic order
+    public String address = new String();
     public String author = new String();
-    public String title = new String();
+    public String booktitle = new String();
+    public String chapter = new String();
+    public String edition = new String();
+    public String editor = new String();
+    public String howpublished = new String();
+    public String institution = new String();
     public String journal = new String();
-    public String year = new String();
-    public String volume = new String();
-    public String number = new String();
-    public String pages = new String();
+    public String key = new String();
     public String month = new String();
     public String note = new String();
-    public String key = new String();
-    
-    // Fields for book entry (+ some above)
-    public String editor = new String();
-    public String publisher = new String();
-    public String series = new String();
-    public String address = new String();
-    public String edition = new String();
-    
-    // Fields for inproceedings entry (+ some above)
-    public String booktitle = new String();
+    public String number = new String();
     public String organization = new String();
+    public String pages = new String();
+    public String publisher = new String();
+    public String school = new String();
+    public String series = new String();
+    public String title = new String();
+    public String type = new String();
+    public String volume = new String();
+    public String year = new String();
     
     /**
      * Creates Bibtex entry from the fields given
@@ -120,13 +123,22 @@ public abstract class Citation {
         return value == null || value.isEmpty();
     }
     
-    // Getters and setters
+    // Getters and Setters
+
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getAuthor() {
@@ -137,12 +149,52 @@ public abstract class Citation {
         this.author = author;
     }
 
-    public String getTitle() {
-        return title;
+    public String getBooktitle() {
+        return booktitle;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setBooktitle(String booktitle) {
+        this.booktitle = booktitle;
+    }
+
+    public String getChapter() {
+        return chapter;
+    }
+
+    public void setChapter(String chapter) {
+        this.chapter = chapter;
+    }
+
+    public String getEdition() {
+        return edition;
+    }
+
+    public void setEdition(String edition) {
+        this.edition = edition;
+    }
+
+    public String getEditor() {
+        return editor;
+    }
+
+    public void setEditor(String editor) {
+        this.editor = editor;
+    }
+
+    public String getHowpublished() {
+        return howpublished;
+    }
+
+    public void setHowpublished(String howpublished) {
+        this.howpublished = howpublished;
+    }
+
+    public String getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(String institution) {
+        this.institution = institution;
     }
 
     public String getJournal() {
@@ -153,36 +205,12 @@ public abstract class Citation {
         this.journal = journal;
     }
 
-    public String getYear() {
-        return year;
+    public String getKey() {
+        return key;
     }
 
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    public String getVolume() {
-        return volume;
-    }
-
-    public void setVolume(String volume) {
-        this.volume = volume;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public String getPages() {
-        return pages;
-    }
-
-    public void setPages(String pages) {
-        this.pages = pages;
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getMonth() {
@@ -201,20 +229,28 @@ public abstract class Citation {
         this.note = note;
     }
 
-    public String getKey() {
-        return key;
+    public String getNumber() {
+        return number;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
-    public String getEditor() {
-        return editor;
+    public String getOrganization() {
+        return organization;
     }
 
-    public void setEditor(String editor) {
-        this.editor = editor;
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
+
+    public String getPages() {
+        return pages;
+    }
+
+    public void setPages(String pages) {
+        this.pages = pages;
     }
 
     public String getPublisher() {
@@ -225,6 +261,14 @@ public abstract class Citation {
         this.publisher = publisher;
     }
 
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
     public String getSeries() {
         return series;
     }
@@ -233,36 +277,36 @@ public abstract class Citation {
         this.series = series;
     }
 
-    public String getAddress() {
-        return address;
+    public String getTitle() {
+        return title;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getEdition() {
-        return edition;
+    public String getType() {
+        return type;
     }
 
-    public void setEdition(String edition) {
-        this.edition = edition;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getBooktitle() {
-        return booktitle;
+    public String getVolume() {
+        return volume;
     }
 
-    public void setBooktitle(String booktitle) {
-        this.booktitle = booktitle;
+    public void setVolume(String volume) {
+        this.volume = volume;
     }
 
-    public String getOrganization() {
-        return organization;
+    public String getYear() {
+        return year;
     }
 
-    public void setOrganization(String organization) {
-        this.organization = organization;
+    public void setYear(String year) {
+        this.year = year;
     }
     
 }

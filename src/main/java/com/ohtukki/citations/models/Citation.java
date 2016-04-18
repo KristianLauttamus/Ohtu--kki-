@@ -61,9 +61,11 @@ public abstract class Citation {
      * @return 
      */
     private String getCitationType(){
-        int index = this.getClass().getName().indexOf("Citation");
+        String[] split = this.getClass().getName().split("\\.");
+        String value = split[split.length-1];
+        int index = value.indexOf("Citation");
         
-        return this.getClass().getName().substring(0, index);
+        return value.substring(0, index);
     }
     
     /**
@@ -85,7 +87,7 @@ public abstract class Citation {
             return isNullOrEmpty(value) ? "\n" : value + ",\n";
         }
         
-        return isNullOrEmpty(field) ? "" : field + " = {" + value + "},\n";
+        return isNullOrEmpty(value) ? "" : field + " = {" + value + "},\n";
     }
     
     public String[] getRequiredFields(){

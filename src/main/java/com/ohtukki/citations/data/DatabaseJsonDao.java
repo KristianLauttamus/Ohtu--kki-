@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.ohtukki.citations.models.*;
+import io.gsonfire.GsonFireBuilder;
 import org.apache.commons.io.FileUtils;
 
 import com.google.common.base.Predicate;
@@ -12,7 +14,7 @@ import com.google.common.collect.Iterables;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.ohtukki.citations.models.Citation;
+
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,9 +38,8 @@ public class DatabaseJsonDao implements Database {
     
     @Override
     public List<Citation> all() {
-        GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(Citation.class, new CitationCreator());
-        Gson gson = builder.create();
+        GsonFireBuilder builder = new GsonFireBuilder().registerTypeSelector(Citation.class, new CitationCreator());
+        Gson gson = builder.createGson();
         String data = null;
         try {
             data = FileUtils.readFileToString(new File(filename));

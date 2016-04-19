@@ -251,20 +251,21 @@ public class CitationController {
      * @return view from resources/templates
      */
     @RequestMapping(value = "/download", method = RequestMethod.GET)
-    public void download(HttpServletResponse response, Model model, @RequestParam("filename") String filename) throws IOException {
+    public void download(HttpServletResponse response, Model model, 
+        @RequestParam(value = "filename", required = false) String filename) throws IOException {
         /* 
         "Content-Disposition : inline" will show viewable types 
         [like images/text/pdf/anything viewable by browser]
         right on browser while others(zip e.g) will be directly downloaded 
         [may provide save as popup, based on your browser setting.]
         */
-        if(filename == null && filename.equals("")){
-            response.setHeader("Content-Disposition", String.format("inline; filename=\"BibTex.bib\""));
+        if(filename == null || filename.equals("")){
+            response.setHeader("Content-Disposition", String.format("attachment; filename=\"BibTex.bib\""));
         } else {
             if(filename.toLowerCase().indexOf(".bib") > 0){
                 filename = filename.substring(0, filename.toLowerCase().indexOf(".bib"));
             }
-            response.setHeader("Content-Disposition", String.format("inline; filename=\""+filename+".bib\""));
+            response.setHeader("Content-Disposition", String.format("attachment; filename=\""+filename+".bib\""));
         }
         response.setContentType("text/plain");
         formatBibText(database.all(), response.getOutputStream());

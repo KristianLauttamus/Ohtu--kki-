@@ -34,6 +34,39 @@
                 </span>
             </div>
             
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <small>Haun toiminnallisuus...</small>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p>Kirjoittamalla hakuehdon eteen jonkin luetelluista merkeistä, voit filtteröidä hakua haluamasi mukaan. Voit erotella hakuehtoja <code>;</code> merkillä.</p>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <code>@{Tyyppi}</code> - Luettelee vain {Tyyppi} tyyppiset viitteet
+                                    </li>
+                                    <li class="list-group-item">
+                                        <code>#{Kenttä}</code> - {Kenttä} täytyy löytyä viitteeltä
+                                    </li>
+                                    <li class="list-group-item">
+                                        <code>!{Hakuehto}</code> - {Hakuehto} ei löydy viitteestä
+                                    </li>
+                                    <li class="list-group-item">Normaalihaku antaa kaikki viitteet jonka arvoista löytyy annettu syöte</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             <hr/>
         </form>
 
@@ -51,12 +84,18 @@
                     <td>{{{item.id}}}</td>
                     <td>{{{item.citationType}}}</td>
                     <td style="padding:0px;">{{{printCitation(item)}}}</td>
-                    <td><button v-on:click.prevent="remove(item)" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-remove"></i> Poista</button></td>
+                    <td>
+                        <a href="/{{item.id}}/edit" class="btn btn-primary btn-sm btn-block"><i class="glyphicon glyphicon-edit"></i> Muokkaa</a>
+                        <button v-on:click.prevent="remove(item)" class="btn btn-danger btn-sm btn-block"><i class="glyphicon glyphicon-remove"></i> Poista</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
-        <div v-else="">
+        <div v-if="items.length === 0">
             <p>No citations added yet. <a href="/citation">Add one here</a></p>
+        </div>
+        <div v-if="isEmptyAndHasQuery">
+            <p>No citations found with given query</p>
         </div>
 
         <!-- Buttons -->

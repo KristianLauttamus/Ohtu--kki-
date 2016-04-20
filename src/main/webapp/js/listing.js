@@ -166,14 +166,14 @@ new Vue({
         },
         
         printCitation: function(citation){
-            var print = '<table class="table table-condensed" style="margin:0px;">';
+            var print = '<table class="table" style="margin:0px;background: none;">';
             var header = '<thead><tr>';
             var body = '<tbody><tr>';
             
             for(var key in citation){
                 if(key !== 'id' && key !== 'citationType' && key !== 'requiredFields' && key !== 'optionalFields' && citation[key] !== ''){
-                    header += '<th>'+key+'</th>';
-                    body += '<td>' + citation[key] + '</td>';
+                    header += '<th style="text-align:center;">'+key+'</th>';
+                    body += '<td style="text-align:center;">' + citation[key] + '</td>';
                 }
             }
             

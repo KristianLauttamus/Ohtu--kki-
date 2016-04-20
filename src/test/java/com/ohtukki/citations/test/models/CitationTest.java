@@ -58,20 +58,20 @@ public class CitationTest {
     
     @Test
     public void allCitationTypesHaveCorrectCitationType(){
-        assertTrue(new ArticleCitation().getCitationType().equals("article"));
-        assertTrue(new BookCitation().getCitationType().equals("book"));
-        assertTrue(new BookletCitation().getCitationType().equals("booklet"));
-        assertTrue(new ConferenceCitation().getCitationType().equals("conference"));
-        assertTrue(new InbookCitation().getCitationType().equals("inbook"));
-        assertTrue(new IncollectionCitation().getCitationType().equals("incollection"));
-        assertTrue(new InproceedingsCitation().getCitationType().equals("inproceedings"));
-        assertTrue(new ManualCitation().getCitationType().equals("manual"));
-        assertTrue(new MastersthesisCitation().getCitationType().equals("mastersthesis"));
-        assertTrue(new MiscCitation().getCitationType().equals("misc"));
-        assertTrue(new PHDThesisCitation().getCitationType().equals("phdthesis"));
-        assertTrue(new ProceedingsCitation().getCitationType().equals("proceedings"));
-        assertTrue(new TechReportCitation().getCitationType().equals("techreport"));
-        assertTrue(new UnpublishedCitation().getCitationType().equals("unpublished"));
+        assertTrue(new ArticleCitation().getCitationType().equals("Article"));
+        assertTrue(new BookCitation().getCitationType().equals("Book"));
+        assertTrue(new BookletCitation().getCitationType().equals("Booklet"));
+        assertTrue(new ConferenceCitation().getCitationType().equals("Conference"));
+        assertTrue(new InbookCitation().getCitationType().equals("Inbook"));
+        assertTrue(new IncollectionCitation().getCitationType().equals("Incollection"));
+        assertTrue(new InproceedingsCitation().getCitationType().equals("Inproceedings"));
+        assertTrue(new ManualCitation().getCitationType().equals("Manual"));
+        assertTrue(new MastersthesisCitation().getCitationType().equals("Mastersthesis"));
+        assertTrue(new MiscCitation().getCitationType().equals("Misc"));
+        assertTrue(new PHDThesisCitation().getCitationType().equals("PHDThesis"));
+        assertTrue(new ProceedingsCitation().getCitationType().equals("Proceedings"));
+        assertTrue(new TechReportCitation().getCitationType().equals("TechReport"));
+        assertTrue(new UnpublishedCitation().getCitationType().equals("Unpublished"));
     }
     
     @Test

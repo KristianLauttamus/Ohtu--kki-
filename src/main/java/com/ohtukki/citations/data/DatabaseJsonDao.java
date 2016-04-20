@@ -25,15 +25,24 @@ public class DatabaseJsonDao implements Database {
     
     private String filename;
     private List<Citation> citations;
+    private final boolean validations;
     
     public DatabaseJsonDao() {
         this.filename = DEFAULT_FILE;
         this.citations = new ArrayList<>();
+        this.validations = true;
+    }
+    
+    public DatabaseJsonDao(boolean validations) {
+        this.filename = DEFAULT_FILE;
+        this.citations = new ArrayList<>();
+        this.validations = validations;
     }
     
     public DatabaseJsonDao(String filename) {
         this.filename = filename;
         this.citations = new ArrayList<>();
+        this.validations = true;
     }
     
     @Override
@@ -81,7 +90,7 @@ public class DatabaseJsonDao implements Database {
     
     @Override
     public void add(Citation citation) {
-        if(citation.validate())
+        if(!this.validations || citation.validate())
             citations.add(citation);
     }
     

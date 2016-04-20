@@ -1,7 +1,6 @@
 .classpath
 .project
 .settings/
+!target/easyb/*
 target/
 *~
-
-!target/easyb/*

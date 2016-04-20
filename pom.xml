@@ -129,7 +129,10 @@
                             <format>xml</format>		
                             <maxmem>256m</maxmem>
                             <instrumentation>
-                                <ignoreTrivial>true</ignoreTrivial>                 
+                                <ignoreTrivial>true</ignoreTrivial>
+                                <excludes>
+                                    <exclude>com/ohtukki/citations/Application.class</exclude>
+                                </excludes>               
                             </instrumentation>	
                     </configuration>		
             </plugin>		

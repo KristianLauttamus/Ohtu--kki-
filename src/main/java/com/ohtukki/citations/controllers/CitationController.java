@@ -2,11 +2,8 @@ package com.ohtukki.citations.controllers;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import com.ohtukki.citations.data.AuthorFilter;
 import com.ohtukki.citations.data.CitationCreator;
 import com.ohtukki.citations.data.DatabaseJsonDao;
-import com.ohtukki.citations.data.PublicationFilter;
-import com.ohtukki.citations.data.YearFilter;
 import com.ohtukki.citations.models.*;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -246,33 +243,6 @@ public class CitationController {
         this.database.update(id, citation);
         
         return "redirect:/";
-    }
-    
-    /**
-     * Handle filtered listing
-     * @param publication
-     * @param author
-     * @param year
-     * @param model
-     * @return view from resources/templates
-     */
-    @RequestMapping(value = "/filter", method = RequestMethod.POST)
-    public String filter(@RequestParam(value = "publication", required = false) String publication,
-            @RequestParam(value = "author") String author,
-            @RequestParam(value = "year") String year,
-            Model model) {
-        Predicate<Citation> filter = Predicates.notNull();
-        if(StringUtils.hasText(publication)) {
-            filter = Predicates.and(filter, new PublicationFilter(publication));
-        }
-        if(StringUtils.hasText(author)) {
-            filter = Predicates.and(filter, new AuthorFilter(author));
-        }
-        if(StringUtils.hasText(year)) {
-            filter = Predicates.and(filter, new YearFilter(year));
-        }
-        model.addAttribute("citations", database.allByPredicate(filter));
-        return "index";
     }
     
     /**

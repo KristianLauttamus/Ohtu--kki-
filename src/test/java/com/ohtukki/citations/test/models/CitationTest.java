@@ -104,6 +104,25 @@ public class CitationTest {
                 articleCitation.createBibtexEntry());
     }
     
+    @Test
+    public void createBookCitationWorks() {
+        BookCitation cit = new BookCitation();
+        cit.setAuthor("Pekka Ö. Mäki");
+        cit.setId("PK95");
+        assertEquals("@BOOK{PK95,\nauthor = {Pekka \\\"{O}. M\\\"{a}ki},\n}\n\n",
+                cit.createBibtexEntry());
+    }
+    
+    @Test
+    public void createInproceedingsCitationWorks() {
+        InproceedingsCitation cit = new InproceedingsCitation();
+        cit.setAuthor("Pekka Ö. Mäki");
+        cit.setId("PK95");
+        assertEquals("@INPROCEEDINGS{PK95,\nauthor = {Pekka \\\"{O}. M\\\"{a}ki},\n}\n\n",
+                cit.createBibtexEntry());
+    }
+    
+    
     private ArticleCitation createArticleCitationWithEmptyStrings() {
         ArticleCitation temp = new ArticleCitation();
         temp.setId("");

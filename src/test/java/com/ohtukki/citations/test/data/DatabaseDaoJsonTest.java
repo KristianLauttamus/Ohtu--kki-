@@ -19,6 +19,7 @@ import com.ohtukki.citations.models.Citation;
 public class DatabaseDaoJsonTest {
     private DatabaseJsonDao init() {
         DatabaseJsonDao dao = new DatabaseJsonDao();
+        dao.clear();
         for (int i = 0; i < 10; i++) {
             Citation ref = new ArticleCitation();
             ref.setId("" + i);
@@ -30,22 +31,30 @@ public class DatabaseDaoJsonTest {
         }
         return dao;
     }
-    @Test(expected=UnsupportedOperationException.class) 
+    @Test 
     public void testFind() {
         DatabaseJsonDao dao = init();
-        dao.find("1");
+        Citation citation = dao.find("1");
+        
+        assertEquals("Author[1]", citation.getAuthor());
     }
-    @Test(expected=UnsupportedOperationException.class) 
+    @Test 
     public void testDelete() {
         DatabaseJsonDao dao = init();
-        dao.delete("1");
+        dao.delete("2");
+        dao.saveAll();
+        
+        assertEquals(9, dao.all().size());
     }
-    @Test(expected=UnsupportedOperationException.class) 
+    @Test
     public void testDeleteClass() {
         DatabaseJsonDao dao = init();
         Citation ref = new ArticleCitation();
         ref.setId("1");
         dao.delete(ref);
+        dao.saveAll();
+        
+        assertEquals(9, dao.all().size());
     }
 
     @Test
@@ -63,7 +72,7 @@ public class DatabaseDaoJsonTest {
             assertEquals(10,list.size());
             
             dao.destroy("1");
-            assertEquals(9,list.size());
+            assertEquals(9, dao.all().size());
             
             Predicate<Citation> filter = Predicates.notNull();
             filter =  Predicates.and(filter, new AuthorFilter("Author[7]"));

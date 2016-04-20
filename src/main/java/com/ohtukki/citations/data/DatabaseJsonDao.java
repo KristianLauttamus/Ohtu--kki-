@@ -137,11 +137,7 @@ public class DatabaseJsonDao implements Database {
     
     @Override
     public void destroy(String id) {
-        for(int i = 0; i < this.citations.size(); i++){
-            if(citations.get(i).id.equals(id)){
-                this.citations.remove(i);
-            }
-        }
+        this.delete(id);
         
         this.saveAll();
     }
@@ -153,12 +149,17 @@ public class DatabaseJsonDao implements Database {
     
     @Override
     public void delete(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for(int i = 0; i < this.all().size(); i++){
+            if(this.citations.get(i).id.equals(id)){
+                this.citations.remove(i);
+                break;
+            }
+        }
     }
     
     @Override
     public void delete(Citation citation) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.delete(citation.id);
     }
 
     @Override

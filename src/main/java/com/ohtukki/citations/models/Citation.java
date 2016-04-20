@@ -118,6 +118,28 @@ public abstract class Citation {
         return isNullOrEmpty(value) ? "" : field + " = {" + value + "},\n";
     }
     
+    public String getField(String field){
+        try {
+            Field f = this.getClass().getField(field);
+            
+            return ((String)f.get(this));
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
+            Logger.getLogger(Citation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+    }
+    
+    public void setField(String field, String value){
+        try {
+            Field f = this.getClass().getField(field);
+            
+            f.set(this, value);
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
+            Logger.getLogger(Citation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public String[] getRequiredFields(){
         try {
             Field field = this.getClass().getField("requiredFields");

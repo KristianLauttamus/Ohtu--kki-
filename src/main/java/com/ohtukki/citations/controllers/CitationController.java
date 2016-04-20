@@ -3,7 +3,7 @@ package com.ohtukki.citations.controllers;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.ohtukki.citations.data.AuthorFilter;
-import com.ohtukki.citations.data.Database;
+import com.ohtukki.citations.data.CitationCreator;
 import com.ohtukki.citations.data.DatabaseJsonDao;
 import com.ohtukki.citations.data.PublicationFilter;
 import com.ohtukki.citations.data.YearFilter;
@@ -13,20 +13,15 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -215,6 +210,40 @@ public class CitationController {
             
             return "redirect:/citation";
         }
+        
+        return "redirect:/";
+    }
+    
+    /**
+     * Return form to edit a Citation
+     * @param model
+     * @param id
+     * @return view from resources/templates
+     */
+    @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
+    public String edit(Model model, @PathVariable String id) {
+        Citation citation = this.database.find(id);
+        
+        if(citation == null){
+            return "redirect:/";
+        }
+        
+        model.addAttribute("citation", citation);
+        
+        return "edit-citation";
+    }
+    
+    /**
+     * Update Citation
+     * @param citation
+     * @param citationResult
+     * @param id
+     * @param redirectAttributes
+     * @return view from resources/templates
+     */
+    @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
+    public String update(@PathVariable String id, @ModelAttribute DumbCitation citation, BindingResult citationResult, RedirectAttributes redirectAttributes) {
+        this.database.update(id, citation);
         
         return "redirect:/";
     }

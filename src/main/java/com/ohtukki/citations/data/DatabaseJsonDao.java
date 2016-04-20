@@ -57,7 +57,7 @@ public class DatabaseJsonDao implements Database {
         }
         this.citations = gson.fromJson(data, new TypeToken<ArrayList<Citation>>(){}.getType());
         
-        return citations;
+        return this.citations;
     }
     
     public List<Citation> allByPredicate(Predicate<Citation> predicate) {
@@ -75,7 +75,13 @@ public class DatabaseJsonDao implements Database {
     
     @Override
     public Citation find(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for(int i = 0; i < this.all().size(); i++){
+            if(this.citations.get(i).id.equals(id)){
+                return this.citations.get(i);
+            }
+        }
+        
+        return null;
     }
     
     @Override
@@ -92,6 +98,29 @@ public class DatabaseJsonDao implements Database {
     public void add(Citation citation) {
         if(!this.validations || citation.validate())
             citations.add(citation);
+    }
+    
+    @Override
+    public void update(String id, Citation citation){
+        Citation oldCitation = this.find(id);
+        
+        for(String req : oldCitation.getRequiredFields()){
+            oldCitation.setField(req, citation.getField(req));
+        }
+        
+        if(oldCitation.validate()){
+            for(String opt : oldCitation.getOptionalFields()){
+                oldCitation.setField(opt, citation.getField(opt));
+            }
+            
+            for(int i = 0; i < this.all().size(); i++){
+                if(this.citations.get(i).id.equals(id)){
+                    this.citations.set(i, oldCitation);
+                    this.saveAll();
+                    break;
+                }
+            }
+        }
     }
     
     @Override

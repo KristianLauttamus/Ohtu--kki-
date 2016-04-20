@@ -22,6 +22,9 @@ public interface Database {
     // Save all
     public void saveAll();
     
+    // Update
+    public void update(String id, Citation citation);
+    
     // Delete and save
     public void destroy(String id);
     public void destroy(Citation citation);

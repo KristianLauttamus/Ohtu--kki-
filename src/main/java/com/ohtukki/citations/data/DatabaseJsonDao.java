@@ -96,7 +96,7 @@ public class DatabaseJsonDao implements Database {
     
     @Override
     public void add(Citation citation) {
-        if(!this.validations || citation.validate())
+        if(!this.validations || citation.validate(false))
             citations.add(citation);
     }
     
@@ -108,7 +108,7 @@ public class DatabaseJsonDao implements Database {
             oldCitation.setField(req, citation.getField(req));
         }
         
-        if(oldCitation.validate()){
+        if(oldCitation.validate(true)){
             for(String opt : oldCitation.getOptionalFields()){
                 oldCitation.setField(opt, citation.getField(opt));
             }

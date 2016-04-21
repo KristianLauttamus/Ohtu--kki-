@@ -18,6 +18,14 @@ public class CitationTest {
     }
     
     @Test
+    public void almostDynamicFields(){
+        articleCitation = new ArticleCitation();
+        articleCitation.setField("id", "test");
+        
+        assertEquals("id", articleCitation.getField("id"));
+    }
+    
+    @Test
     public void validFieldsGetValidated(){
         articleCitation = new ArticleCitation();
         articleCitation.requiredFields = new String[]{"id", "title"};

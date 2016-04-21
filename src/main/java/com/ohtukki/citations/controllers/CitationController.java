@@ -131,72 +131,72 @@ public class CitationController {
         
         switch (citationType) {
             case "article":
-                validated = articleCitation.validate();
+                validated = articleCitation.validate(false);
                 if(validated)
                     this.database.save(articleCitation);
                 break;
             case "book":
-                validated = bookCitation.validate();
+                validated = bookCitation.validate(false);
                 if(validated)
                     this.database.save(bookCitation);
                 break;
             case "booklet":
-                validated = bookletCitation.validate();
+                validated = bookletCitation.validate(false);
                 if(validated)
                     this.database.save(bookletCitation);
                 break;
             case "conference":
-                validated = conferenceCitation.validate();
+                validated = conferenceCitation.validate(false);
                 if(validated)
                     this.database.save(conferenceCitation);
                 break;
             case "inbook":
-                validated = inbookCitation.validate();
+                validated = inbookCitation.validate(false);
                 if(validated)
                     this.database.save(inbookCitation);
                 break;
             case "incollection":
-                validated = incollectionCitation.validate();
+                validated = incollectionCitation.validate(false);
                 if(validated)
                     this.database.save(incollectionCitation);
                 break;
             case "inproceedings":
-                validated = inproceedingsCitation.validate();
+                validated = inproceedingsCitation.validate(false);
                 if(validated)
                     this.database.save(inproceedingsCitation);
                 break;
             case "manual":
-                validated = manualCitation.validate();
+                validated = manualCitation.validate(false);
                 if(validated)
                     this.database.save(manualCitation);
                 break;
             case "mastersthesis":
-                validated = mastersthesisCitation.validate();
+                validated = mastersthesisCitation.validate(false);
                 if(validated)
                     this.database.save(mastersthesisCitation);
                 break;
             case "misc":
-                validated = miscCitation.validate();
+                validated = miscCitation.validate(false);
                 if(validated)
                     this.database.save(miscCitation);
                 break;
             case "phdthesis":
-                validated = phdthesisCitation.validate();
+                validated = phdthesisCitation.validate(false);
                 if(validated)
                     this.database.save(phdthesisCitation);
                 break;
             case "proceedings":
-                validated = proceedingsCitation.validate();
+                validated = proceedingsCitation.validate(false);
                 if(validated)
                     this.database.save(proceedingsCitation);
                 break;
             case "techreport":
-                validated = techreportCitation.validate();
+                validated = techreportCitation.validate(false);
                 if(validated)
                     this.database.save(techreportCitation);
                 break;
             case "unpublished":
-                validated = unpublishedCitation.validate();
+                validated = unpublishedCitation.validate(false);
                 if(validated)
                     this.database.save(unpublishedCitation);
                 break;

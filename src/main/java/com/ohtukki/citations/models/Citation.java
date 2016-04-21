@@ -1,5 +1,7 @@
 package com.ohtukki.citations.models;
 
+import com.ohtukki.citations.data.Database;
+import com.ohtukki.citations.data.DatabaseJsonDao;
 import com.ohtukki.citations.domain.AlphabetConverter;
 import java.lang.reflect.Field;
 import java.util.logging.Level;
@@ -10,6 +12,8 @@ import org.apache.commons.lang3.StringUtils;
  * Abstract class for all the types of Citations
  */
 public abstract class Citation {
+    private Database database;
+    
     // Fields for every entry
     public String id = new String();
     public String citationType = new String();
@@ -40,13 +44,14 @@ public abstract class Citation {
     
     public Citation(){
         this.citationType = this.getCitationType();
+        this.database = new DatabaseJsonDao();
     }
     
     /**
      * Validate by checking the required fields
      * @return 
      */
-    public boolean validate(){
+    public boolean validate(boolean updating){
         for(String required : this.getRequiredFields()){
             String value = "";
             try {
@@ -59,6 +64,10 @@ public abstract class Citation {
             }
 
             if(isNullOrEmpty(value)){
+                return false;
+            }
+            
+            if(required.equals("id") && !updating && this.database.find(value) != null){
                 return false;
             }
         }

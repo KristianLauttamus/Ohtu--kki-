@@ -34,8 +34,6 @@ new Vue({
             
             var splitQuery = this.query.split(/ ?[;] ?/);;
             
-            console.log(this.items);
-            
             for(var i = 0; i < this.items.length; i++){
                 var ignore = false;
                 var addAlmost = false;

@@ -12,7 +12,7 @@ import org.apache.commons.lang3.StringUtils;
  * Abstract class for all the types of Citations
  */
 public abstract class Citation {
-    private Database database;
+    private DatabaseJsonDao database;
     
     // Fields for every entry
     public String id = new String();
@@ -66,7 +66,7 @@ public abstract class Citation {
             if(isNullOrEmpty(value)){
                 return false;
             }
-            
+
             if(required.equals("id") && !updating && this.database.find(value) != null){
                 return false;
             }

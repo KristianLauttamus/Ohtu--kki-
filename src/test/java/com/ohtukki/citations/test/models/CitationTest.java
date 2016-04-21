@@ -14,7 +14,7 @@ public class CitationTest {
         
         articleCitation.setId("Not empty");
         
-        assertFalse(articleCitation.validate());
+        assertFalse(articleCitation.validate(false));
     }
     
     @Test
@@ -22,7 +22,7 @@ public class CitationTest {
         articleCitation = new ArticleCitation();
         articleCitation.setField("id", "test");
         
-        assertEquals("id", articleCitation.getField("id"));
+        assertEquals("test", articleCitation.getField("id"));
     }
     
     @Test
@@ -33,7 +33,7 @@ public class CitationTest {
         articleCitation.setId("Not empty");
         articleCitation.setTitle("Not empty");
         
-        assertTrue(articleCitation.validate());
+        assertTrue(articleCitation.validate(false));
     }
     
     @Test

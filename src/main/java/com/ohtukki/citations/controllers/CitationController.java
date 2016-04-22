@@ -2,6 +2,7 @@ package com.ohtukki.citations.controllers;
 
 import com.ohtukki.citations.Application;
 import com.ohtukki.citations.data.DatabaseJsonDao;
+import com.ohtukki.citations.domain.BibfileParser;
 import com.ohtukki.citations.models.*;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -289,19 +290,26 @@ public class CitationController {
     }
     @RequestMapping(method = RequestMethod.POST, value = "/upload")
     public String handleFileUpload( @RequestParam("file") MultipartFile file,
-                                    RedirectAttributes redirectAttributes) {
+                                    Model model) {
         if (!file.isEmpty()) {
             try {
                 BufferedOutputStream stream = new BufferedOutputStream(new ByteArrayOutputStream());
                 FileCopyUtils.copy(file.getInputStream(), stream);
                 System.out.println("com.ohtukki.citations.controllers.CitationController.handleFileUpload(" + file.getName() + ")");
                 stream.close();
-                redirectAttributes.addFlashAttribute("message", "You successfully uploaded " + file.getName() + "!");
+                
+                BibfileParser parser = new BibfileParser(stream.toString());
+                List<Citation> imported = parser.parseCitations();
+                for (Citation c : imported) {
+                    database.add(c);
+                }
+                model.addAttribute("citations", this.database.all());
+                model.addAttribute("message", "You successfully uploaded " + file.getName() + "! With "+imported.size()+" Citations.");
             } catch (Exception e) {
-                redirectAttributes.addFlashAttribute("message", "You failed to upload " + file.getName() + " => " + e.getMessage());
+                model.addAttribute("message", "You failed to upload " + file.getName() + " => " + e.getMessage());
             }
         } else {
-            redirectAttributes.addFlashAttribute("message", "You failed to upload " + file.getName() + " because the file was empty");
+            model.addAttribute("message", "You failed to upload " + file.getName() + " because the file was empty");
         }
 
         return "index";

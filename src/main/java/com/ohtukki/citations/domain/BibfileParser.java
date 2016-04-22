@@ -132,7 +132,7 @@ public class BibfileParser {
             case "UNPUBLISHED":
                 return new UnpublishedCitation();
         }
-        return null; // this shouldn't happen
+        return null; // this should be impossible
     }
 
     private void setField(Citation cit, String name, String value) {

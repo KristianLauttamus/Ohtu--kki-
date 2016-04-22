@@ -98,7 +98,7 @@ public class BibfileParser {
             value += lines[line].charAt(j);
         }
 
-        return value;
+        return new AlphabetConverter().bibtexToUmlauts(value);
     }
     
     private Citation getEmptyCitation(String type) {

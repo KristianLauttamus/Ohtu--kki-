@@ -4,7 +4,6 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import static org.junit.Assert.*;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.junit.Test;
@@ -58,4 +57,22 @@ public class DatabaseDaoJsonTest {
     public void testAddSave() {
         DatabaseJsonDao dao = init();
     }
-}
+    @Test
+    public void testFilter() {
+        DatabaseJsonDao dao = init();
+        Predicate<Citation> filter = Predicates.notNull();
+        List<Citation> list = dao.allByPredicate(filter);    
+        assertEquals(list.size(), dao.all().size());
+    }
+    @Test
+    public void testDestroy() {
+        DatabaseJsonDao dao = init();
+        Citation c = new ArticleCitation();
+        c.setId("1");
+        Predicate<Citation> filter = Predicates.notNull();
+        int count = dao.allByPredicate(filter).size();    
+        dao.destroy(c);
+        int newcount = dao.allByPredicate(filter).size();    
+        assertEquals(newcount, count-1);
+    }
+ }

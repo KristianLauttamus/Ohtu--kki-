@@ -1,12 +1,14 @@
 package com.ohtukki.citations.controllers;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
-import com.ohtukki.citations.data.CitationCreator;
+import com.ohtukki.citations.Application;
 import com.ohtukki.citations.data.DatabaseJsonDao;
 import com.ohtukki.citations.models.*;
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -15,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -284,5 +286,24 @@ public class CitationController {
     @ResponseBody
     public void delete(@PathVariable String id){
         this.database.destroy(id);
+    }
+    @RequestMapping(method = RequestMethod.POST, value = "/upload")
+    public String handleFileUpload( @RequestParam("file") MultipartFile file,
+                                    RedirectAttributes redirectAttributes) {
+        if (!file.isEmpty()) {
+            try {
+                BufferedOutputStream stream = new BufferedOutputStream(new ByteArrayOutputStream());
+                FileCopyUtils.copy(file.getInputStream(), stream);
+                System.out.println("com.ohtukki.citations.controllers.CitationController.handleFileUpload(" + file.getName() + ")");
+                stream.close();
+                redirectAttributes.addFlashAttribute("message", "You successfully uploaded " + file.getName() + "!");
+            } catch (Exception e) {
+                redirectAttributes.addFlashAttribute("message", "You failed to upload " + file.getName() + " => " + e.getMessage());
+            }
+        } else {
+            redirectAttributes.addFlashAttribute("message", "You failed to upload " + file.getName() + " because the file was empty");
+        }
+
+        return "index";
     }
 }

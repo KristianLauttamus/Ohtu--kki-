@@ -293,12 +293,14 @@ public class CitationController {
                                     Model model) {
         if (!file.isEmpty()) {
             try {
-                BufferedOutputStream stream = new BufferedOutputStream(new ByteArrayOutputStream());
+                ByteArrayOutputStream byos = new ByteArrayOutputStream();
+                BufferedOutputStream stream = new BufferedOutputStream(byos);
                 FileCopyUtils.copy(file.getInputStream(), stream);
-                System.out.println("com.ohtukki.citations.controllers.CitationController.handleFileUpload(" + file.getName() + ")");
+
                 stream.close();
                 
-                BibfileParser parser = new BibfileParser(stream.toString());
+                BibfileParser parser = new BibfileParser(byos.toString());
+
                 List<Citation> imported = parser.parseCitations();
                 for (Citation c : imported) {
                     database.add(c);

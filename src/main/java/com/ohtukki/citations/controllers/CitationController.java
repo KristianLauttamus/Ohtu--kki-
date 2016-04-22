@@ -305,8 +305,9 @@ public class CitationController {
                 for (Citation c : imported) {
                     database.add(c);
                 }
+                database.saveAll();
                 model.addAttribute("citations", this.database.all());
-                model.addAttribute("message", "You successfully uploaded " + file.getName() + "! With "+imported.size()+" Citations.");
+                model.addAttribute("message", "You successfully uploaded " + file.getName() + " with "+imported.size()+" Citations.");
             } catch (Exception e) {
                 model.addAttribute("message", "You failed to upload " + file.getName() + " => " + e.getMessage());
             }

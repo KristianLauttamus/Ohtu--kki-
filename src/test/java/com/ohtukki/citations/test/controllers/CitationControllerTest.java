@@ -3,6 +3,9 @@ package com.ohtukki.citations.test.controllers;
 import com.ohtukki.citations.Application;
 import com.ohtukki.citations.data.Database;
 import com.ohtukki.citations.data.DatabaseJsonDao;
+import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -10,7 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -119,5 +122,26 @@ public class CitationControllerTest {
             e.printStackTrace();
         }
     }
-        
+    @Test
+    public void testEmptyUpload() {
+        try {
+            MockMultipartFile file = new MockMultipartFile("file", "orig", null, "".getBytes());
+            mockMvc.perform(fileUpload("/upload").file(file))
+                    .andExpect(model().attribute("message", "You failed to upload file because the file was empty"));
+        } catch (Exception ex) {
+            Logger.getLogger(CitationControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    @Test
+    public void testUpload() {
+        try {
+            MockMultipartFile file;
+            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("one.bib");
+            file = new MockMultipartFile("file", "orig", null, inputStream);
+            mockMvc.perform(fileUpload("/upload").file(file))
+                    .andExpect(model().attribute("message", "You successfully uploadedy"));
+        } catch (Exception ex) {
+            Logger.getLogger(CitationControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

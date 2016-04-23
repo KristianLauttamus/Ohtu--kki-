@@ -6,15 +6,21 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.ohtukki.citations.data.DatabaseJsonDao;
 import com.ohtukki.citations.models.ArticleCitation;
 import com.ohtukki.citations.models.Citation;
 
+
 public class DatabaseDaoJsonTest {
-    private DatabaseJsonDao init() {
-        DatabaseJsonDao dao = new DatabaseJsonDao();
+
+    DatabaseJsonDao dao;
+
+    @Before
+    public void init() {
+        dao = new DatabaseJsonDao();
         dao.clear();
         for (int i = 0; i < 10; i++) {
             Citation ref = new ArticleCitation();
@@ -25,18 +31,15 @@ public class DatabaseDaoJsonTest {
             ref.setYear("Year["+i+"]");
             dao.save(ref);
         }
-        return dao;
     }
     @Test 
     public void testFind() {
-        DatabaseJsonDao dao = init();
         Citation citation = dao.find("1");
         
         assertEquals("Author[1]", citation.getAuthor());
     }
     @Test 
     public void testDelete() {
-        DatabaseJsonDao dao = init();
         dao.delete("2");
         dao.saveAll();
         
@@ -44,7 +47,6 @@ public class DatabaseDaoJsonTest {
     }
     @Test
     public void testDeleteClass() {
-        DatabaseJsonDao dao = init();
         Citation ref = new ArticleCitation();
         ref.setId("1");
         dao.delete(ref);
@@ -54,19 +56,13 @@ public class DatabaseDaoJsonTest {
     }
 
     @Test
-    public void testAddSave() {
-        DatabaseJsonDao dao = init();
-    }
-    @Test
     public void testFilter() {
-        DatabaseJsonDao dao = init();
         Predicate<Citation> filter = Predicates.notNull();
         List<Citation> list = dao.allByPredicate(filter);    
         assertEquals(list.size(), dao.all().size());
     }
     @Test
     public void testDestroy() {
-        DatabaseJsonDao dao = init();
         Citation c = new ArticleCitation();
         c.setId("1");
         Predicate<Citation> filter = Predicates.notNull();
@@ -74,5 +70,13 @@ public class DatabaseDaoJsonTest {
         dao.destroy(c);
         int newcount = dao.allByPredicate(filter).size();    
         assertEquals(newcount, count-1);
+    }
+
+    @Test
+    public void testUpdate() {
+        Citation c = dao.find("1");
+        c.setYear("2014");
+        dao.update("1", c);
+        assertEquals("2014", dao.find("1").getYear());
     }
  }

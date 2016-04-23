@@ -41,6 +41,8 @@ public abstract class Citation {
     public String type = new String();
     public String volume = new String();
     public String year = new String();
+
+    private boolean oneOfOnlyOtherFieldsEmpty = false;
     
     public Citation(){
         this.citationType = this.getCitationType();
@@ -78,6 +80,9 @@ public abstract class Citation {
      * @return 
      */
     public boolean validateField(String field, boolean updating){
+        if (field.equals("id")) {
+            oneOfOnlyOtherFieldsEmpty = false;
+        }
         String value = "";
         try {
             Field f = this.getClass().getField(field.split(":").length > 1 ? field.split(":")[0] : field);
@@ -95,6 +100,10 @@ public abstract class Citation {
                 return false;
             }
         } else if(isNullOrEmpty(splittedValue[0])){
+            if (field.contains("only_other") && !oneOfOnlyOtherFieldsEmpty) {
+                oneOfOnlyOtherFieldsEmpty = true;
+                return true;
+            }
             return false;
         }
 
@@ -168,6 +177,8 @@ public abstract class Citation {
      * @return 
      */
     public String toBibtex(String field) {
+        field = field.replace(":only_other=editor", "");
+        field = field.replace(":only_other=author", "");
         String value = this.getField(field);
         
         if(field.equals("id")){

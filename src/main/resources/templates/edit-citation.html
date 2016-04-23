@@ -12,9 +12,14 @@
                 <!-- Citation -->
                 <div th:with="citation=${citation}">
                     <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
+                        <div th:if="${#strings.arraySplit(field, ':').length} > 1" th:with="trueField=${#strings.arraySplit(field, ':')[0]}">
+                            <label th:if="${#strings.arraySplit(field, ':').length} > 1" th:attr="for=${type}+'-'+${trueField}" th:text="${#strings.toUpperCase(trueField)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" th:attr="title='This field is required if ' + ${#strings.arraySplit(field, '=')[1]} + ' is empty'">!</span>
+                            <input th:if="${#strings.arraySplit(field, ':').length} > 1" class="form-control" th:name="${trueField}" th:id="${type}+'-'+${trueField}" th:value="*{citation.getClass().getField(trueField).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(trueField)} + ' field'"  required="required" />
+                        </div>
+                        <div th:if="${#strings.arraySplit(field, ':').length} == 1">
+                            <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
+                            <input th:if="${#strings.arraySplit(field, ':').length} == 1" class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
+                        </div>
                     </div>
                     <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
                         <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
@@ -29,24 +34,6 @@
         </div>
         
         <script th:replace="fragments/scripts">scripts</script>
-        <script th:inline="javascript">
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip();
-            });
-            
-            new Vue({
-                    el: 'body',
-
-              data: {
-                    type: 'article'
-              },
-              
-              methods: {
-                  refreshTooltips: function(){
-                      $('[data-toggle="tooltip"]').tooltip();
-                  }
-              }
-            });
-        </script>
+        <script src="js/form.js" th:src="@{/js/form.js}"></script>
     </body>
 </html>

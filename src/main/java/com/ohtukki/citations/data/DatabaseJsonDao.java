@@ -71,8 +71,6 @@ public class DatabaseJsonDao implements Database {
         return targetCollection;
     }
     
-    
-    
     @Override
     public Citation find(String id) {
         for(int i = 0; i < this.all().size(); i++){

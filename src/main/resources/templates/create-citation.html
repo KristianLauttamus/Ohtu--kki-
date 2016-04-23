@@ -11,7 +11,7 @@
             <form method="POST" th:action="@{/citation}">
                 <div class="form-group">
                     <label for="citationType">Select type</label>
-                    <select name="citationType" id="citationType" v-model="type" class="form-control" v-on:change="refreshTooltips">
+                    <select name="citationType" id="citationType" v-model="type" class="form-control" v-on:change="typeChange">
                         <option value="article">Article</option>
                         <option value="book">Book</option>
                         <option value="booklet">Booklet</option>
@@ -31,199 +31,73 @@
                 <hr/>
                 
                 <!-- Article -->
-                <div v-if="type=='article'" th:with="citation=${articleCitation}">
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
-                    </div>
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
-                    </div>
+                <div v-if="type=='article'">
+                    <div th:replace="fragments/form :: form(citation=${articleCitation})"></div>
                 </div>
                 
                 <!-- Book -->
-                <div v-if="type=='book'" th:with="citation=${bookCitation}">
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
-                    </div>
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
-                    </div>
+                <div v-if="type=='book'">
+                    <div th:replace="fragments/form :: form(citation=${bookCitation})"></div>
                 </div>
                 
                 <!-- Booklet -->
-                <div v-if="type=='booklet'" th:with="citation=${bookletCitation}">
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
-                    </div>
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
-                    </div>
+                <div v-if="type=='booklet'">
+                    <div th:replace="fragments/form :: form(citation=${bookletCitation})"></div>
                 </div>
                 
                 <!-- Conference -->
-                <div v-if="type=='conference'" th:with="citation=${conferenceCitation}">
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
-                    </div>
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
-                    </div>
+                <div v-if="type=='conference'">
+                    <div th:replace="fragments/form :: form(citation=${conferenceCitation})"></div>
                 </div>
                 
                 <!-- Inbook -->
-                <div v-if="type=='inbook'" th:with="citation=${inbookCitation}">
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
-                    </div>
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
-                    </div>
+                <div v-if="type=='inbook'">
+                    <div th:replace="fragments/form :: form(citation=${inbookCitation})"></div>
                 </div>
                 
                 <!-- Incollection -->
-                <div v-if="type=='incollection'" th:with="citation=${incollectionCitation}">
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
-                    </div>
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
-                    </div>
+                <div v-if="type=='incollection'">
+                    <div th:replace="fragments/form :: form(citation=${incollectionCitation})"></div>
                 </div>
                 
                 <!-- Inproceedings -->
-                <div v-if="type=='inproceedings'" th:with="citation=${inproceedingsCitation}">
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
-                    </div>
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
-                    </div>
+                <div v-if="type=='inproceedings'">
+                    <div th:replace="fragments/form :: form(citation=${inproceedingsCitation})"></div>
                 </div>
                 
                 <!-- Manual -->
-                <div v-if="type=='manual'" th:with="citation=${manualCitation}">
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
-                    </div>
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
-                    </div>
+                <div v-if="type=='manual'">
+                    <div th:replace="fragments/form :: form(citation=${manualCitation})"></div>
                 </div>
                 
                 <!-- Mastersthesis -->
-                <div v-if="type=='mastersthesis'" th:with="citation=${mastersthesisCitation}">
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
-                    </div>
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
-                    </div>
+                <div v-if="type=='mastersthesis'">
+                    <div th:replace="fragments/form :: form(citation=${mastersthesisCitation})"></div>
                 </div>
                 
                 <!-- Misc -->
-                <div v-if="type=='misc'" th:with="citation=${miscCitation}">
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
-                    </div>
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
-                    </div>
+                <div v-if="type=='misc'">
+                    <div th:replace="fragments/form :: form(citation=${miscCitation})"></div>
                 </div>
                 
                 <!-- PHDThesis -->
-                <div v-if="type=='phdthesis'" th:with="citation=${phdthesisCitation}">
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
-                    </div>
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
-                    </div>
+                <div v-if="type=='phdthesis'">
+                    <div th:replace="fragments/form :: form(citation=${phdthesisCitation})"></div>
                 </div>
 
                 <!-- Proceedings -->
-                <div v-if="type=='proceedings'" th:with="citation=${proceedingsCitation}">
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
-
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
-                    </div>
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
-
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
-                    </div>
+                <div v-if="type=='proceedings'">
+                    <div th:replace="fragments/form :: form(citation=${proceedingsCitation})"></div>
                 </div>
                 
                 <!-- TechReport -->
-                <div v-if="type=='techreport'" th:with="citation=${techreportCitation}">
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
-                    </div>
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
-                    </div>
+                <div v-if="type=='techreport'">
+                    <div th:replace="fragments/form :: form(citation=${techreportCitation})"></div>
                 </div>
                 
                 <!-- Unpublished -->
-                <div v-if="type=='unpublished'" th:with="citation=${unpublishedCitation}">
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
-                    </div>
-                    <div class="form-group" th:each="field,iterationStatus : ${citation.getOptionalFields()}" th:with="type=${citation.getCitationType()}">
-                        <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label>
-                        
-                        <input class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'" />
-                    </div>
+                <div v-if="type=='unpublished'">
+                    <div th:replace="fragments/form :: form(citation=${unpublishedCitation})"></div>
                 </div>
                 
                 <hr/>
@@ -232,24 +106,6 @@
         </div>
         
         <script th:replace="fragments/scripts">scripts</script>
-        <script th:inline="javascript">
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip();
-            });
-            
-            new Vue({
-                    el: 'body',
-
-              data: {
-                    type: 'article'
-              },
-              
-              methods: {
-                  refreshTooltips: function(){
-                      $('[data-toggle="tooltip"]').tooltip();
-                  }
-              }
-            });
-        </script>
+        <script src="js/form.js" th:src="@{/js/form.js}"></script>
     </body>
 </html>

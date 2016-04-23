@@ -49,29 +49,86 @@ public abstract class Citation {
     
     /**
      * Validate by checking the required fields
+     * @param updating
      * @return 
      */
     public boolean validate(boolean updating){
         for(String required : this.getRequiredFields()){
-            String value = "";
-            try {
-                Field f = this.getClass().getField(required);
-
-                value = ((String)f.get(this));
-            } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
-                Logger.getLogger(Citation.class.getName()).log(Level.SEVERE, null, ex);
-                return false;
-            }
-
-            if(isNullOrEmpty(value)){
-                return false;
-            }
-
-            if(required.equals("id") && !updating && this.database.find(value) != null){
+            if(!this.validateField(required, updating)){
                 return false;
             }
         }
         return true;
+    }
+    
+    /**
+     * Prettier way to access field validation
+     * @param field
+     * @return 
+     */
+    public boolean validateField(String field){
+        return this.validateField(field, false);
+    }
+    
+    /**
+     * Check that the given field fulfills its optional rule and check that it
+     * isn't empty nor null
+     * @param field
+     * @param updating
+     * @return 
+     */
+    public boolean validateField(String field, boolean updating){
+        String value = "";
+        try {
+            Field f = this.getClass().getField(field.split(":").length > 1 ? field.split(":")[0] : field);
+
+            value = ((String)f.get(this));
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
+            Logger.getLogger(Citation.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
+        String[] splittedValue = value.split(":");
+
+        if(splittedValue.length > 1 && this.rule(splittedValue[0], splittedValue[1])){
+            if(isNullOrEmpty(splittedValue[0])){
+                return false;
+            }
+        } else if(isNullOrEmpty(splittedValue[0])){
+            return false;
+        }
+
+        return !(field.equals("id") && !updating && this.database.find(splittedValue[0]) != null);
+    }
+    
+    /**
+     * Check a optional rule on a required field
+     * @param field
+     * @param rule
+     * @return 
+     */
+    public boolean rule(String field, String rule){
+        if(this.isNullOrEmpty(rule))
+            return false;
+        
+        switch(rule.split("=")[0]){
+            case "required_if_empty":
+                return rule.split("=").length > 1 && !this.validateField(rule.split("=")[1]);
+                
+            case "only_other":
+                if(rule.split("=").length <= 1)
+                    return false;
+                
+                if(this.validateField(rule.split("=")[1])){
+                    this.setField(field, "");
+                    
+                    return true;
+                }
+                
+                return false; 
+        }
+        
+        return false;
     }
     
     /**
@@ -111,14 +168,7 @@ public abstract class Citation {
      * @return 
      */
     public String toBibtex(String field) {
-        String value = "";
-        try {
-            Field f = this.getClass().getField(field);
-            
-            value = ((String)f.get(this));
-        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
-            Logger.getLogger(Citation.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        String value = this.getField(field);
         
         if(field.equals("id")){
             return isNullOrEmpty(value) ? "\n" : value + ",\n";
@@ -131,7 +181,12 @@ public abstract class Citation {
         try {
             Field f = this.getClass().getField(field);
             
-            return ((String)f.get(this));
+            String value = ((String)f.get(this));
+            
+            if(value.split(":").length > 1)
+                return value.split(":")[0];
+            
+            return value;
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
             Logger.getLogger(Citation.class.getName()).log(Level.SEVERE, null, ex);
         }

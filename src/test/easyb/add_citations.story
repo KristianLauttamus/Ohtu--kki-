@@ -547,3 +547,65 @@ scenario "user can create unpublished citation", {
         db.clear()
     }
 }
+
+scenario "user can't create two citations with same id", {
+    given 'user has added one citation with id', {
+        driver.get("http://localhost:8080")
+        element = driver.findElement(By.linkText("Add Citation"))
+        element.click()
+
+        Select select = new Select(driver.findElementById("citationType"))
+        select.selectByVisibleText("Article")
+
+        element = driver.findElementById("Article-id")
+        element.sendKeys("easyBTestId")
+
+        element = driver.findElementById("Article-author")
+        element.sendKeys("easyBTestAuthor")
+
+        element = driver.findElementById("Article-title")
+        element.sendKeys("easyBTestTitle")
+
+        element = driver.findElementById("Article-journal")
+        element.sendKeys("easyBTestJournal")
+
+        element = driver.findElementById("Article-year")
+        element.sendKeys("easyBTestYear")
+
+        element = driver.findElementByClassName("btn")
+        element.click()
+    }
+
+    when 'user tries to add another citation with the same id', {
+        driver.get("http://localhost:8080")
+        element = driver.findElement(By.linkText("Add Citation"))
+        element.click()
+
+        Select select = new Select(driver.findElementById("citationType"))
+        select.selectByVisibleText("Article")
+
+        element = driver.findElementById("Article-id")
+        element.sendKeys("easyBTestId")
+
+        element = driver.findElementById("Article-author")
+        element.sendKeys("easyBTestAuthor")
+
+        element = driver.findElementById("Article-title")
+        element.sendKeys("easyBTestTitle")
+
+        element = driver.findElementById("Article-journal")
+        element.sendKeys("easyBTestJournal")
+
+        element = driver.findElementById("Article-year")
+        element.sendKeys("easyBTestYear")
+
+        element = driver.findElementByClassName("btn")
+        element.click()
+    }
+
+    then 'new citation is not created', {
+        db.all().size().shouldBe 1
+
+        db.clear()
+    }
+}

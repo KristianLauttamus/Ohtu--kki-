@@ -22,12 +22,11 @@ new Vue({
                 this.$http.get('/checkId/' + this.id).then(function (response) {
                     if(typeof response.data !== 'object'){
                         this.notValidId = false;
-                        console.log(typeof response.data);
                     } else {
                         this.notValidId = true;
                     }
                 }.bind(this), function (response) {
-                    console.log("--- Deletion Failed");
+                    console.log("--- Id Check Failed");
                     console.log(response);
                 });
             }

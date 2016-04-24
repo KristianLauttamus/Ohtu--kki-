@@ -8,7 +8,7 @@
     <body>
         <div class="container">
             <nav th:replace="fragments/nav"></nav>
-            <form method="POST" th:action="@{'/'+${citation.id}+'/update'}">
+            <form method="POST" th:action="@{'/'+${citation.id}+'/update'}" th:attr="originalId=${citation.id}">
                 <!-- Citation -->
                 <div th:with="citation=${citation}">
                     <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">

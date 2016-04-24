@@ -14,7 +14,7 @@
         <div th:if="${splitField.length} == 1">
             <div class="form-group" v-bind:class="[notValidId ? 'has-error' : '']" th:if="${field} == 'id'">
                 <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
-                <input th:if="${#strings.arraySplit(field, ':').length} == 1" class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" v-model="id" v-on:change="idChange"/>
+                <input th:if="${#strings.arraySplit(field, ':').length} == 1" class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" v-model="id" v-on:keyup="idChange"/>
                 <span v-if="notValidId" class="help-block">ID is already taken.</span>
             </div>
             <div class="form-group" th:if="${field} != 'id'">

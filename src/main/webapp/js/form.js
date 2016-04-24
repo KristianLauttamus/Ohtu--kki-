@@ -10,7 +10,7 @@ new Vue({
         notValidId: false,
   },
   
-  props: ['originalId'],
+  props: ['originalid'],
 
   methods: {
         typeChange: function(){
@@ -18,9 +18,9 @@ new Vue({
         },
         
         idChange: function(){
-            if(typeof this.id !== 'undefined' && this.id !== this.originalId){
+            if(typeof this.id !== 'undefined' && this.id !== ''){
                 this.$http.get('/checkId/' + this.id).then(function (response) {
-                    if(typeof response.data !== 'object'){
+                    if(typeof response.data !== 'object' || this.originalid === this.id){
                         this.notValidId = false;
                     } else {
                         this.notValidId = true;

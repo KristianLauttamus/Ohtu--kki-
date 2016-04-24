@@ -80,15 +80,16 @@ public abstract class Citation {
      * @return 
      */
     public boolean validateField(String field, boolean updating){
-        if (field.equals("id")) {
-            oneOfOnlyOtherFieldsEmpty = false;
-        }
         String value = "";
         try {
+            if (field.equals("id")) {
+                oneOfOnlyOtherFieldsEmpty = false;
+            }
+            
             Field f = this.getClass().getField(field.split(":").length > 1 ? field.split(":")[0] : field);
 
             value = ((String)f.get(this));
-        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException | NullPointerException ex) {
             Logger.getLogger(Citation.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
@@ -198,7 +199,7 @@ public abstract class Citation {
                 return value.split(":")[0];
             
             return value;
-        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException | NullPointerException ex) {
             Logger.getLogger(Citation.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -210,7 +211,7 @@ public abstract class Citation {
             Field f = this.getClass().getField(field);
             
             f.set(this, value);
-        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException | NullPointerException ex) {
             Logger.getLogger(Citation.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -221,7 +222,7 @@ public abstract class Citation {
             if(((String[])field.get(this)).length > 0)
                 return ((String[])field.get(this));
             
-        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException ex) {
+        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException | NullPointerException ex) {
             Logger.getLogger(Citation.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -234,7 +235,7 @@ public abstract class Citation {
             if(((String[])field.get(this)).length > 0)
                 return ((String[])field.get(this));
             
-        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException ex) {
+        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException | NullPointerException ex) {
             Logger.getLogger(Citation.class.getName()).log(Level.SEVERE, null, ex);
         }
         

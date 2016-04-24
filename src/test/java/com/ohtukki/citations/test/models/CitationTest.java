@@ -146,4 +146,48 @@ public class CitationTest {
         temp.setKey("");
         return temp;
     }
+    
+    // Some tests for unexpected things to happen
+    @Test
+    public void validateFieldCatchesException() {
+        articleCitation = new ArticleCitation();
+        assertFalse(articleCitation.validateField(null));
+    }
+    
+    @Test
+    public void getRequiredFieldsWorksWithEmptyFields() {
+        articleCitation = new ArticleCitation();
+        articleCitation.requiredFields = new String[]{};
+        assertTrue(articleCitation.getRequiredFields().length == 0);
+    }
+    
+    @Test
+    public void getRequiredFieldsCatchesException() {
+        articleCitation = new ArticleCitation();
+        articleCitation.requiredFields = null;
+        articleCitation.getRequiredFields();
+        // if test passes, code works
+    }
+    
+    @Test
+    public void getOptionalFieldsCatchesException() {
+        articleCitation = new ArticleCitation();
+        articleCitation.optionalFields = null;
+        articleCitation.getOptionalFields();
+        // if test passes, code works
+    }
+    
+    @Test
+    public void setFieldCatchesException() {
+        articleCitation = new ArticleCitation();
+        articleCitation.setField(null, "some value");
+        // if test passes, code works
+    }
+    
+    @Test
+    public void getFieldCatchesException() {
+        articleCitation = new ArticleCitation();
+        articleCitation.getField(null);
+        // if test passes, code works
+    }
 }

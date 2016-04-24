@@ -280,26 +280,16 @@ public class CitationController {
     public void delete(@PathVariable String id){
         this.database.destroy(id);
     }
+    
     @RequestMapping(method = RequestMethod.POST, value = "/upload")
     public String handleFileUpload( @RequestParam("file") MultipartFile file,
                                     Model model) {
+        int count = 0;
         if (!file.isEmpty()) {
             try {
-                ByteArrayOutputStream byos = new ByteArrayOutputStream();
-                BufferedOutputStream stream = new BufferedOutputStream(byos);
-                FileCopyUtils.copy(file.getInputStream(), stream);
-
-                stream.close();
-                
-                BibfileParser parser = new BibfileParser(byos.toString());
-
-                List<Citation> imported = parser.parseCitations();
-                for (Citation c : imported) {
-                    database.add(c);
-                }
-                database.saveAll();
+                count = parseInputFile(file);
                 model.addAttribute("citations", this.database.all());
-                model.addAttribute("message", "You successfully uploaded " + file.getName() + " with "+imported.size()+" Citations.");
+                model.addAttribute("message", "You successfully uploaded " + file.getName() + " with "+count+" Citations.");
             } catch (Exception e) {
                 model.addAttribute("message", "You failed to upload " + file.getName() + " => " + e.getMessage());
             }
@@ -308,5 +298,22 @@ public class CitationController {
         }
 
         return "index";
+    }
+    private int parseInputFile(MultipartFile file) throws IOException {
+        ByteArrayOutputStream byos = new ByteArrayOutputStream();
+        BufferedOutputStream stream = new BufferedOutputStream(byos);
+        FileCopyUtils.copy(file.getInputStream(), stream);
+
+        stream.close();
+
+        BibfileParser parser = new BibfileParser(byos.toString());
+
+        List<Citation> imported = parser.parseCitations();
+        for (Citation c : imported) {
+            database.add(c);
+        }
+        database.saveAll();
+        
+        return imported.size();
     }
 }

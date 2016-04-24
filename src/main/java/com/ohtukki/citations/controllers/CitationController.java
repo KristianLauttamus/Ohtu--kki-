@@ -281,6 +281,11 @@ public class CitationController {
         this.database.destroy(id);
     }
     
+    @RequestMapping(value = "/checkId/{id}", method = RequestMethod.GET)
+    public @ResponseBody Citation checkId(@PathVariable String id){
+        return this.database.find(id);
+    }
+    
     @RequestMapping(method = RequestMethod.POST, value = "/upload")
     public String handleFileUpload( @RequestParam("file") MultipartFile file,
                                     Model model) {

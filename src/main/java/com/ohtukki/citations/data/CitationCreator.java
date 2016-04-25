@@ -36,10 +36,8 @@ public class CitationCreator implements TypeSelector<Citation> {
 				return ProceedingsCitation.class;
 			case "TechReport":
 				return TechReportCitation.class;
-			case "Unpublished":
+                        default: // case "Unpublished":
 				return UnpublishedCitation.class;
-			default:
-				return Citation.class;
 		}
 	}
 }

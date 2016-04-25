@@ -190,4 +190,11 @@ public class CitationTest {
         articleCitation.getField(null);
         // if test passes, code works
     }
+    
+    @Test
+    public void getFieldSplitWorks() {
+        BookCitation cit = new BookCitation();
+        cit.type = "foo:bar";
+        assertEquals("foo", cit.getField("type"));
+    }
 }

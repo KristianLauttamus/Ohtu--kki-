@@ -6,21 +6,29 @@ new Vue({
         el: 'body',
 
   data: {
-        type: 'article'
+        type: 'article',
+        notValidId: false,
   },
+  
+  props: ['originalid'],
 
   methods: {
         typeChange: function(){
-            
-
             $('[data-toggle="tooltip"]').tooltip();
         },
         
-        inputValueChanged: function(button){
-            if(this.type === 'book'){
-                
-            } else if(this.type === 'inbook'){
-
+        idChange: function(){
+            if(typeof this.id !== 'undefined' && this.id !== ''){
+                this.$http.get('/checkId/' + this.id).then(function (response) {
+                    if(typeof response.data !== 'object' || this.originalid === this.id){
+                        this.notValidId = false;
+                    } else {
+                        this.notValidId = true;
+                    }
+                }.bind(this), function (response) {
+                    console.log("--- Id Check Failed");
+                    console.log(response);
+                });
             }
         }
   }

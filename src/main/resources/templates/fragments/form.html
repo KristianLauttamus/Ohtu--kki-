@@ -1,6 +1,6 @@
 <div th:fragment="form(citation)">
-    <div class="form-group" th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()}">
-        <div th:with="splitField=${#strings.arraySplit(field, ':')}" th:if="${#strings.arraySplit(field, ':').length} > 1">
+    <div th:each="field,iterationStatus : ${citation.getRequiredFields()}" th:with="type=${citation.getCitationType()},splitField=${#strings.arraySplit(field, ':')}">
+        <div class="form-group" th:if="${splitField.length} > 1">
             <div th:if="${#strings.arraySplit(splitField[1], '=')[0]} == 'required_if_empty'">
                 <label th:attr="for=${type}+'-'+${splitField[0]}" th:text="${#strings.toUpperCase(splitField[0])}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" th:attr="title='This field is required if ' + ${#strings.arraySplit(field, '=')[1]} + ' is empty'">!</span>
                 <input class="form-control" th:name="${splitField[0]}" th:id="${type}+'-'+${splitField[0]}" th:value="*{citation.getClass().getField(splitField[0]).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(splitField[0])} + ' field'" />
@@ -11,9 +11,16 @@
             </div>
         </div>
         
-        <div th:if="${#strings.arraySplit(field, ':').length} == 1">
-            <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
-            <input th:if="${#strings.arraySplit(field, ':').length} == 1" class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
+        <div th:if="${splitField.length} == 1">
+            <div class="form-group" v-bind:class="[notValidId ? 'has-error' : '']" th:if="${field} == 'id'">
+                <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
+                <input th:if="${#strings.arraySplit(field, ':').length} == 1" class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" v-model="id" v-on:keyup="idChange"/>
+                <span v-if="notValidId" class="help-block">ID is already taken.</span>
+            </div>
+            <div class="form-group" th:if="${field} != 'id'">
+                <label th:attr="for=${type}+'-'+${field}" th:text="${#strings.toUpperCase(field)}"></label> <span class="text-danger" data-toggle="tooltip" data-placement="right" title="This field is required">*</span>
+                <input th:if="${#strings.arraySplit(field, ':').length} == 1" class="form-control" th:name="${field}" th:id="${type}+'-'+${field}" th:value="*{citation.getClass().getField(field).get(citation)}" th:attr="placeholder='Set '+${#strings.capitalize(type)}+'\'s ' + ${#strings.capitalize(field)} + ' field'"  required="required" />
+            </div>
         </div>
     </div>
     

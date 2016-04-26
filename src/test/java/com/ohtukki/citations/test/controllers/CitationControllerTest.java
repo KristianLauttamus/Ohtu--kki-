@@ -135,11 +135,9 @@ public class CitationControllerTest {
     @Test
     public void testUpload() {
         try {
-            MockMultipartFile file;
-            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("one.bib");
-            file = new MockMultipartFile("file", "orig", null, inputStream);
+            MockMultipartFile file = new MockMultipartFile("file", "orig", null, "[]".getBytes());
             mockMvc.perform(fileUpload("/upload").file(file))
-                    .andExpect(model().attribute("message", "You successfully uploadedy"));
+                    .andExpect(model().attribute("message", "You successfully uploaded file with 0 Citations."));
         } catch (Exception ex) {
             Logger.getLogger(CitationControllerTest.class.getName()).log(Level.SEVERE, null, ex);
         }

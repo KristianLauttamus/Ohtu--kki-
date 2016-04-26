@@ -52,7 +52,7 @@ public class DatabaseJsonDao implements Database {
         String data = null;
         try {
             data = FileUtils.readFileToString(new File(filename));
-        } catch (IOException ex) {
+        } catch (IOException | NullPointerException ex) {
             Logger.getLogger(DatabaseJsonDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.citations = gson.fromJson(data, new TypeToken<ArrayList<Citation>>(){}.getType());
@@ -85,11 +85,7 @@ public class DatabaseJsonDao implements Database {
     @Override
     public void save(Citation citation) {
         this.add(citation);
-        try {
-            this.saveAll();
-        } catch (Exception ex) {
-            Logger.getLogger(DatabaseJsonDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.saveAll();
     }
     
     @Override
@@ -128,7 +124,7 @@ public class DatabaseJsonDao implements Database {
         String json = gson.toJson(this.citations);
         try {
             FileUtils.writeStringToFile(new File(filename), json);
-        } catch (IOException ex) {
+        } catch (IOException | NullPointerException ex) {
             Logger.getLogger(DatabaseJsonDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -170,7 +166,7 @@ public class DatabaseJsonDao implements Database {
         String json = gson.toJson(this.citations);
         try {
             FileUtils.writeStringToFile(new File(filename), json);
-        } catch (IOException ex) {
+        } catch (IOException | NullPointerException ex) {
             Logger.getLogger(DatabaseJsonDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

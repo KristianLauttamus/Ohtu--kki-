@@ -147,6 +147,15 @@ public class CitationTest {
         return temp;
     }
     
+    @Test
+    public void ruleLogicWorks() {
+        BookCitation cit = new BookCitation();
+        assertFalse(cit.rule("foo", ""));
+        assertFalse(cit.rule("foo", "bar"));
+        assertFalse(cit.rule("foo", "required_if_empty"));
+        assertFalse(cit.rule("foo", "only_other"));
+    }
+    
     // Some tests for unexpected things to happen
     @Test
     public void validateFieldCatchesException() {

@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import com.ohtukki.citations.data.DatabaseJsonDao;
 import com.ohtukki.citations.models.ArticleCitation;
+import com.ohtukki.citations.models.BookCitation;
 import com.ohtukki.citations.models.Citation;
 
 
@@ -79,4 +80,28 @@ public class DatabaseDaoJsonTest {
         dao.update("1", c);
         assertEquals("2014", dao.find("1").getYear());
     }
+    
+    // Tests for unexpected things
+    @Test
+    public void allCatchesException() {
+        DatabaseJsonDao temp = new DatabaseJsonDao(null);
+        temp.all();
+        // if test passes, code works
+    }
+    
+    @Test
+    public void saveAllCatchesException() {
+        DatabaseJsonDao temp = new DatabaseJsonDao(null);
+        temp.saveAll();
+        // if test passes, code works
+    }
+    
+    @Test
+    public void clearCatchesException() {
+        DatabaseJsonDao temp = new DatabaseJsonDao(null);
+        temp.clear();
+        // if test passes, code works
+    }
+    
+    
  }

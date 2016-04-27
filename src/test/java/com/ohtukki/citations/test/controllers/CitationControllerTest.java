@@ -99,6 +99,25 @@ public class CitationControllerTest {
         assertEquals("Optionals-Author", this.database.all().get(this.database.all().size()-1).getAuthor());
         assertEquals(size+1, this.database.all().size());
     }
+    
+    @Test
+    public void invalidCitationIsNotAdded() throws Exception {
+        int size = this.database.all().size();
+        
+        // Booktitle field is missing
+        mockMvc.perform(post("/citation")
+                .param("citationType", "conference")
+                .param("id", "Id")
+                .param("author", "Author")
+                .param("title", "Title")
+                .param("publisher", "Publisher")
+                .param("year", "Year"))
+                .andExpect(status().is3xxRedirection())
+                .andReturn();
+        
+        assertEquals(size, this.database.all().size());
+    }
+    
     @Test
     public void testDownload() {
         this.database.clear();
@@ -141,5 +160,189 @@ public class CitationControllerTest {
         } catch (Exception ex) {
             Logger.getLogger(CitationControllerTest.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    @Test
+    public void postBookCitation() throws Exception {
+        int size = this.database.all().size();
+        mockMvc.perform(post("/citation")
+                .param("citationType", "book")
+                .param("id", "Id")
+                .param("author", "Author")
+                .param("title", "Title")
+                .param("publisher", "Publisher")
+                .param("year", "Year"))
+                .andExpect(status().is3xxRedirection())
+                .andReturn();
+        assertEquals(size + 1, this.database.all().size());
+    }
+    
+    @Test
+    public void postBookletCitation() throws Exception {
+        int size = this.database.all().size();
+        mockMvc.perform(post("/citation")
+                .param("citationType", "booklet")
+                .param("id", "Id")
+                .param("title", "Title"))
+                .andExpect(status().is3xxRedirection())
+                .andReturn();
+        assertEquals(size + 1, this.database.all().size());
+    }
+    
+    @Test
+    public void postConferenceCitation() throws Exception {
+        int size = this.database.all().size();
+        mockMvc.perform(post("/citation")
+                .param("citationType", "conference")
+                .param("id", "Id")
+                .param("author", "Author")
+                .param("title", "Title")
+                .param("booktitle", "booktitle")
+                .param("year", "Year"))
+                .andExpect(status().is3xxRedirection())
+                .andReturn();
+        assertEquals(size + 1, this.database.all().size());
+    }
+    
+    @Test
+    public void postInbookCitation() throws Exception {
+        int size = this.database.all().size();
+        mockMvc.perform(post("/citation")
+                .param("citationType", "inbook")
+                .param("id", "Id")
+                .param("author", "Author")
+                .param("title", "Title")
+                .param("pages", "Pages") // TODO one of fields pages and
+                .param("chapter", "Chapter") // chapter should be enough
+                .param("publisher", "Publisher")
+                .param("year", "Year"))
+                .andExpect(status().is3xxRedirection())
+                .andReturn();
+        assertEquals(size + 1, this.database.all().size());
+    }
+    
+    @Test
+    public void postIncollectionCitation() throws Exception {
+        int size = this.database.all().size();
+        mockMvc.perform(post("/citation")
+                .param("citationType", "incollection")
+                .param("id", "Id")
+                .param("author", "Author")
+                .param("title", "Title")
+                .param("booktitle", "booktitle")
+                .param("year", "Year"))
+                .andExpect(status().is3xxRedirection())
+                .andReturn();
+        assertEquals(size + 1, this.database.all().size());
+    }
+    
+    @Test
+    public void postInproceedingsCitation() throws Exception {
+        int size = this.database.all().size();
+        mockMvc.perform(post("/citation")
+                .param("citationType", "inproceedings")
+                .param("id", "Id")
+                .param("author", "Author")
+                .param("title", "Title")
+                .param("booktitle", "booktitle")
+                .param("year", "Year"))
+                .andExpect(status().is3xxRedirection())
+                .andReturn();
+        assertEquals(size + 1, this.database.all().size());
+    }
+    
+    @Test
+    public void postManualCitation() throws Exception {
+        int size = this.database.all().size();
+        mockMvc.perform(post("/citation")
+                .param("citationType", "manual")
+                .param("id", "Id")
+                .param("title", "Title"))
+                .andExpect(status().is3xxRedirection())
+                .andReturn();
+        assertEquals(size + 1, this.database.all().size());
+    }
+    
+    @Test
+    public void postMastersthesisCitation() throws Exception {
+        int size = this.database.all().size();
+        mockMvc.perform(post("/citation")
+                .param("citationType", "mastersthesis")
+                .param("id", "Id")
+                .param("author", "Author")
+                .param("title", "Title")
+                .param("school", "School")
+                .param("year", "Year"))
+                .andExpect(status().is3xxRedirection())
+                .andReturn();
+        assertEquals(size + 1, this.database.all().size());
+    }
+    
+    @Test
+    public void postMiscCitation() throws Exception {
+        int size = this.database.all().size();
+        mockMvc.perform(post("/citation")
+                .param("citationType", "misc")
+                .param("id", "Id"))
+                .andExpect(status().is3xxRedirection())
+                .andReturn();
+        assertEquals(size + 1, this.database.all().size());
+    }
+    
+    @Test
+    public void postPhdthesisCitation() throws Exception {
+        int size = this.database.all().size();
+        mockMvc.perform(post("/citation")
+                .param("citationType", "phdthesis")
+                .param("id", "Id")
+                .param("author", "Author")
+                .param("title", "Title")
+                .param("school", "School")
+                .param("year", "Year"))
+                .andExpect(status().is3xxRedirection())
+                .andReturn();
+        assertEquals(size + 1, this.database.all().size());
+    }
+    
+    @Test
+    public void postProceedingsCitation() throws Exception {
+        int size = this.database.all().size();
+        mockMvc.perform(post("/citation")
+                .param("citationType", "proceedings")
+                .param("id", "Id")
+                .param("title", "Title")
+                .param("year", "Year"))
+                .andExpect(status().is3xxRedirection())
+                .andReturn();
+        assertEquals(size + 1, this.database.all().size());
+    }
+    
+    @Test
+    public void postTechReportCitation() throws Exception {
+        int size = this.database.all().size();
+        mockMvc.perform(post("/citation")
+                .param("citationType", "techreport")
+                .param("id", "Id")
+                .param("author", "Author")
+                .param("title", "Title")
+                .param("institution", "Institution")
+                .param("year", "Year"))
+                .andExpect(status().is3xxRedirection())
+                .andReturn();
+        assertEquals(size + 1, this.database.all().size());
+    }
+    
+    @Test
+    public void postUnpublishedCitation() throws Exception {
+        int size = this.database.all().size();
+        mockMvc.perform(post("/citation")
+                .param("citationType", "unpublished")
+                .param("id", "Id")
+                .param("author", "Author")
+                .param("title", "Title")
+                .param("note", "Note"))
+                .andExpect(status().is3xxRedirection())
+                .andReturn();
+        assertEquals(size + 1, this.database.all().size());
     }
 }

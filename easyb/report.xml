@@ -1,0 +1,118 @@
+<easyb time='Wed Apr 27 19:34:25 EEST 2016' totalbehaviors='20' totalfailedbehaviors='0' totalpendingbehaviors='0' executionTime='13735'>
+  <stories scenarios='20' failedscenarios='0' pendingscenarios='0' executionTime='13735'>
+    <story name='add_citations' scenarios='17' failedscenarios='0' pendingscenarios='0' executionTime='12117'>
+      <description name='User can add all types of citations' />
+      <scenario name='user can choose to add an article citation' result='success' executionTime='2919'>
+        <given name='user is on the "Add Citation" page' result='success' />
+        <when name='"Article" is chosen as the citation type' result='success' />
+        <then name='the proper form will open' result='success' />
+      </scenario>
+      <scenario name='user can create article citation by filling the required fields' result='success' executionTime='774'>
+        <given name='user is on the "Add Citation" page' result='success' />
+        <when name='user fills (at least) required fields and clicks create button' result='success' />
+        <then name='new citation is created' result='success' />
+      </scenario>
+      <scenario name='user can not create article citation without filling the required fields' result='success' executionTime='807'>
+        <given name='user is on the "Add Citation" page' result='success' />
+        <when name='user tries to create new article citation without filling all the required fields' result='success' />
+        <then name='new citation is not created' result='success' />
+      </scenario>
+      <scenario name='user can create book citation' result='success' executionTime='405'>
+        <given name='user is on the "Add Citation" page' result='success' />
+        <when name='user fills (at least) required fields and clicks create button' result='success' />
+        <then name='new citation is created' result='success' />
+      </scenario>
+      <scenario name='user can create inproceedings citation' result='success' executionTime='389'>
+        <given name='user is on the "Add Citation" page' result='success' />
+        <when name='user fills (at least) required fields and clicks create button' result='success' />
+        <then name='new citation is created' result='success' />
+      </scenario>
+      <scenario name='user can create booklet citation' result='success' executionTime='319'>
+        <given name='user is on the "Add Citation" page' result='success' />
+        <when name='user fills (at least) required fields and clicks create button' result='success' />
+        <then name='new citation is created' result='success' />
+      </scenario>
+      <scenario name='user can create conference citation' result='success' executionTime='341'>
+        <given name='user is on the "Add Citation" page' result='success' />
+        <when name='user fills (at least) required fields and clicks create button' result='success' />
+        <then name='new citation is created' result='success' />
+      </scenario>
+      <scenario name='user can create inbook citation' result='success' executionTime='375'>
+        <given name='user is on the "Add Citation" page' result='success' />
+        <when name='user fills (at least) required fields and clicks create button' result='success' />
+        <then name='new citation is created' result='success' />
+      </scenario>
+      <scenario name='user can create incollection citation' result='success' executionTime='321'>
+        <given name='user is on the "Add Citation" page' result='success' />
+        <when name='user fills (at least) required fields and clicks create button' result='success' />
+        <then name='new citation is created' result='success' />
+      </scenario>
+      <scenario name='user can create manual citation' result='success' executionTime='306'>
+        <given name='user is on the "Add Citation" page' result='success' />
+        <when name='user fills (at least) required fields and clicks create button' result='success' />
+        <then name='new citation is created' result='success' />
+      </scenario>
+      <scenario name='user can create masters thesis citation' result='success' executionTime='398'>
+        <given name='user is on the "Add Citation" page' result='success' />
+        <when name='user fills (at least) required fields and clicks create button' result='success' />
+        <then name='new citation is created' result='success' />
+      </scenario>
+      <scenario name='user can create miscellaneous citation' result='success' executionTime='367'>
+        <given name='user is on the "Add Citation" page' result='success' />
+        <when name='user fills (at least) required fields and clicks create button' result='success' />
+        <then name='new citation is created' result='success' />
+      </scenario>
+      <scenario name='user can create PHD thesis citation' result='success' executionTime='418'>
+        <given name='user is on the "Add Citation" page' result='success' />
+        <when name='user fills (at least) required fields and clicks create button' result='success' />
+        <then name='new citation is created' result='success' />
+      </scenario>
+      <scenario name='user can create proceedings citation' result='success' executionTime='287'>
+        <given name='user is on the "Add Citation" page' result='success' />
+        <when name='user fills (at least) required fields and clicks create button' result='success' />
+        <then name='new citation is created' result='success' />
+      </scenario>
+      <scenario name='user can create tech report citation' result='success' executionTime='324'>
+        <given name='user is on the "Add Citation" page' result='success' />
+        <when name='user fills (at least) required fields and clicks create button' result='success' />
+        <then name='new citation is created' result='success' />
+      </scenario>
+      <scenario name='user can create unpublished citation' result='success' executionTime='203'>
+        <given name='user is on the "Add Citation" page' result='success' />
+        <when name='user fills (at least) required fields and clicks create button' result='success' />
+        <then name='new citation is created' result='success' />
+      </scenario>
+      <scenario name='user can&apos;t create two citations with same id' result='success' executionTime='595'>
+        <given name='user has added one citation with id' result='success' />
+        <when name='user tries to add another citation with the same id' result='success' />
+        <then name='new citation is not created' result='success' />
+      </scenario>
+    </story>
+    <story name='list_citations' scenarios='0' failedscenarios='0' pendingscenarios='0' executionTime='32'>
+      <execute name='list_citations' />
+    </story>
+    <story name='download' scenarios='1' failedscenarios='0' pendingscenarios='0' executionTime='941'>
+      <description name='User can download added citations' />
+      <scenario name='After adding a new citation, it is downloadable at the frontpage' result='success' executionTime='823'>
+        <given name='user adds a new citation' result='success' />
+        <when name='user fills (at least) required fields and clicks create button' result='success' />
+        <when name='user starts download feature' result='success' />
+        <then name='added citation is visible' result='success' />
+      </scenario>
+    </story>
+    <story name='upload_bibtex' scenarios='2' failedscenarios='0' pendingscenarios='0' executionTime='645'>
+      <description name='User can upload a bibtex file' />
+      <scenario name='After uploading a bibtex file, the citations are added to the database' result='success' executionTime='483'>
+        <given name='user is on the index page' result='success' />
+        <when name='user uploads a bibtex file with two citations' result='success' />
+        <then name='the citations should be added to the database' result='success' />
+      </scenario>
+      <scenario name='If the file is not valid, nothing is added to the database' result='success' executionTime='86'>
+        <given name='user is on the index page' result='success' />
+        <when name='user uploads pom' result='success' />
+        <then name='no citations should be added to the database' result='success' />
+      </scenario>
+    </story>
+  </stories>
+  <specifications specifications='0' failedspecifications='0' pendingspecifications='0' executionTime='0' />
+</easyb>

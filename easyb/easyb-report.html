@@ -1,0 +1,896 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+  <meta http-equiv='content-type' content='text/html; charset=utf-8'/>
+  <title>easyb-report</title>
+  <meta name='keywords' content='BDD, behavior driven development, java, java bdd, groovy, groovy bdd, groovy behavior driven development, java behavior driven development, ruby, rspec, easyb, easy bdd'/>
+  <meta name='description' content='easyb is story verification framework built in the spirit of behavior driven development.'/>
+  <link href='easyb_report.css' rel='stylesheet' type='text/css'/>
+  <script src='prototype.js' type='text/javascript'></script>
+  <script type='text/javascript'>
+    function showOnlyContent(contentDiv, linkId) {
+      $('Summaries').hide();
+      $('summary-menu-link').removeClassName('selected-menu-link');
+    
+    
+      $('StoriesList').hide();
+      $('StoriesListPlain').hide();
+      $('stories-list-menu-link').removeClassName('selected-menu-link');
+      $('stories-list-plain-menu-link').removeClassName('selected-menu-link');
+    
+      $(linkId).addClassName('selected-menu-link');
+      $(contentDiv).show();
+    }
+    function toggleScenariosForStory(storyNumber) {
+      $('scenarios_for_story_' + storyNumber).toggle();
+      return false;
+    }
+    function toggleComponentsForSpecification(specificationNumber) {
+      $('components_for_specification_' + specificationNumber).toggle();
+      return false;
+    }
+  </script>
+</head>
+<body>
+<!-- start header -->
+<div id='header'>
+  <h1>
+    <a href='http://www.easyb.org'>
+      <span>easyb</span>
+    </a>
+  </h1>
+  <h2>&nbsp;&nbsp; -- BDD in java can't get any easier</h2>
+</div>
+<!-- end header -->
+
+
+<!-- start page -->
+<div id='page'>
+  <!-- start content -->
+  <div id='content'>
+    <div class='post'>
+      <div class='entry'>
+        <div id='Summaries'>
+          <h2>Summary</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Behaviors</th>
+                <th>Failed</th>
+                <th>Pending</th>
+                <th>Time (sec)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class='primaryRow'>
+                <td>20</td>
+                <td class=''>0</td>
+                <td class=''>0</td>
+                <td>13.735</td>
+              </tr>
+            </tbody>
+          </table>
+          <h2>Stories Summary</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Stories</th>
+                <th>Scenarios</th>
+                <th>Failed</th>
+                <th>Pending</th>
+                <th>Time (sec)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class='primaryRow'>
+                <td>4</td>
+                <td>20</td>
+                <td class=''>0</td>
+                <td class=''>0</td>
+                <td>13.735</td>
+              </tr>
+            </tbody>
+          </table>
+          <h2>Specifications Summary</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Specifications</th>
+                <th>Failed</th>
+                <th>Pending</th>
+                <th>Time (sec)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class='primaryRow'>
+                <td>0</td>
+                <td class=''>0</td>
+                <td class=''>0</td>
+                <td>0.0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        
+<div id='StoriesList' style='display:none;'>
+  <h2>Stories List</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Story</th>
+        <th>Scenarios</th>
+        <th>Failed</th>
+        <th>Pending</th>
+        <th>Time (sec)</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr class='primaryRow'>
+        <td>
+         
+          <a href="#" onclick="$('scenarios_for_story_' + 0).toggle(); return false;">add_citations</a>
+         
+        </td>
+        <td>17</td>
+        <td class=''>0</td>
+        <td class=''>0</td>
+        <td>12.117</td>
+      </tr>
+
+       
+      <tr id='scenarios_for_story_0' class='scenariosForStory' style='display:none;'>
+        <td colspan='5'>
+          <table class='scenariosForStoriesTable'>
+            <tbody>
+              
+              <tr class='primaryScenarioRow'>
+                <td title='Scenario'>user can choose to add an article citation</td>
+                <td title='Result' class='stepResultSuccess'>success</td>
+                <td title='Time (sec)'>2.919</td>
+              </tr>
+              
+              <tr class='scenarioComponents'>
+                <td>given user is on the "Add Citation" page</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>when "Article" is chosen as the citation type</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>then the proper form will open</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+          
+              <tr class='secondaryScenarioRow'>
+                <td title='Scenario'>user can create article citation by filling the required fields</td>
+                <td title='Result' class='stepResultSuccess'>success</td>
+                <td title='Time (sec)'>0.774</td>
+              </tr>
+              
+              <tr class='scenarioComponents'>
+                <td>given user is on the "Add Citation" page</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>when user fills (at least) required fields and clicks create button</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>then new citation is created</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+          
+              <tr class='primaryScenarioRow'>
+                <td title='Scenario'>user can not create article citation without filling the required fields</td>
+                <td title='Result' class='stepResultSuccess'>success</td>
+                <td title='Time (sec)'>0.807</td>
+              </tr>
+              
+              <tr class='scenarioComponents'>
+                <td>given user is on the "Add Citation" page</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>when user tries to create new article citation without filling all the required fields</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>then new citation is not created</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+          
+              <tr class='secondaryScenarioRow'>
+                <td title='Scenario'>user can create book citation</td>
+                <td title='Result' class='stepResultSuccess'>success</td>
+                <td title='Time (sec)'>0.405</td>
+              </tr>
+              
+              <tr class='scenarioComponents'>
+                <td>given user is on the "Add Citation" page</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>when user fills (at least) required fields and clicks create button</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>then new citation is created</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+          
+              <tr class='primaryScenarioRow'>
+                <td title='Scenario'>user can create inproceedings citation</td>
+                <td title='Result' class='stepResultSuccess'>success</td>
+                <td title='Time (sec)'>0.389</td>
+              </tr>
+              
+              <tr class='scenarioComponents'>
+                <td>given user is on the "Add Citation" page</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>when user fills (at least) required fields and clicks create button</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>then new citation is created</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+          
+              <tr class='secondaryScenarioRow'>
+                <td title='Scenario'>user can create booklet citation</td>
+                <td title='Result' class='stepResultSuccess'>success</td>
+                <td title='Time (sec)'>0.319</td>
+              </tr>
+              
+              <tr class='scenarioComponents'>
+                <td>given user is on the "Add Citation" page</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>when user fills (at least) required fields and clicks create button</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>then new citation is created</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+          
+              <tr class='primaryScenarioRow'>
+                <td title='Scenario'>user can create conference citation</td>
+                <td title='Result' class='stepResultSuccess'>success</td>
+                <td title='Time (sec)'>0.341</td>
+              </tr>
+              
+              <tr class='scenarioComponents'>
+                <td>given user is on the "Add Citation" page</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>when user fills (at least) required fields and clicks create button</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>then new citation is created</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+          
+              <tr class='secondaryScenarioRow'>
+                <td title='Scenario'>user can create inbook citation</td>
+                <td title='Result' class='stepResultSuccess'>success</td>
+                <td title='Time (sec)'>0.375</td>
+              </tr>
+              
+              <tr class='scenarioComponents'>
+                <td>given user is on the "Add Citation" page</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>when user fills (at least) required fields and clicks create button</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>then new citation is created</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+          
+              <tr class='primaryScenarioRow'>
+                <td title='Scenario'>user can create incollection citation</td>
+                <td title='Result' class='stepResultSuccess'>success</td>
+                <td title='Time (sec)'>0.321</td>
+              </tr>
+              
+              <tr class='scenarioComponents'>
+                <td>given user is on the "Add Citation" page</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>when user fills (at least) required fields and clicks create button</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>then new citation is created</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+          
+              <tr class='secondaryScenarioRow'>
+                <td title='Scenario'>user can create manual citation</td>
+                <td title='Result' class='stepResultSuccess'>success</td>
+                <td title='Time (sec)'>0.306</td>
+              </tr>
+              
+              <tr class='scenarioComponents'>
+                <td>given user is on the "Add Citation" page</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>when user fills (at least) required fields and clicks create button</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>then new citation is created</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+          
+              <tr class='primaryScenarioRow'>
+                <td title='Scenario'>user can create masters thesis citation</td>
+                <td title='Result' class='stepResultSuccess'>success</td>
+                <td title='Time (sec)'>0.398</td>
+              </tr>
+              
+              <tr class='scenarioComponents'>
+                <td>given user is on the "Add Citation" page</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>when user fills (at least) required fields and clicks create button</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>then new citation is created</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+          
+              <tr class='secondaryScenarioRow'>
+                <td title='Scenario'>user can create miscellaneous citation</td>
+                <td title='Result' class='stepResultSuccess'>success</td>
+                <td title='Time (sec)'>0.367</td>
+              </tr>
+              
+              <tr class='scenarioComponents'>
+                <td>given user is on the "Add Citation" page</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>when user fills (at least) required fields and clicks create button</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>then new citation is created</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+          
+              <tr class='primaryScenarioRow'>
+                <td title='Scenario'>user can create PHD thesis citation</td>
+                <td title='Result' class='stepResultSuccess'>success</td>
+                <td title='Time (sec)'>0.418</td>
+              </tr>
+              
+              <tr class='scenarioComponents'>
+                <td>given user is on the "Add Citation" page</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>when user fills (at least) required fields and clicks create button</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>then new citation is created</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+          
+              <tr class='secondaryScenarioRow'>
+                <td title='Scenario'>user can create proceedings citation</td>
+                <td title='Result' class='stepResultSuccess'>success</td>
+                <td title='Time (sec)'>0.287</td>
+              </tr>
+              
+              <tr class='scenarioComponents'>
+                <td>given user is on the "Add Citation" page</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>when user fills (at least) required fields and clicks create button</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>then new citation is created</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+          
+              <tr class='primaryScenarioRow'>
+                <td title='Scenario'>user can create tech report citation</td>
+                <td title='Result' class='stepResultSuccess'>success</td>
+                <td title='Time (sec)'>0.324</td>
+              </tr>
+              
+              <tr class='scenarioComponents'>
+                <td>given user is on the "Add Citation" page</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>when user fills (at least) required fields and clicks create button</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>then new citation is created</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+          
+              <tr class='secondaryScenarioRow'>
+                <td title='Scenario'>user can create unpublished citation</td>
+                <td title='Result' class='stepResultSuccess'>success</td>
+                <td title='Time (sec)'>0.203</td>
+              </tr>
+              
+              <tr class='scenarioComponents'>
+                <td>given user is on the "Add Citation" page</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>when user fills (at least) required fields and clicks create button</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>then new citation is created</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+          
+              <tr class='primaryScenarioRow'>
+                <td title='Scenario'>user can't create two citations with same id</td>
+                <td title='Result' class='stepResultSuccess'>success</td>
+                <td title='Time (sec)'>0.595</td>
+              </tr>
+              
+              <tr class='scenarioComponents'>
+                <td>given user has added one citation with id</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>when user tries to add another citation with the same id</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>then new citation is not created</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+          
+            </tbody>
+          </table>
+        </td>
+      </tr>
+        
+      
+      <tr class='secondaryRow'>
+        <td>
+         
+          <a>list_citations</a>
+         
+        </td>
+        <td>0</td>
+        <td class=''>0</td>
+        <td class=''>0</td>
+        <td>0.032</td>
+      </tr>
+
+      
+      
+      <tr class='primaryRow'>
+        <td>
+         
+          <a href="#" onclick="$('scenarios_for_story_' + 2).toggle(); return false;">download</a>
+         
+        </td>
+        <td>1</td>
+        <td class=''>0</td>
+        <td class=''>0</td>
+        <td>0.941</td>
+      </tr>
+
+       
+      <tr id='scenarios_for_story_2' class='scenariosForStory' style='display:none;'>
+        <td colspan='5'>
+          <table class='scenariosForStoriesTable'>
+            <tbody>
+              
+              <tr class='primaryScenarioRow'>
+                <td title='Scenario'>After adding a new citation, it is downloadable at the frontpage</td>
+                <td title='Result' class='stepResultSuccess'>success</td>
+                <td title='Time (sec)'>0.823</td>
+              </tr>
+              
+              <tr class='scenarioComponents'>
+                <td>given user adds a new citation</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>when user fills (at least) required fields and clicks create button</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>when user starts download feature</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>then added citation is visible</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+          
+            </tbody>
+          </table>
+        </td>
+      </tr>
+        
+      
+      <tr class='secondaryRow'>
+        <td>
+         
+          <a href="#" onclick="$('scenarios_for_story_' + 3).toggle(); return false;">upload_bibtex</a>
+         
+        </td>
+        <td>2</td>
+        <td class=''>0</td>
+        <td class=''>0</td>
+        <td>0.645</td>
+      </tr>
+
+       
+      <tr id='scenarios_for_story_3' class='scenariosForStory' style='display:none;'>
+        <td colspan='5'>
+          <table class='scenariosForStoriesTable'>
+            <tbody>
+              
+              <tr class='primaryScenarioRow'>
+                <td title='Scenario'>After uploading a bibtex file, the citations are added to the database</td>
+                <td title='Result' class='stepResultSuccess'>success</td>
+                <td title='Time (sec)'>0.483</td>
+              </tr>
+              
+              <tr class='scenarioComponents'>
+                <td>given user is on the index page</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>when user uploads a bibtex file with two citations</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>then the citations should be added to the database</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+          
+              <tr class='secondaryScenarioRow'>
+                <td title='Scenario'>If the file is not valid, nothing is added to the database</td>
+                <td title='Result' class='stepResultSuccess'>success</td>
+                <td title='Time (sec)'>0.086</td>
+              </tr>
+              
+              <tr class='scenarioComponents'>
+                <td>given user is on the index page</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>when user uploads pom</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+              <tr class='scenarioComponents'>
+                <td>then no citations should be added to the database</td>
+                <td class='stepResultSuccess'>success</td>
+                <td />
+              </tr>
+              
+              
+            
+          
+            </tbody>
+          </table>
+        </td>
+      </tr>
+        
+      
+    </tbody>
+  </table>
+</div>
+
+
+<div id='StoriesListPlain' style='display:none;'>
+  <h2>Stories Text</h2>
+  
+  <div>20 scenarios executed successfully.</div>
+  <div><br/><br/>&nbsp;&nbsp;Story: add_citations<br/><br/>&nbsp;&nbsp;&nbsp;User can add all types of citations<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;scenario user can choose to add an article citation<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;given user is on the "Add Citation" page<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when "Article" is chosen as the citation type<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then the proper form will open<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;scenario user can create article citation by filling the required fields<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;given user is on the "Add Citation" page<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when user fills (at least) required fields and clicks create button<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then new citation is created<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;scenario user can not create article citation without filling the required fields<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;given user is on the "Add Citation" page<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when user tries to create new article citation without filling all the required fields<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then new citation is not created<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;scenario user can create book citation<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;given user is on the "Add Citation" page<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when user fills (at least) required fields and clicks create button<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then new citation is created<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;scenario user can create inproceedings citation<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;given user is on the "Add Citation" page<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when user fills (at least) required fields and clicks create button<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then new citation is created<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;scenario user can create booklet citation<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;given user is on the "Add Citation" page<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when user fills (at least) required fields and clicks create button<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then new citation is created<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;scenario user can create conference citation<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;given user is on the "Add Citation" page<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when user fills (at least) required fields and clicks create button<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then new citation is created<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;scenario user can create inbook citation<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;given user is on the "Add Citation" page<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when user fills (at least) required fields and clicks create button<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then new citation is created<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;scenario user can create incollection citation<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;given user is on the "Add Citation" page<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when user fills (at least) required fields and clicks create button<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then new citation is created<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;scenario user can create manual citation<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;given user is on the "Add Citation" page<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when user fills (at least) required fields and clicks create button<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then new citation is created<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;scenario user can create masters thesis citation<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;given user is on the "Add Citation" page<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when user fills (at least) required fields and clicks create button<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then new citation is created<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;scenario user can create miscellaneous citation<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;given user is on the "Add Citation" page<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when user fills (at least) required fields and clicks create button<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then new citation is created<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;scenario user can create PHD thesis citation<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;given user is on the "Add Citation" page<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when user fills (at least) required fields and clicks create button<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then new citation is created<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;scenario user can create proceedings citation<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;given user is on the "Add Citation" page<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when user fills (at least) required fields and clicks create button<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then new citation is created<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;scenario user can create tech report citation<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;given user is on the "Add Citation" page<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when user fills (at least) required fields and clicks create button<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then new citation is created<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;scenario user can create unpublished citation<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;given user is on the "Add Citation" page<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when user fills (at least) required fields and clicks create button<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then new citation is created<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;scenario user can't create two citations with same id<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;given user has added one citation with id<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when user tries to add another citation with the same id<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then new citation is not created<br/><br/>&nbsp;&nbsp;Story: list_citations<br/><br/><br/>&nbsp;&nbsp;Story: download<br/><br/>&nbsp;&nbsp;&nbsp;User can download added citations<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;scenario After adding a new citation, it is downloadable at the frontpage<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;given user adds a new citation<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when user fills (at least) required fields and clicks create button<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when user starts download feature<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then added citation is visible<br/><br/>&nbsp;&nbsp;Story: upload_bibtex<br/><br/>&nbsp;&nbsp;&nbsp;User can upload a bibtex file<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;scenario After uploading a bibtex file, the citations are added to the database<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;given user is on the index page<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when user uploads a bibtex file with two citations<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then the citations should be added to the database<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;scenario If the file is not valid, nothing is added to the database<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;given user is on the index page<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when user uploads pom<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then no citations should be added to the database</div>
+</div>
+
+      </div>
+    </div>
+
+  </div>
+  <!-- end content -->
+
+
+  <!-- start sidebar -->
+  <div id='sidebar'>
+    <ul>
+      <li>
+        <h2>Sections</h2>
+        <ul>
+          <li>
+            <a id='summary-menu-link' class='selected-menu-link' href='#' onclick='showOnlyContent("Summaries", "summary-menu-link")'>Summary</a>
+          </li>
+          
+          <li>
+            <a id='stories-list-menu-link' href='#' onclick='showOnlyContent("StoriesList", "stories-list-menu-link")'>Stories</a>
+          </li>
+          <li>
+            <a id='stories-list-plain-menu-link' href='#' onclick='showOnlyContent("StoriesListPlain", "stories-list-plain-menu-link")'>Stories Text</a>
+          </li>
+          
+          
+        </ul>
+      </li>
+    </ul>
+    <div style='clear: both;'>&nbsp;</div>
+  </div>
+  <!-- end sidebar -->
+
+</div>
+<!-- end page -->
+
+<div id='footer'/>
+</body>
+</html>

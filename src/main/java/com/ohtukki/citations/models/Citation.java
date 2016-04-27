@@ -73,8 +73,8 @@ public abstract class Citation {
     }
     
     /**
-     * Check that the given field fulfills its optional rule and check that it
-     * isn't empty nor null
+     * Check that the given field fulfills its optional fieldIsRequired and check that it
+ isn't empty nor null
      * @param field
      * @param updating
      * @return 
@@ -83,7 +83,7 @@ public abstract class Citation {
         String value = "";
         try {
             if (field.equals("id")) {
-                oneOfOnlyOtherFieldsEmpty = false;
+                this.oneOfOnlyOtherFieldsEmpty = false;
             }
             
             Field f = this.getClass().getField(field.split(":").length > 1 ? field.split(":")[0] : field);
@@ -94,17 +94,16 @@ public abstract class Citation {
             return false;
         }
 
-        String[] splittedValue = value.split(":");
-
-        if(splittedValue.length > 1 && this.rule(splittedValue[0], splittedValue[1])){
-            if(isNullOrEmpty(splittedValue[0])){
-                return false;
-            }
+        String[] splittedValue = value.split(":"); // Split the string to [fieldName] : [rule]
+        
+        if(splittedValue.length > 1 && this.fieldIsRequired(splittedValue[0], splittedValue[1])){ // Check the rule
+            return !isNullOrEmpty(splittedValue[0]);
         } else if(isNullOrEmpty(splittedValue[0])){
-            if (field.contains("only_other") && !oneOfOnlyOtherFieldsEmpty) {
-                oneOfOnlyOtherFieldsEmpty = true;
+            if (field.contains("only_other") && !this.oneOfOnlyOtherFieldsEmpty) {
+                this.oneOfOnlyOtherFieldsEmpty = true;
                 return true;
             }
+            
             return false;
         }
 
@@ -112,22 +111,28 @@ public abstract class Citation {
     }
     
     /**
-     * Check a optional rule on a required field
+     * Check a optional fieldIsRequired on a required field
      * @param field
      * @param rule
-     * @return 
+     * @return true if field is required
      */
-    public boolean rule(String field, String rule){
+    public boolean fieldIsRequired(String field, String rule){
         if(this.isNullOrEmpty(rule))
+            return false;
+        
+        if(rule.split("=").length <= 1)
             return false;
         
         switch(rule.split("=")[0]){
             case "required_if_empty":
-                return rule.split("=").length > 1 && !this.validateField(rule.split("=")[1]);
+                if(rule.split("=").length > 1 && !this.validateField(rule.split("=")[1])){
+                    return true;
+                }
+                
+                return false;
                 
             case "only_other":
-                if(rule.split("=").length <= 1)
-                    return false;
+                
                 
                 if(this.validateField(rule.split("=")[1])){
                     this.setField(field, "");

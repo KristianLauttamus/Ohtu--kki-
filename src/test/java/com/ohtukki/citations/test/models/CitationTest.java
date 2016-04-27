@@ -150,10 +150,10 @@ public class CitationTest {
     @Test
     public void ruleLogicWorks() {
         BookCitation cit = new BookCitation();
-        assertFalse(cit.rule("foo", ""));
-        assertFalse(cit.rule("foo", "bar"));
-        assertFalse(cit.rule("foo", "required_if_empty"));
-        assertFalse(cit.rule("foo", "only_other"));
+        assertFalse(cit.fieldIsRequired("foo", ""));
+        assertFalse(cit.fieldIsRequired("foo", "bar"));
+        assertFalse(cit.fieldIsRequired("foo", "required_if_empty"));
+        assertFalse(cit.fieldIsRequired("foo", "only_other"));
     }
     
     // Some tests for unexpected things to happen

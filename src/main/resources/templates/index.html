@@ -92,7 +92,7 @@
             </tbody>
         </table>
         <div v-if="items.length === 0">
-            <p>No citations added yet. <a href="/citation">Add one here</a></p>
+            <p>No citations added yet. <a class="btn btn-default" href="/citation">Add one here</a></p>
         </div>
         <div v-if="isEmptyAndHasQuery">
             <p>No citations found with given query</p>
@@ -107,13 +107,9 @@
         </div>
         <div v-if="notEmptyAndNoQuery">
             <hr />
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <input class="form-control" type="text" id="filename" v-model="filename" v-on:submit.prevent="" placeholder="You can optionally also determine the file's name" />
-                    </div>
-                </div>
-                <div class="col-md-8">
+            <div class="input-group">
+                <input class="form-control" type="text" id="filename" v-model="filename" v-on:submit.prevent="" placeholder="You can optionally determine the file's name" />
+                <div class="input-group-btn">
                     <a href="{{downloadLink}}" class="btn btn-primary btn-block" target="_blank">
                       <span class="glyphicon glyphicon-download"></span> Download
                     </a>
@@ -125,19 +121,16 @@
 	</div>
 
 	<div>
+            <hr/>
+            <h3>Upload a BibTex file (.bib) to get it's citations</h3>
             <form method="POST" enctype="multipart/form-data" action="/upload">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <input class="form-control" type="file" name="file" />
-                    </div>
-                </div>
-                <div class="col-md-8">
+                <div class="input-group">
+                    <input class="form-control" type="file" name="file" accept=".bib" id="bibtex-upload" />
+
                     <span class="input-group-btn">
                         <button class="btn btn-primary btn-block" name="upload" type="submit"><span class="glyphicon glyphicon-upload"></span> Upload</button>
                     </span>
                 </div>
-            </div>
             </form>
 	</div>
     </div>

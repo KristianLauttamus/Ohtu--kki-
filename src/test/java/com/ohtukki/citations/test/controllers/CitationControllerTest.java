@@ -213,7 +213,7 @@ public class CitationControllerTest {
                 .param("author", "Author")
                 .param("title", "Title")
                 .param("pages", "Pages") // TODO one of fields pages and
-                .param("chapter", "Chapter") // chapter should be enough
+                //.param("chapter", "Chapter") // chapter should be enough
                 .param("publisher", "Publisher")
                 .param("year", "Year"))
                 .andExpect(status().is3xxRedirection())

@@ -1,6 +1,5 @@
 package com.ohtukki.citations.controllers;
 
-import com.ohtukki.citations.Application;
 import com.ohtukki.citations.data.DatabaseJsonDao;
 import com.ohtukki.citations.domain.BibfileParser;
 import com.ohtukki.citations.models.*;
@@ -8,8 +7,6 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -81,7 +78,7 @@ public class CitationController {
     /**
      * Handle inputs and store the posted Citation
      * 
-     * @param type
+     * @param citationType
      * @param articleCitation
      * @param articleCitationResult
      * @param bookCitation
@@ -110,6 +107,7 @@ public class CitationController {
      * @param techreportCitationResult
      * @param unpublishedCitation
      * @param unpublishedCitationResult
+     * @param redirectAttributes
      * @return 
      */
     @RequestMapping(value = "/citation", method = RequestMethod.POST)
@@ -207,6 +205,7 @@ public class CitationController {
         
         if(!validated){
             // Todo error message
+            redirectAttributes.addAttribute("citationType", citationType);
             
             return "redirect:/citation";
         }
@@ -250,7 +249,10 @@ public class CitationController {
     
     /**
      * Download Citations as bibtext file
-     * @return view from resources/templates
+     * @param response
+     * @param model
+     * @param filename
+     * @throws java.io.IOException
      */
     @RequestMapping(value = "/download", method = RequestMethod.GET)
     public void download(HttpServletResponse response, Model model, 
@@ -266,7 +268,7 @@ public class CitationController {
     }
     
     private void formatBibText(List<Citation> citations, OutputStream out) throws IOException {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for(Citation c : citations) {
             sb.append(c.createBibtexEntry());
         }
@@ -289,10 +291,9 @@ public class CitationController {
     @RequestMapping(method = RequestMethod.POST, value = "/upload")
     public String handleFileUpload( @RequestParam("file") MultipartFile file,
                                     Model model) {
-        int count = 0;
         if (!file.isEmpty()) {
             try {
-                count = parseInputFile(file);
+                int count = parseInputFile(file);
                 model.addAttribute("citations", this.database.all());
                 model.addAttribute("message", "You successfully uploaded " + file.getName() + " with "+count+" Citations.");
             } catch (Exception e) {
@@ -306,10 +307,10 @@ public class CitationController {
     }
     private int parseInputFile(MultipartFile file) throws IOException {
         ByteArrayOutputStream byos = new ByteArrayOutputStream();
-        BufferedOutputStream stream = new BufferedOutputStream(byos);
-        FileCopyUtils.copy(file.getInputStream(), stream);
-
-        stream.close();
+        
+        try (BufferedOutputStream stream = new BufferedOutputStream(byos)) {
+            FileCopyUtils.copy(file.getInputStream(), stream);
+        }
 
         BibfileParser parser = new BibfileParser(byos.toString());
 

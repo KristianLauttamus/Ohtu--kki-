@@ -43,6 +43,7 @@ public abstract class Citation {
     public String year = new String();
 
     private boolean oneOfOnlyOtherFieldsEmpty = false;
+    private boolean oneOfRequiredIfEmptyFieldsEmpty = false;
     
     public Citation(){
         this.citationType = this.getCitationType();
@@ -84,6 +85,7 @@ public abstract class Citation {
         try {
             if (field.equals("id")) {
                 this.oneOfOnlyOtherFieldsEmpty = false;
+                this.oneOfRequiredIfEmptyFieldsEmpty = false;
             }
             
             Field f = this.getClass().getField(field.split(":").length > 1 ? field.split(":")[0] : field);
@@ -99,17 +101,24 @@ public abstract class Citation {
         if(splittedValue.length > 1 && this.fieldIsRequired(splittedValue[0], splittedValue[1])){ // Check the rule
             return !isNullOrEmpty(splittedValue[0]);
         } else if(isNullOrEmpty(splittedValue[0])){
-            if (field.contains("only_other") && !this.oneOfOnlyOtherFieldsEmpty) {
-                this.oneOfOnlyOtherFieldsEmpty = true;
-                return true;
-            }
-            
-            return false;
+            return checkOnlyOtherAndRequiredIfEmptyFields(field);
         }
 
         return !(field.equals("id") && !updating && this.database.find(splittedValue[0]) != null);
     }
-    
+
+    private boolean checkOnlyOtherAndRequiredIfEmptyFields(String field) {
+        if (field.contains("only_other") && !this.oneOfOnlyOtherFieldsEmpty) {
+            this.oneOfOnlyOtherFieldsEmpty = true;
+            return true;
+        }
+        if (field.contains("required_if_empty") && !this.oneOfRequiredIfEmptyFieldsEmpty) {
+            this.oneOfRequiredIfEmptyFieldsEmpty = true;
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Check a optional fieldIsRequired on a required field
      * @param field

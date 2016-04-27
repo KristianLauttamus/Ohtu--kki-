@@ -19,6 +19,8 @@ public class AlphabetConverter {
         s = s.replace("ö", "\\\"{o}");
         s = s.replace("Ä", "\\\"{A}");
         s = s.replace("Ö", "\\\"{O}");
+        s = s.replace("å", "{\\aa}");
+        s = s.replace("Å", "{\\AA}");
         return s;
     }
 
@@ -33,6 +35,8 @@ public class AlphabetConverter {
         s = s.replace("\\\"{o}", "ö");
         s = s.replace("\\\"{A}", "Ä");
         s = s.replace("\\\"{O}", "Ö");
+        s = s.replace("{\\aa}", "å");
+        s = s.replace("{\\AA}", "Å");
         return s;
     }
 }

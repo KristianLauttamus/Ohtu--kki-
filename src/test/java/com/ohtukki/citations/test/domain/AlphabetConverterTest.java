@@ -12,8 +12,8 @@ public class AlphabetConverterTest {
 
     public AlphabetConverterTest() {
         ac = new AlphabetConverter();
-        readable = "Äh, Öölanti sählää!";
-        bibtex = "\\\"{A}h, \\\"{O}\\\"{o}lanti s\\\"{a}hl\\\"{a}\\\"{a}!";
+        readable = "Äh, Öölanti sählää! Åå";
+        bibtex = "\\\"{A}h, \\\"{O}\\\"{o}lanti s\\\"{a}hl\\\"{a}\\\"{a}! {\\AA}{\\aa}";
     }
 
     @Test

@@ -61,6 +61,7 @@ public abstract class Citation {
                 return false;
             }
         }
+        
         return true;
     }
     
@@ -141,8 +142,6 @@ public abstract class Citation {
                 return false;
                 
             case "only_other":
-                
-                
                 if(this.validateField(rule.split("=")[1])){
                     this.setField(field, "");
                     
@@ -450,5 +449,4 @@ public abstract class Citation {
     public void setYear(String year) {
         this.year = year;
     }
-    
 }

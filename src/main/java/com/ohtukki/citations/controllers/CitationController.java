@@ -1,7 +1,6 @@
 package com.ohtukki.citations.controllers;
 
 import com.ohtukki.citations.data.DatabaseJsonDao;
-import com.ohtukki.citations.data.ScoreSystem;
 import com.ohtukki.citations.domain.BibfileParser;
 import com.ohtukki.citations.models.*;
 import java.io.BufferedInputStream;
@@ -25,11 +24,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class CitationController {
     private DatabaseJsonDao database;
-    private ScoreSystem scoreSystem;
     
     public CitationController(){
         this.database = new DatabaseJsonDao(DatabaseJsonDao.DEFAULT_FILE);
-        this.scoreSystem = new ScoreSystem();
     }
     
     /**
@@ -40,7 +37,6 @@ public class CitationController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model) {
         model.addAttribute("citations", this.database.all());
-        model.addAttribute("score", this.scoreSystem.getScore());
         
         return "index";
     }
@@ -71,7 +67,6 @@ public class CitationController {
         model.addAttribute("proceedingsCitation", new ProceedingsCitation());
         model.addAttribute("techreportCitation", new TechReportCitation());
         model.addAttribute("unpublishedCitation", new UnpublishedCitation());
-        model.addAttribute("score", this.scoreSystem.getScore());
         
         return "create-citation";
     }
@@ -211,8 +206,6 @@ public class CitationController {
             return "redirect:/citation";
         }
 
-        scoreSystem.addScore(1);
-
         return "redirect:/";
     }
     
@@ -231,7 +224,6 @@ public class CitationController {
         }
         
         model.addAttribute("citation", citation);
-        model.addAttribute("score", this.scoreSystem.getScore());
         
         return "edit-citation";
     }
@@ -303,16 +295,12 @@ public class CitationController {
                 model.addAttribute("message", "You successfully uploaded " + file.getName() + " with "+count+" Citations.");
                 model.addAttribute("rejected", rejected);
 
-                scoreSystem.addScore(count);
-
             } catch (Exception e) {
                 model.addAttribute("message", "You failed to upload " + file.getName() + " => " + e.getMessage());
             }
         } else {
             model.addAttribute("message", "You failed to upload " + file.getName() + " because the file was empty");
         }
-
-        model.addAttribute("score", this.scoreSystem.getScore());
 
         return "index";
     }

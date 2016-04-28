@@ -135,10 +135,8 @@ public class CitationControllerTest {
             String content = result.getResponse().getContentAsString();
 
             assertEquals(true, content.startsWith("@ARTICLE"));
-            
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            Logger.getLogger(CitationControllerTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     @Test

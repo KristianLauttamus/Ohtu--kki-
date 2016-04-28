@@ -16,7 +16,7 @@
                     <ul class="nav navbar-nav">
                             <li th:class="${reqUri == '/' ? 'active' : ''}"><a href="/">Home</a></li>
                             <li th:class="${#strings.startsWith(reqUri, '/pictures') ? 'active' : ''}"><a href="/citation">Add Citation</a></li>
-                            <li th:class="${score}"><a href="">Score: <b th:text="${score}">Score</b></a></li>
+                            <li><a href="">Score: <b th:text="${session.score}">Score</b></a></li>
                     </ul>
             </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

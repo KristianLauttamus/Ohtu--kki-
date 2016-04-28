@@ -1,5 +1,6 @@
 package com.ohtukki.citations.controllers;
 
+import com.ohtukki.citations.components.User;
 import com.ohtukki.citations.data.DatabaseJsonDao;
 import com.ohtukki.citations.domain.BibfileParser;
 import com.ohtukki.citations.models.*;
@@ -13,6 +14,9 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -24,6 +28,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class CitationController {
     private DatabaseJsonDao database;
+
+    @Autowired
+    private User user;
     
     public CitationController(){
         this.database = new DatabaseJsonDao(DatabaseJsonDao.DEFAULT_FILE);
@@ -35,9 +42,9 @@ public class CitationController {
      * @return view from resources/templates
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index(Model model) {
+    public String index(Model model, HttpSession session) {
         model.addAttribute("citations", this.database.all());
-        
+        session.setAttribute("score", user.getScore());
         return "index";
     }
     
@@ -206,6 +213,8 @@ public class CitationController {
             return "redirect:/citation";
         }
 
+        user.addScore(1);
+
         return "redirect:/";
     }
     
@@ -295,6 +304,7 @@ public class CitationController {
                 model.addAttribute("message", "You successfully uploaded " + file.getName() + " with "+count+" Citations.");
                 model.addAttribute("rejected", rejected);
 
+                user.addScore(count);
             } catch (Exception e) {
                 model.addAttribute("message", "You failed to upload " + file.getName() + " => " + e.getMessage());
             }

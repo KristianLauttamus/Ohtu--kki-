@@ -10,6 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
@@ -293,9 +294,11 @@ public class CitationController {
                                     Model model) {
         if (!file.isEmpty()) {
             try {
-                int count = parseInputFile(file);
+                List<Citation> rejected = new ArrayList<Citation>();
+                int count = parseInputFile(file, rejected);
                 model.addAttribute("citations", this.database.all());
                 model.addAttribute("message", "You successfully uploaded " + file.getName() + " with "+count+" Citations.");
+                model.addAttribute("rejected", rejected);
             } catch (Exception e) {
                 model.addAttribute("message", "You failed to upload " + file.getName() + " => " + e.getMessage());
             }
@@ -305,7 +308,7 @@ public class CitationController {
 
         return "index";
     }
-    private int parseInputFile(MultipartFile file) throws IOException {
+    private int parseInputFile(MultipartFile file, List<Citation> rejected) throws IOException {
         ByteArrayOutputStream byos = new ByteArrayOutputStream();
         
         try (BufferedOutputStream stream = new BufferedOutputStream(byos)) {
@@ -316,10 +319,14 @@ public class CitationController {
 
         List<Citation> imported = parser.parseCitations();
         for (Citation c : imported) {
-            database.add(c);
+            if(c.validate(false)) {
+                database.add(c);
+            } else {
+                rejected.add(c);
+            }
         }
         database.saveAll();
         
-        return imported.size();
+        return imported.size()-rejected.size();
     }
 }

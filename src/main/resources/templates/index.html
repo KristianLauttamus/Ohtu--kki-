@@ -119,6 +119,23 @@
  	<div th:if="${message}">
             <h4 th:text="${message}"/>
 	</div>
+ 	<div th:unless="${#lists.isEmpty(rejected)}">
+            <h4>Following citations were rejected in validation</h4>
+            <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr th:each="c : ${rejected}">
+                    <td th:text="${c.id}">ID</td>	
+                    <td th:text="${c.citationType}">Type</td>	
+                </tr>
+            </tbody>
+            </table>
+	</div>
 
 	<div>
             <hr/>

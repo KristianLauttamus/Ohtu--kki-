@@ -1,0 +1,8 @@
+git clone https://github.com/KristianLauttamus/Ohtu-kki Ohtukki-Vappuversio
+cd .\Ohtukki-Vappuversio
+git tag -l
+git checkout Vappuversio
+git branch -D master
+git checkout -b master
+mvn install
+java -jar .\target\Citations-1.0-SNAPSHOT.jar

@@ -49,6 +49,50 @@ scenario "If the file is not valid, nothing is added to the database", {
         db.all().size().shouldBe 0
 
         db.clear()
-        driver.quit()
     }
 }
+
+/*
+scenario "The user gets an error message, if uploaded citation was rejected because of duplicate id", {
+
+    given 'user has added a citation with some id', {
+        driver.get("http://localhost:8080")
+        element = driver.findElement(By.linkText("Add Citation"))
+        element.click()
+
+        Select select = new Select(driver.findElementById("citationType"))
+        select.selectByVisibleText("Article")
+
+        element = driver.findElementById("Article-id")
+        element.sendKeys("test")
+
+        element = driver.findElementById("Article-author")
+        element.sendKeys("easyBTestAuthor")
+
+        element = driver.findElementById("Article-title")
+        element.sendKeys("easyBTestTitle")
+
+        element = driver.findElementById("Article-journal")
+        element.sendKeys("easyBTestJournal")
+
+        element = driver.findElementById("Article-year")
+        element.sendKeys("easyBTestYear")
+
+        element = driver.findElementByClassName("btn")
+        element.click()
+    }
+
+    when 'user uploads a bibtex file containing a citation with the same id', {
+        driver.findElement(By.name("file")).sendKeys(System.getProperty("user.dir")+"/test.bib");
+
+        element = driver.findElement(By.name("upload"))
+        element.click()
+    }
+
+    then 'an error message should appear', {
+        driver.getPageSource().contains("Following citations were rejected in validation").shouldBe true
+
+        db.clear()
+        driver.quit()
+    }
+}*/

@@ -139,6 +139,7 @@ public class CitationControllerTest {
             Logger.getLogger(CitationControllerTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
     @Test
     public void testEmptyUpload() {
         try {
@@ -148,6 +149,7 @@ public class CitationControllerTest {
         } catch (Exception ex) {
             Logger.getLogger(CitationControllerTest.class.getName()).log(Level.SEVERE, null, ex);
         }
+    
     }
     @Test
     public void testUpload() {
@@ -159,6 +161,37 @@ public class CitationControllerTest {
             Logger.getLogger(CitationControllerTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    @Test
+    public void testUploadWithDuplicateId() throws Exception {
+        String tiedosto = "@BOOK{Id,\n"
+            + "author = {Kalle P. Kirjailija},\n"
+            + "title = {Otsikko},\n"
+            + "publisher = {IEEE},\n"
+            + "year = {2004},\n}\n\n";
+        
+        int size = this.database.all().size();
+        
+        mockMvc.perform(post("/citation")
+                .param("citationType", "article")
+                .param("id", "Id")
+                .param("author", "Author")
+                .param("title", "Title")
+                .param("journal", "Journal")
+                .param("year", "Year"))
+                .andExpect(status().is3xxRedirection())
+                .andReturn();
+        
+        try {
+            MockMultipartFile file = new MockMultipartFile("file", "orig", null, tiedosto.getBytes());
+            mockMvc.perform(fileUpload("/upload").file(file))
+                    .andExpect(model().attribute("message", "You successfully uploaded file with 0 Citations."));
+        } catch (Exception ex) {
+            Logger.getLogger(CitationControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        assertEquals(size+1, this.database.all().size());
+    }
+    
     
     @Test
     public void postBookCitation() throws Exception {
@@ -210,7 +243,7 @@ public class CitationControllerTest {
                 .param("id", "Id")
                 .param("author", "Author")
                 .param("title", "Title")
-                .param("pages", "Pages") // TODO one of fields pages and
+                .param("pages", "Pages") // one of fields pages and
                 //.param("chapter", "Chapter") // chapter should be enough
                 .param("publisher", "Publisher")
                 .param("year", "Year"))

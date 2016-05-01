@@ -108,7 +108,7 @@
         <div v-if="notEmptyAndNoQuery">
             <hr />
             <div class="input-group">
-                <input class="form-control" type="text" id="filename" v-model="filename" v-on:submit.prevent="" placeholder="You can optionally determine the file's name" />
+                <input class="form-control" type="text" id="filename" v-model="filename" v-on:submit.prevent="" placeholder="Name of the file to be downloaded (optional)" />
                 <div class="input-group-btn">
                     <a href="{{downloadLink}}" class="btn btn-primary btn-block" target="_blank">
                       <span class="glyphicon glyphicon-download"></span> Download
@@ -139,7 +139,7 @@
 
 	<div>
             <hr/>
-            <h3>Upload a BibTex file (.bib) to get it's citations</h3>
+            <h3>Upload a BibTex file (.bib) to get its citations</h3>
             <form method="POST" enctype="multipart/form-data" action="/upload">
                 <div class="input-group">
                     <input class="form-control" type="file" name="file" accept=".bib" id="bibtex-upload" />

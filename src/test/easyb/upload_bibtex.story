@@ -52,6 +52,32 @@ scenario "If the file is not valid, nothing is added to the database", {
     }
 }
 
+scenario "Citations with the same ID cannot be uploaded again", {
+
+    given 'user has already uploaded the citations', {
+        driver.get("http://localhost:8080")
+
+        driver.findElement(By.name("file")).sendKeys(System.getProperty("user.dir")+"/test.bib");
+
+        element = driver.findElement(By.name("upload"))
+        element.click()
+    }
+
+    when 'user uploads the same citations again', {
+        driver.findElement(By.name("file")).sendKeys(System.getProperty("user.dir")+"/test.bib");
+
+        element = driver.findElement(By.name("upload"))
+        element.click()
+    }
+
+    then 'the citations should not be added again', {
+        db.all().size().shouldBe 2
+
+        db.clear()
+        driver.quit()
+    }
+}
+
 /*
 scenario "The user gets an error message, if uploaded citation was rejected because of duplicate id", {
 

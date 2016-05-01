@@ -295,7 +295,7 @@ public class CitationController {
     
     @RequestMapping(method = RequestMethod.POST, value = "/upload")
     public String handleFileUpload( @RequestParam("file") MultipartFile file,
-                                    Model model) {
+                                    Model model, HttpSession session) {
         if (!file.isEmpty()) {
             try {
                 List<Citation> rejected = new ArrayList<Citation>();
@@ -311,9 +311,12 @@ public class CitationController {
         } else {
             model.addAttribute("message", "You failed to upload " + file.getName() + " because the file was empty");
         }
-
+        
+        session.setAttribute("score", user.getScore());
+        
         return "index";
     }
+    
     private int parseInputFile(MultipartFile file, List<Citation> rejected) throws IOException {
         ByteArrayOutputStream byos = new ByteArrayOutputStream();
         

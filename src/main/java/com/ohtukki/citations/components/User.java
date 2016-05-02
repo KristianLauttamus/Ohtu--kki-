@@ -18,18 +18,18 @@ public class User {
     }
     
     public String getBackground(){
-        if(this.score >= 5){
-            // Cats pattern
-            return "cats.png";
-        } else if(this.score >= 10){
-            // PHP Elephant
-            return "elephant.jpg";
+        if(this.score >= 100){
+            // Elon Musk
+            return "elon-musk.jpg";
         } else if(this.score >= 50){
             // Matrix falling numbers
             return "matrix.jpg";
-        } else if(this.score >= 100){
-            // Elon Musk
-            return "elon-musk.jpg";
+        } else if(this.score >= 10){
+            // PHP Elephant
+            return "elephant.jpg";
+        } else if(this.score >= 5){
+            // Cats pattern
+            return "cats.png";
         }
         
         return "";

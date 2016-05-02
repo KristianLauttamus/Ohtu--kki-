@@ -6,7 +6,7 @@
         <link href="/css/bootstrap.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
     </head>
     <body th:attr="originalId=${citation.id}">
-        <div class="container">
+        <div class="container" th:attr="class='container ' + ${session.user.getBackgroundClass()}">
             <nav th:replace="fragments/nav"></nav>
             <form method="POST" th:action="@{'/'+${citation.id}+'/update'}">
                 <!-- Citation -->

@@ -40,12 +40,14 @@ public class CitationController {
     /**
      * List all Citations
      * @param model
+     * @param session
      * @return view from resources/templates
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model, HttpSession session) {
-        model.addAttribute("citations", this.database.all());
-        session.setAttribute("score", user.getScore());
+        model.addAttribute("citations", this.database.all());  
+        session.setAttribute("user", user);
+        
         return "index";
     }
     
@@ -57,10 +59,11 @@ public class CitationController {
     /**
      * Return form to create a new Citation
      * @param model
+     * @param session
      * @return view from resources/templates
      */
     @RequestMapping(value = "/citation", method = RequestMethod.GET)
-    public String create(Model model) {
+    public String create(Model model, HttpSession session) {
         model.addAttribute("articleCitation", new ArticleCitation());
         model.addAttribute("bookCitation", new BookCitation());
         model.addAttribute("bookletCitation", new BookletCitation());
@@ -75,6 +78,8 @@ public class CitationController {
         model.addAttribute("proceedingsCitation", new ProceedingsCitation());
         model.addAttribute("techreportCitation", new TechReportCitation());
         model.addAttribute("unpublishedCitation", new UnpublishedCitation());
+        
+        session.setAttribute("user", user);
         
         return "create-citation";
     }
@@ -314,8 +319,6 @@ public class CitationController {
         } else {
             redirect.addFlashAttribute("message", new Message("", "Your file (" + file.getName() + ") was empty"));
         }
-        
-        session.setAttribute("score", user.getScore());
         
         return "redirect:/";
     }

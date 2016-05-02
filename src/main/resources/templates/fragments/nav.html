@@ -3,10 +3,10 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="/">Ohtu-kki</a>
             </div>
@@ -14,9 +14,11 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar-collapse" th:with="reqUri=${#httpServletRequest.requestURI}">
                     <ul class="nav navbar-nav">
-                            <li th:class="${reqUri == '/' ? 'active' : ''}"><a href="/">Home</a></li>
-                            <li th:class="${#strings.startsWith(reqUri, '/pictures') ? 'active' : ''}"><a href="/citation">Add Citation</a></li>
-                            <li><a href="">Score: <b th:text="${session.score}">Score</b></a></li>
+                        <li th:class="${reqUri == '/' ? 'active' : ''}"><a href="/">Home</a></li>
+                        <li th:class="${#strings.startsWith(reqUri, '/pictures') ? 'active' : ''}"><a href="/citation">Add Citation</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <p class="navbar-text"><b th:text="${session.user.getScore()}">0</b> score</p>
                     </ul>
             </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

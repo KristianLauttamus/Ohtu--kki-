@@ -16,4 +16,33 @@ public class User {
     public void addScore(int amount) {
         score += amount;
     }
+    
+    public String getBackground(){
+        if(this.score >= 5){
+            // Cats pattern
+            return "cats.png";
+        } else if(this.score >= 10){
+            // PHP Elephant
+            return "elephant.jpg";
+        } else if(this.score >= 50){
+            // Matrix falling numbers
+            return "matrix.jpg";
+        } else if(this.score >= 100){
+            // Elon Musk
+            return "elon-musk.jpg";
+        }
+        
+        return "";
+    }
+    
+    /**
+     * Helper for the container class in css
+     * @return class for the styling
+     */
+    public String getBackgroundClass(){
+        if(this.score >= 5)
+            return "white-bg";
+        
+        return "";
+    }
 }

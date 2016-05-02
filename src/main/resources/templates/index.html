@@ -5,10 +5,10 @@
     <title>Ohtu-kki</title>
     <link href="/css/bootstrap.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
 </head>
-<body>
+<body th:attr="style='background-image: url(\'/img/' + ${session.user.getBackground()} + '\'); backroung-repeat: repeat-all;'">
     <nav th:replace="fragments/nav"></nav>
 
-    <div class="container" id="citation-table" v-show="true">
+    <div class="container" id="citation-table" v-show="true" th:attr="class='container ' + ${session.user.getBackgroundClass()}">
         <!-- Modal -->
         <modal :show.sync="modal">
             <div slot="modal-header" class="modal-header">

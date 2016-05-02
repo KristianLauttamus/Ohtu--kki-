@@ -191,8 +191,7 @@ public abstract class Citation {
      * @return 
      */
     public String toBibtex(String field) {
-        field = field.replace(":only_other=editor", "");
-        field = field.replace(":only_other=author", "");
+        field = processSpecialfields(field);
         String value = this.getField(field);
         
         if(field.equals("id")){
@@ -201,7 +200,15 @@ public abstract class Citation {
         
         return isNullOrEmpty(value) ? "" : field + " = {" + value + "},\n";
     }
-    
+
+    private String processSpecialfields(String field) {
+        field = field.replace(":only_other=editor", "");
+        field = field.replace(":only_other=author", "");
+        field = field.replace(":required_if_empty=chapter", "");
+        field = field.replace(":required_if_empty=pages", "");
+        return field;
+    }
+
     public String getField(String field){
         try {
             Field f = this.getClass().getField(field);

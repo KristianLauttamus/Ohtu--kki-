@@ -145,7 +145,8 @@ public class CitationControllerTest {
         try {
             MockMultipartFile file = new MockMultipartFile("file", "orig", null, "".getBytes());
             mockMvc.perform(fileUpload("/upload").file(file))
-                    .andExpect(model().attribute("message", "You failed to upload file because the file was empty"));
+                    .andExpect(status().is3xxRedirection())
+                    .andExpect(flash().attributeExists("message"));
         } catch (Exception ex) {
             Logger.getLogger(CitationControllerTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -156,7 +157,7 @@ public class CitationControllerTest {
         try {
             MockMultipartFile file = new MockMultipartFile("file", "orig", null, "[]".getBytes());
             mockMvc.perform(fileUpload("/upload").file(file))
-                    .andExpect(model().attribute("message", "You successfully uploaded file with 0 Citations."));
+                    .andExpect(status().is3xxRedirection());
         } catch (Exception ex) {
             Logger.getLogger(CitationControllerTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -185,7 +186,7 @@ public class CitationControllerTest {
         try {
             MockMultipartFile file = new MockMultipartFile("file", "orig", null, tiedosto.getBytes());
             mockMvc.perform(fileUpload("/upload").file(file))
-                    .andExpect(model().attribute("message", "You successfully uploaded file with 0 Citations."));
+                    .andExpect(status().is3xxRedirection());
         } catch (Exception ex) {
             Logger.getLogger(CitationControllerTest.class.getName()).log(Level.SEVERE, null, ex);
         }

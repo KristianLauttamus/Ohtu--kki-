@@ -1,6 +1,7 @@
 package com.ohtukki.citations.test.controllers;
 
 import com.ohtukki.citations.Application;
+import com.ohtukki.citations.components.User;
 import com.ohtukki.citations.data.Database;
 import com.ohtukki.citations.data.DatabaseJsonDao;
 import java.io.InputStream;
@@ -376,5 +377,13 @@ public class CitationControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andReturn();
         assertEquals(size + 1, this.database.all().size());
+    }
+    
+    @Test // A meaningless test
+    public void userTest() throws Exception {
+        User u = new User();
+        assertEquals(0, u.getScore());
+        u.addScore(5);
+        assertEquals(5, u.getScore());
     }
 }

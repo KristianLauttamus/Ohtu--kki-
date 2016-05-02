@@ -91,11 +91,15 @@
                 </tr>
             </tbody>
         </table>
-        <div v-if="items.length === 0">
-            <p>No citations added yet. <a class="btn btn-default" href="/citation">Add one here</a></p>
+        <div v-if="items.length === 0" class="panel panel-default">
+            <div class="panel-body">
+                <p>No citations added yet. <a class="btn btn-default" href="/citation">Add one here</a></p>
+            </div>
         </div>
-        <div v-if="isEmptyAndHasQuery">
-            <p>No citations found with given query</p>
+        <div v-if="isEmptyAndHasQuery" class="panel panel-default">
+            <div class="panel-body">
+                <p>No citations found with given query</p>
+            </div>
         </div>
 
         <!-- Buttons -->

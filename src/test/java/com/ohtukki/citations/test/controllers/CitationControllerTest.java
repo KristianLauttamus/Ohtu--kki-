@@ -59,6 +59,13 @@ public class CitationControllerTest {
     }
     
     @Test
+    public void testGet() throws Exception {
+        MvcResult result = mockMvc.perform(get("/")).andReturn();
+        result = mockMvc.perform(get("/all")).andReturn();
+        result = mockMvc.perform(get("/citation")).andReturn();
+    }
+
+    @Test
     public void postArticleCitation() throws Exception {
         int size = this.database.all().size();
         

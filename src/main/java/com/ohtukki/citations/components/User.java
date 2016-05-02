@@ -26,7 +26,7 @@ public class User {
             return "matrix.jpg";
         } else if(this.score >= 10){
             // PHP Elephant
-            return "elephant.jpg";
+            return "elephant.png";
         } else if(this.score >= 5){
             // Cats pattern
             return "cats.png";

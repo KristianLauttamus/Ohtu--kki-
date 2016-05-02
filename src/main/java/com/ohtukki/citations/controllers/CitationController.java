@@ -1,5 +1,6 @@
 package com.ohtukki.citations.controllers;
 
+import com.ohtukki.citations.components.Message;
 import com.ohtukki.citations.components.User;
 import com.ohtukki.citations.data.DatabaseJsonDao;
 import com.ohtukki.citations.domain.BibfileParser;
@@ -295,26 +296,28 @@ public class CitationController {
     
     @RequestMapping(method = RequestMethod.POST, value = "/upload")
     public String handleFileUpload( @RequestParam("file") MultipartFile file,
-                                    Model model, HttpSession session) {
+                                    RedirectAttributes redirect, HttpSession session) {
         if (!file.isEmpty()) {
             try {
                 List<Citation> rejected = new ArrayList<Citation>();
                 int count = parseInputFile(file, rejected);
-                model.addAttribute("citations", this.database.all());
-                model.addAttribute("message", "You successfully uploaded " + file.getName() + " with "+count+" Citations.");
-                model.addAttribute("rejected", rejected);
-
-                user.addScore(count);
+                
+                if(count > 0){
+                    redirect.addFlashAttribute("message", new Message("Success!", "File was uploaded " + file.getName() + " with "+count+" Citations.", "success"));
+                    
+                    user.addScore(count);
+                }
+                redirect.addFlashAttribute("rejected", rejected);
             } catch (Exception e) {
-                model.addAttribute("message", "You failed to upload " + file.getName() + " => " + e.getMessage());
+                redirect.addFlashAttribute("message", new Message("Failed!", "Upload had an error " + file.getName() + " => " + e.getMessage(), "danger"));
             }
         } else {
-            model.addAttribute("message", "You failed to upload " + file.getName() + " because the file was empty");
+            redirect.addFlashAttribute("message", new Message("", "Your file (" + file.getName() + ") was empty"));
         }
         
         session.setAttribute("score", user.getScore());
         
-        return "index";
+        return "redirect:/";
     }
     
     private int parseInputFile(MultipartFile file, List<Citation> rejected) throws IOException {

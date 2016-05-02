@@ -116,39 +116,31 @@
                 </div>
             </div>
         </div>
- 	<div th:if="${message}">
-            <h4 th:text="${message}"/>
-	</div>
- 	<div th:unless="${#lists.isEmpty(rejected)}">
-            <h4>Following citations were rejected in validation</h4>
-            <table class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Type</th>
-              </tr>
-            </thead>
-            <tbody>
-                <tr th:each="c : ${rejected}">
-                    <td th:text="${c.id}">ID</td>	
-                    <td th:text="${c.citationType}">Type</td>	
-                </tr>
-            </tbody>
-            </table>
-	</div>
 
 	<div>
             <hr/>
-            <h3>Upload a BibTex file (.bib) to get its citations</h3>
+            <h3>Upload a BibTex file (.bib) to add its citations</h3>
             <form method="POST" enctype="multipart/form-data" action="/upload">
                 <div class="input-group">
-                    <input class="form-control" type="file" name="file" accept=".bib" id="bibtex-upload" />
+                    <input class="form-control" type="file" name="file" accept=".bib" id="bibtex-upload" required="required"/>
 
                     <span class="input-group-btn">
                         <button class="btn btn-primary btn-block" name="upload" type="submit"><span class="glyphicon glyphicon-upload"></span> Upload</button>
                     </span>
                 </div>
             </form>
+            <div th:if="${message}" class="alert" th:attr="class='alert alert-' + ${message.getType()}" role="alert" style="margin-top: 15px">
+                <b th:if="${message.getTitle()} != ''" th:text="${message.getTitle()}"></b>
+                <div th:if="${message.getMessage()} != ''" th:text="${message.getMessage()}"></div>
+            </div>
+            <div th:unless="${#lists.isEmpty(rejected)}" class="alert alert-danger" role="alert" style="margin-top: 15px">
+                <b>Following citations were rejected in validation</b>
+                <ul>
+                    <li th:each="c : ${rejected}">
+                        <span th:text="${c.id}">ID</span> - <span th:text="${c.citationType}">Type</span>	
+                    </li>
+                </ul>
+            </div>
 	</div>
     </div>
 

@@ -64,6 +64,14 @@ public class CitationController {
      */
     @RequestMapping(value = "/citation", method = RequestMethod.GET)
     public String create(Model model, HttpSession session) {
+        addAttributes(model);
+        
+        session.setAttribute("user", user);
+        
+        return "create-citation";
+    }
+
+    private void addAttributes(Model model) {
         model.addAttribute("articleCitation", new ArticleCitation());
         model.addAttribute("bookCitation", new BookCitation());
         model.addAttribute("bookletCitation", new BookletCitation());
@@ -78,12 +86,8 @@ public class CitationController {
         model.addAttribute("proceedingsCitation", new ProceedingsCitation());
         model.addAttribute("techreportCitation", new TechReportCitation());
         model.addAttribute("unpublishedCitation", new UnpublishedCitation());
-        
-        session.setAttribute("user", user);
-        
-        return "create-citation";
     }
-    
+
     /**
      * Handle inputs and store the posted Citation
      * 
@@ -138,7 +142,22 @@ public class CitationController {
             RedirectAttributes redirectAttributes) {
         
         boolean validated = true;
-        
+
+        validated = isValidated(citationType, articleCitation, bookCitation, bookletCitation, conferenceCitation, inbookCitation, incollectionCitation, inproceedingsCitation, manualCitation, mastersthesisCitation, miscCitation, phdthesisCitation, proceedingsCitation, techreportCitation, unpublishedCitation, validated);
+
+        if(!validated){
+            // Todo error message
+            redirectAttributes.addAttribute("citationType", citationType);
+            
+            return "redirect:/citation";
+        }
+
+        user.addScore(1);
+
+        return "redirect:/";
+    }
+
+    private boolean isValidated(@RequestParam("citationType") String citationType, @ModelAttribute ArticleCitation articleCitation, @ModelAttribute BookCitation bookCitation, @ModelAttribute BookletCitation bookletCitation, @ModelAttribute ConferenceCitation conferenceCitation, @ModelAttribute InbookCitation inbookCitation, @ModelAttribute IncollectionCitation incollectionCitation, @ModelAttribute InproceedingsCitation inproceedingsCitation, @ModelAttribute ManualCitation manualCitation, @ModelAttribute MastersthesisCitation mastersthesisCitation, @ModelAttribute MiscCitation miscCitation, @ModelAttribute PHDThesisCitation phdthesisCitation, @ModelAttribute ProceedingsCitation proceedingsCitation, @ModelAttribute TechReportCitation techreportCitation, @ModelAttribute UnpublishedCitation unpublishedCitation, boolean validated) {
         switch (citationType) {
             case "article":
                 validated = articleCitation.validate(false);
@@ -211,19 +230,9 @@ public class CitationController {
                     this.database.save(unpublishedCitation);
                 break;
         }
-        
-        if(!validated){
-            // Todo error message
-            redirectAttributes.addAttribute("citationType", citationType);
-            
-            return "redirect:/citation";
-        }
-
-        user.addScore(1);
-
-        return "redirect:/";
+        return validated;
     }
-    
+
     /**
      * Return form to edit a Citation
      * @param model
@@ -308,21 +317,42 @@ public class CitationController {
                 int count = parseInputFile(file, rejected);
                 
                 if(count > 0){
-                    redirect.addFlashAttribute("message", new Message("Success!", "File was uploaded " + file.getName() + " with "+count+" Citations.", "success"));
-                    
-                    user.addScore(count);
+                    fileSuccess(file, redirect, count);
                 }
-                redirect.addFlashAttribute("rejected", rejected);
+
+                rejected(redirect, rejected);
             } catch (Exception e) {
-                redirect.addFlashAttribute("message", new Message("Failed!", "Upload had an error " + file.getName() + " => " + e.getMessage(), "danger"));
+                failedMessage(file, redirect, e);
             }
         } else {
-            redirect.addFlashAttribute("message", new Message("", "Your file (" + file.getName() + ") was empty"));
+            fileIsEmptyMessage(file, redirect);
         }
         
         return "redirect:/";
     }
-    
+
+    private void rejected(RedirectAttributes redirect, List<Citation> rejected) {
+        redirect.addFlashAttribute("rejected", rejected);
+    }
+
+    private void fileSuccess(@RequestParam("file") MultipartFile file, RedirectAttributes redirect, int count) {
+        successMessage(file, redirect, count);
+
+        user.addScore(count);
+    }
+
+    private void fileIsEmptyMessage(@RequestParam("file") MultipartFile file, RedirectAttributes redirect) {
+        redirect.addFlashAttribute("message", new Message("", "Your file (" + file.getName() + ") was empty"));
+    }
+
+    private void failedMessage(@RequestParam("file") MultipartFile file, RedirectAttributes redirect, Exception e) {
+        redirect.addFlashAttribute("message", new Message("Failed!", "Upload had an error " + file.getName() + " => " + e.getMessage(), "danger"));
+    }
+
+    private void successMessage(@RequestParam("file") MultipartFile file, RedirectAttributes redirect, int count) {
+        redirect.addFlashAttribute("message", new Message("Success!", "File was uploaded " + file.getName() + " with "+count+" Citations.", "success"));
+    }
+
     private int parseInputFile(MultipartFile file, List<Citation> rejected) throws IOException {
         ByteArrayOutputStream byos = new ByteArrayOutputStream();
         
